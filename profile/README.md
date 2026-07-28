@@ -1,7 +1,9 @@
-# Welcome to openOODA (`.oo`)
+# Welcome to openOODA Organization ⚡
 
 <p align="center">
   <b>The AI-Native, Capability-Secure, Self-Testing Systems Programming Language</b>
+
+🌐 **Official Public Website**: **[`https://openOODA.github.io`](https://openOODA.github.io)**</b>
 </p>
 
 ---
