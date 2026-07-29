@@ -45,5 +45,5 @@ cd ooda
 cargo build --release
 
 # Run a hello world script
-./target/release/ooda run examples/hello.oo
+./target/release/ooda run fixtures/hello.oo
 ```
