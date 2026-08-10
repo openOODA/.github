@@ -1,4 +1,5 @@
-# openOODA Organization Profile (`.github`)
-**openOODA Project** — `https://github.com/openOODA/.github`
+# .github
 
-This repository configures the official GitHub Organization Profile landing page for `openOODA`.
+Please visit our website for all documentation, specifications, and project information:
+
+👉 **[openooda.github.io](https://openooda.github.io)**
