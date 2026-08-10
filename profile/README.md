@@ -26,7 +26,7 @@
 | Repository | Purpose |
 | :--- | :--- |
 | ⚙️ **[openOODA/ooda](https://github.com/openOODA/ooda)** | Core Compiler, JIT Evaluator, LLVM Backend, & CLI Toolchain |
-| 📜 **[openOODA/spec](https://github.com/openOODA/spec)** | Formal `ooda.ebnf` Grammar (< 2k tokens) & Architecture Specification |
+| 📋 **[openOODA/openOODA](https://github.com/openOODA/openOODA)** | Process boards: DESIGN, SPEC, RFCs, OODA/RULES/PROBE, PM/SPRINT |
 | 📦 **[openOODA/std](https://github.com/openOODA/std)** | Standard Library Modules (`std::net`, `std::fs`, `std::json`, `std::crypto`) |
 | 📚 **[openOODA/docs](https://github.com/openOODA/docs)** | Official Documentation Site & Developer Tutorials |
 | 🧪 **[openOODA/qa](https://github.com/openOODA/qa)** | External Quality Assurance (QA) & E2E Integration Test Suite |
