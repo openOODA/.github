@@ -1,49 +1,50 @@
-# Welcome to openOODA Organization ⚡
+# openOODA
 
-<p align="center">
-  <b>The AI-Native, Capability-Secure, Self-Testing Systems Programming Language</b>
+A systems language for AI-assisted work. Effects take capability tokens.
+The product path is: typecheck, emit C, compile with gcc, run.
 
-🌐 **Official Public Website**: **[`https://openOODA.github.io`](https://openOODA.github.io)**</b>
-</p>
+Public site: https://openooda.github.io
 
----
+## What is product
 
-## ⚡ What is OODA?
+- Compiler and CLI live in `ooda`. Commands: `check`, `build`, `run`, `test`, `fix`, `patch`, `lsp`.
+- Native backend is C plus `runtime/chs_rt.c`, then host gcc.
+- Product standard library is the small tracked set in `ooda/std` (53 files on the honesty pin).
+- LLVM hello and Result `match` are smoke (`emit-llvm` + clang + run). LLVM self-host is residual.
+- vscode uses a Node language server: hover, document symbols, `oodac check` diagnostics.
 
-**OODA** (*Observe, Orient, Decide, Act*) is a modern programming language designed specifically for the era of high-velocity AI co-authoring ("vibe coding"), capability sandboxing, zero-day defense, and zero-overhead performance.
+## What is not product
 
-### 🌟 Key Architectural Pillars
+- `cargo` / Rust. That toolchain is gone.
+- JIT, 0ms GC, and bit-identical rebuilds.
+- Org `std/` file count (thousands of modules, 93 domains). That is volume, not emit+gcc+run.
+- HITL. The human loop is `ooda fix`.
+- A working public `curl | sh` install. The compiler repo is private. The script pins an old tag and does not check a hash.
 
-* 🔒 **Capability-Based Sandboxing**: Default-deny security. Functions doing I/O must take explicit `&NetCap` or `&FsCap` tokens.
-* 🧪 **Self-Testing Code**: Executable contracts (`requires`/`ensures`) and co-located `verify` test blocks.
-* 🤖 **AI-Native Toolchain**: `--json-errors` emits machine-readable AST diff patches for 1-turn AI auto-fixing.
-* ⚡ **Dual Engine Velocity**: Instant JIT mode for sub-second edit loops + Native LLVM IR compiler (`ooda build --release`) with 0ms GC pauses via RAII & Region Arenas.
+## Repositories
 
----
+| Repo | Role | Notes |
+| --- | --- | --- |
+| `ooda` | Compiler, CLI, runtime | Private |
+| `openOODA` | Nine process boards | Private. Source of truth for what shipped |
+| `std` | Org standard library | Private. Not certified product |
+| `docs` | Guides and research papers | Private. Papers are design, not proof |
+| `qa` | External tests | Private. e2e still has leftover `.sh` |
+| `vscode` | Editor extension | Private. Node LSP, not native `ooda lsp` |
+| `tree-sitter` | Editor grammar | Private |
+| `helloworld` | Starter | Private |
+| `brand` | Logos | Private |
+| `openOODA.github.io` | Public site + install endpoint | Only public repo |
 
-## 🏛️ Ecosystem Repositories
+## Build from a checkout
 
-| Repository | Purpose |
-| :--- | :--- |
-| ⚙️ **[openOODA/ooda](https://github.com/openOODA/ooda)** | Core Compiler, JIT Evaluator, LLVM Backend, & CLI Toolchain |
-| 📋 **[openOODA/openOODA](https://github.com/openOODA/openOODA)** | 9 Process Boards: BOOTSTRAP, RULES, NORTHSTAR, MOONSHOTS, ROADMAP, SHIPPED, FORMAT, SECURITY, WORKFLOW |
-| 📦 **[openOODA/std](https://github.com/openOODA/std)** | Standard Library (4,431 Pure `.oo` Modules across 93 Domain Packages) |
-| 📚 **[openOODA/docs](https://github.com/openOODA/docs)** | Official Documentation Site & Developer Tutorials |
-| 🧪 **[openOODA/qa](https://github.com/openOODA/qa)** | External Quality Assurance (QA) & E2E Integration Test Suite |
-| 🚀 **[openOODA/helloworld](https://github.com/openOODA/helloworld)** | Starter Application Template |
-| 🧩 **[openOODA/vscode](https://github.com/openOODA/vscode)** | VSCode & Cursor IDE Syntax Highlighting Extension |
-| 🌳 **[openOODA/tree-sitter](https://github.com/openOODA/tree-sitter)** | Tree-Sitter Parser Grammar for Zed, Neovim, and GitHub |
+From an `ooda` tree that already has a seed compiler:
 
----
-
-## ⚡ Quickstart
-
-```bash
-# Clone and build the compiler
-git clone https://github.com/openOODA/ooda.git
-cd ooda
-cargo build --release
-
-# Run a hello world script
-./target/release/ooda run fixtures/hello.oo
 ```
+cd ooda
+OODAC_BIN=./bootstrap/seed/oodac bash bootstrap/oodac_pure_build oodac/main.oo oodac/oodac
+./oodac/oodac check oodac/main.oo
+./bin/ooda run fixtures/hello.oo
+```
+
+Do not run `cargo`.
