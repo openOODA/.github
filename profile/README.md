@@ -3,8 +3,8 @@
 A systems language for AI-assisted work. Effects take capability tokens.
 The product path is: typecheck, emit C, compile with gcc, run.
 
-Public site: https://openooda.github.io
-Field guide: https://github.com/openOODA/wiki
+Public site: https://openooda.org
+Wiki: https://wiki.openooda.org
 Proof stays on the private boards (`openOODA/SHIPPED.oot`).
 
 ## What is product
@@ -27,7 +27,7 @@ Proof stays on the private boards (`openOODA/SHIPPED.oot`).
 
 | Repo | Role | Notes |
 | --- | --- | --- |
-| `wiki` | Public field guide | Public. Not product proof |
+| `wiki` | User wiki | Public. https://wiki.openooda.org |
 | `registry` | File-backed vendor | Public. https://registry.openooda.org |
 | `openOODA.github.io` | Public site + install endpoint | Public. Not a docs site |
 | `ooda` | Compiler, CLI, runtime | Private |
