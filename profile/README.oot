@@ -16,7 +16,7 @@ A systems language for AI-assisted work. Effects take capability tokens.
 The product path is: typecheck, emit C / direct machine code, execute.
 
 Public portal: https://openOODA.github.io
-Proof stays on the private boards (`openOODA/SHIPPED.oot`).
+Governance and roadmap: `openOODA/SHIPPED.oot` and `openOODA/ROADMAP.oot`.
 
 ## Product Scope
 
@@ -27,17 +27,20 @@ Proof stays on the private boards (`openOODA/SHIPPED.oot`).
 
 ## Repositories
 
-| Repo | Role | Notes |
-| --- | --- | --- |
-| `openOODA.github.io` | Public portal + documentation | Public |
-| `registry` | Package registry catalog | Public |
-| `ooda` | Sovereign compiler, CLI, runtime | Private |
-| `openOODA` | 9 Process and governance boards | Private |
-| `qa` | Hostile adversarial test suite | Private |
-| `vscode` | Editor extension | Private |
-| `tree-sitter` | Tree-sitter grammar | Private |
-| `helloworld` | Starter fixtures | Private |
-| `brand` | Design assets | Private |
+| Repo | Role | License | Visibility |
+| :--- | :--- | :--- | :--- |
+| `openOODA` | Governance boards, RFCs, and process architecture | MIT OR Apache-2.0 | Public |
+| `ooda` | Sovereign compiler (`oodac`), CLI (`ooda`), and stdlib (`std/`) | MIT OR Apache-2.0 | Public |
+| `openOODA.github.io` | Official public portal, guides, and documentation hub | MIT OR Apache-2.0 | Public |
+| `registry` | Package registry catalog and static vendor | MIT OR Apache-2.0 | Public |
+| `vscode` | VSCode & Cursor editor extension | MIT OR Apache-2.0 | Public |
+| `tree-sitter` | Tree-sitter grammar specification and parsers | MIT OR Apache-2.0 | Public |
+| `qa` | Quality assurance, test suites, and fuzzing harnesses | MIT OR Apache-2.0 | Public |
+| `helloworld` | Starter beginner template and verification fixture | MIT OR Apache-2.0 | Public |
+| `brand` | Visual identity, vector logos, and design assets | MIT OR Apache-2.0 | Public |
+| `install` | Host installer redirects and bootstrap staging | MIT OR Apache-2.0 | Public |
+| `research` | Design justification research papers | MIT OR Apache-2.0 | Public |
+| `.github` | Organization profile and global community defaults | MIT OR Apache-2.0 | Public |
 
 ## Build from Checkout
 
@@ -49,3 +52,12 @@ bash bootstrap/oodac_pure_build oodac/main.oo oodac/oodac
 ./oodac/oodac check oodac/main.oo
 ./bin/ooda run fixtures/hello.oo
 ```
+
+## License
+
+Dual-licensed under either of:
+- **MIT License** ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
+- **Apache License, Version 2.0** ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
+
+at your option.
+
