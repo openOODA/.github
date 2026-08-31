@@ -1,0 +1,108 @@
+# AGENTS — AI Agent Swarm Onboarding & Operational Substrate
+Floor: 2
+Thrust: 9
+Patch: 2
+File: .github/AGENTS.oot
+
+This document defines the onboarding blueprint, operational protocols, and governance invariants for autonomous AI agent swarms operating across the openOODA ecosystem.
+All AI agents and human contributors must follow these instructions to eliminate coordination drag and preserve sovereign capability security.
+
+## 1. Ecosystem Architecture & 3-Tier Topology
+
+The openOODA ecosystem is organized into a 3-tier sovereign topology:
+
+1. **Tier 1 (openOODA — Governance SSoT)**:
+   - Contains the 13 canonical process boards (`RULES.oot`, `SECURITY.oot`, `NORTHSTAR.oot`, etc.).
+   - Houses formal RFC specifications and master governance linters (`scripts/enforcer.oo`, `scripts/check_board.oo`, `scripts/verify_all.oo`, `scripts/redteam_hook.oo`).
+2. **Tier 2 (ooda — Compiler & Runtime Engine)**:
+   - Self-hosted compiler (`oodac/`), standard library (`std/`), capability runtime (`runtime/`), and product CLI (`cli/`).
+   - Direct ELF64/WASM emission, SIMD acceleration, and 14 unforgeable capability tokens.
+3. **Tier 3 (openOODA.github.io — Portal & Distribution)**:
+   - Decentralized Ed25519 package registry, web portal, interactive playground, and sovereign bootstrap installer (`install.sh`).
+
+Coordination Overhead Elimination:
+Maintaining stationary directory topology reduces swarm coordination paths from $C(12)=66$ to $C(3)=3$, eliminating 95.5% of coordination drag.
+
+## 2. Sparing Ingress & Token Economy Protocol
+
+Raw file dumps exhaust LLM context windows and increase systemic drag ($D_{\text{token\_burn}}$).
+All agents must use sparing ingress tools before requesting full source code:
+
+1. **Structural Outlines**: Execute `ooda outline <file.oo>` to inspect module signatures without loading implementation bodies.
+2. **AST Reflection**: Execute `ooda reflect <symbol>` to inspect type signatures, contracts, and capability requirements.
+3. **Targeted Reading**: Use byte-offset or line-bounded slice viewing only on specific functions targeted for modification.
+4. **Token Economy Invariant**: Sparing ingress compresses context load by $\ge 98.7\%$, keeping agent velocity ($V_{\text{ooda}}$) high.
+
+## 3. Swarm Role Taxonomy & Responsibilities
+
+Swarm operations divide labor across specialized archetypes:
+
+1. **Orchestrator**:
+   - Manages top-level milestone planning, task dispatch, and cross-tier synchronization.
+   - Maintains continuous disk awareness and validates final completion gates.
+2. **Explorer**:
+   - Performs rapid reconnaissance, directory surveys, and interface contract mapping.
+   - Executes structural outline queries with zero disk mutations.
+3. **Worker (Implementer / QA)**:
+   - Executes focused modifications following the minimal-change principle.
+   - Never performs unsolicited refactoring outside assigned task scope.
+   - Proves correctness using sequential double-run tests.
+4. **Challenger (Adversarial Red Team)**:
+   - Deploys hostile break-tests and falsification probes against new features.
+   - Exercises unconstrained veto power to reject facades, stubs, and heuristic shortcuts.
+5. **Reviewer (Forensic Auditor)**:
+   - Audits 100% adherence to 256-line limits, Academy headers, and OCap tokens.
+   - Independently verifies reproducibility and cryptographic signatures.
+
+## 4. The 10 Governance Pillars & Invariants
+
+Every agent action must comply with the 10 Governance Pillars:
+
+1. **First Principles**: Derive logic from silicon hardware, IEEE 754, NIST KATs, and RFCs.
+2. **Boyd E-M Engine**: Maximize Specific Excess Power ($P_s = ((T - D) / W) \times V$).
+3. **Negative Trust**: Treat unproven code as defective. Deploy adversarial falsification.
+4. **80/20 Leverage**: Focus on SSA mem2reg, flat closures, SIMD, direct ELF64/WASM, and linear arenas.
+5. **Capability Security**: Zero ambient authority. Require explicit tokens (`&CapName`).
+6. **Multi-Agent Stratification**: Treat lower generational tiers (Gen 1-4) as stable libraries.
+7. **Bit-Identical Determinism**: Reproducible compilation with zero-timestamp Merkle digests.
+8. **Sparing Ingress**: Query module structure via outlines to eliminate context waste.
+9. **Boundary Physics**: Decidable SMT verification (QF_LIA/QF_BV) and Landauer arena resets.
+10. **Generational Versioning**: Releases follow Generational SemVer (`v<Floor>.<Thrust>.<Patch>`).
+
+## 5. Strict Repository Invariants
+
+1. **256-Line File Ceiling**: Every `.oo` and `.oot` file must contain $\le 256$ lines.
+2. **4-Element Academy Headers**:
+   - `.oo` source files: `// # <Title>`, `// Logline:`, `// Setup:`, `// Beats:`.
+   - `.oot` documentation: `# <NAME> — <Title>`, `Floor:`, `Thrust:`, `Patch:`, `File:`.
+3. **Zero Ambient Authority**: Privileged operations require unforgeable tokens (`&FsReadCap`, `&FsWriteCap`, `&ProcessCap`, etc.).
+4. **Prohibited File Extensions**: Zero tolerance for `.py`, `.sh`, `.js`, or `.md` in product code (exemptions: `README.md`, `install.sh`, `oodac_pure_build`).
+
+## 6. Adversarial Verification & 4-Gate Veto Protocol
+
+Candidate code must pass the 4-Gate Blocking Veto Protocol (`REDTEAM.oot`):
+
+1. **Gate 1 (Heuristic Hunter)**: Probes AST lowering to reject string/regex keyword heuristics.
+2. **Gate 2 (Boundary Falsifier)**: Probes runtime validators with dynamic oversized inputs.
+3. **Gate 3 (Data-Path Tracer)**: Traces execution wiring and rejects stub fallbacks.
+4. **Gate 4 (Hermetic Jailor)**: Verifies Landlock sandboxing and path containment.
+
+### The Double-Run Law
+Every test suite must execute twice sequentially in fresh, independent processes:
+```bash
+./ooda/bin/ooda run <test.oo>
+./ooda/bin/ooda run <test.oo>
+```
+
+## 7. Operational Workflow & Handoff Protocol
+
+Agents coordinate asynchronously using self-contained 5-component handoff reports (`handoff.md`):
+
+1. **Observation**: Exact file paths, line numbers, tool outputs, and verbatim commands.
+2. **Logic Chain**: Step-by-step reasoning connecting observations directly to conclusions.
+3. **Caveats**: Scope boundaries, environmental assumptions, and uninvestigated areas.
+4. **Conclusion**: Clear, actionable summary of implemented changes and system state.
+5. **Verification Method**: Specific executable commands enabling independent verification.
+
+Execute `scripts/enforcer.oo` and `scripts/check_board.oo` before completing any dispatch.
+Fail closed on any defect.
