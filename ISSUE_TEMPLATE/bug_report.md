@@ -33,7 +33,7 @@ pub fn main() {
 A clear description of what should happen according to the openOODA specification.
 
 ## 5. Environment & System Details
-- **openOODA Version**: `v2.9.2` (run `./ooda/bin/ooda --version`)
+- **openOODA Version**: run `./ooda/bin/ooda --version` and check `ooda/ooda.pkg` `version` / `git tag` (SSoT — do not pin)
 - **Host OS**: Linux (x86_64 / aarch64)
 - **Compiler / Toolchain**: GCC / Clang
 - **Relevant Capability Tokens**: (e.g. `&FsReadCap`, `&ProcessCap`)

@@ -20,7 +20,7 @@ The following configuration assets have moved to `openOODA/openOODA/.github/`:
 
 ## Historical Git History
 
-Full commit history and tags (`v2.9.4-baseline`, `pre-migration-phase-0`) are preserved in this repository for auditability.
+Full commit history and tags (`v2.10.0-baseline`, `pre-migration-phase-0`) are preserved in this repository for auditability.
 
 ## License
 

@@ -104,7 +104,7 @@ Before submitting a PR, verify that all master linters pass with `0` errors:
    - `perf:` — Boyd E-M performance or SIMD optimization.
    - `docs:` — Process board or specification updates.
 2. **Generational Semantic Versioning**:
-   - Syntax: `v<Floor>.<Thrust>.<Patch>` (Current: `v2.9.2`).
+   - Syntax: `v<Floor>.<Thrust>.<Patch>` (Current: see `ooda/ooda.pkg` `version` and `git tag --sort=-v:refname | head -1` — SSoT, no duplicate pins).
    - Floor ($F$): Increments on breaking changes to core memory or capability ABI.
    - Thrust ($T$): Increments on performance gains and non-breaking features.
    - Patch ($P$): Increments on bug repairs and security remediation.

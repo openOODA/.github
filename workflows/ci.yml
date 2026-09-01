@@ -1,8 +1,8 @@
-# Centralized 3-Tier CI Matrix Workflow
-# Enforces Unidirectional Dependency DAG: Tier 1 (Governance) -> Tier 2 (Engine) -> Tier 3 (Portal)
-# Zero cyclic rebuild loops. Pure stdio / GCC substrate. 100% fail-closed verification.
+# Gateway Stationary Topology Validator — .github is archived gateway, not engine
+# SSoT: ooda/ooda.pkg + git tag v* — no manual pins here. Consolidated CI lives in openOODA/openOODA/.github/workflows/ci.yml
+# Enforces: stationary 3-file gateway (AGENTS.oot, profile/README, health files), zero build drag, fail-closed, DAG isolation.
 
-name: 3-Tier Sovereign CI Matrix
+name: Gateway Stationary Validator
 
 on:
   push:
@@ -15,172 +15,79 @@ permissions:
   contents: read
 
 jobs:
-  # =========================================================================
-  # TIER 1: GOVERNANCE, PROCESS & META-SPECIFICATION (openOODA)
-  # =========================================================================
-  tier1-governance:
-    name: "Tier 1: Governance & Master Linters"
+  gateway:
+    name: "Gateway: Orientation & Health Files"
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
-      - name: Checkout openOODA Ecosystem
+      - name: Checkout gateway
         uses: actions/checkout@v4
 
-      - name: Setup System Toolchain (GCC & POSIX Tools)
+      - name: Validate stationary topology — required files present, no engine
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq build-essential minisign
+          test -f AGENTS.oot
+          test -f SECURITY.md
+          test -f CONTRIBUTING.md
+          test -f profile/README.md
+          test -f README.md
+          # gateway must not contain engine or governance boards
+          ! test -d ooda  || { echo "FAIL: ooda/ must not exist in gateway — DAG isolation violated"; exit 1; }
+          ! test -d openOODA || { echo "FAIL: openOODA/ must not exist in gateway"; exit 1; }
+          ! test -f ooda.pkg || { echo "FAIL: ooda.pkg belongs in ooda/, not gateway"; exit 1; }
 
-      - name: Build Sovereign Engine Bootstrap
+      - name: Verify AGENTS.oot 4-element header + Floor/Thrust
         run: |
           set -euo pipefail
-          if [ -d ooda ]; then
-            cd ooda
-            ./scripts/oodac_pure_build
-            cd ..
+          head -n 5 AGENTS.oot | grep -q "^# AGENTS"
+          grep -q "^Floor:" AGENTS.oot
+          grep -q "^Thrust:" AGENTS.oot
+          grep -q "^Patch:" AGENTS.oot
+          grep -q "^File: .github/AGENTS.oot" AGENTS.oot
+
+      - name: Fail-closed — reject manual duplicate version pins (SSoT violation)
+        run: |
+          set -euo pipefail
+          echo "Checking for hardcoded version pins outside historical tags..."
+          # Allow historical tag references in README history line only; reject pins in active docs
+          if grep -R "v2\.9\." --exclude-dir=.git --exclude="*.png" . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | grep -q .; then
+            echo "FAIL: stale v2.9.x pin found — SSoT is ooda/ooda.pkg + git tag"
+            grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | cat
+            exit 1
           fi
-
-      - name: Verify Tier 1 Epoch Version Floor (v2.9.2)
-        run: |
-          set -euo pipefail
-          grep -E 'version = "2\.9\.[0-9]+"' openOODA/ooda.pkg || grep -E 'version = "2\.9\.[0-9]+"' ooda.pkg
-
-      - name: Execute Master Governance Linters & Boards
-        run: |
-          set -euo pipefail
-          if [ -x ooda/bin/ooda ]; then
-            ooda/bin/ooda run openOODA/scripts/enforcer.oo
-            ooda/bin/ooda run openOODA/scripts/check_board.oo
-            ooda/bin/ooda run openOODA/scripts/verify_all.oo
-            ooda/bin/ooda run openOODA/scripts/anti_cheat_linter.oo
-            ooda/bin/ooda run openOODA/scripts/format_lint.oo
-            ooda/bin/ooda run openOODA/scripts/rfc_lint.oo
+          # Reject static badge pin — must use dynamic github/v/tag badge
+          if grep -q "badge/version-v" profile/README.md; then
+            echo "FAIL: static version badge — use img.shields.io/github/v/tag/openOODA/ooda SSoT badge"
+            exit 1
           fi
-
-  # =========================================================================
-  # TIER 2: COMPILER, RUNTIME & TOOLCHAIN ENGINE (ooda)
-  # =========================================================================
-  tier2-engine:
-    name: "Tier 2: Sovereign Engine & 8-D Red Team"
-    needs: [tier1-governance]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]
-        arch: [x86_64]
-
-    steps:
-      - name: Checkout openOODA Ecosystem
-        uses: actions/checkout@v4
-
-      - name: Setup Compiler Toolchain (GCC/Clang only - Zero Node/Rust in engine)
-        run: |
-          set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq build-essential minisign
-
-      - name: Pure C99 Native Bootstrap Rebuild
-        run: |
-          set -euo pipefail
-          cd ooda
-          ./scripts/oodac_pure_build
-          cd ..
-
-      - name: Verify Engine SemVer (v2.9.2)
-        run: |
-          set -euo pipefail
-          ooda/bin/ooda --version | grep -E '^ooda 2\.9\.'
-          grep -E 'version = "2\.9\.' ooda/ooda.pkg
-
-      - name: Execute 8-Dimensional Adversarial Red Team Gates
-        run: |
-          set -euo pipefail
-          ooda/bin/ooda run openOODA/scripts/redteam_hook.oo
-
-      - name: Execute Challenger Probes 1 to 4
-        run: |
-          set -euo pipefail
-          ooda/bin/ooda run ooda/qa/tests_challenger_1/run_all_challenger_1.oo
-          ooda/bin/ooda run ooda/qa/tests_challenger_2/run_all_challenger_2_tests.oo
-          ooda/bin/ooda run ooda/qa/tests_challenger_3/run_all_challenger_3_tests.oo
-          ooda/bin/ooda run ooda/qa/tests_challenger_4/run_all_challenger_4_tests.oo
-
-      - name: Execute C Backend & E2E Integration Suites
-        run: |
-          set -euo pipefail
-          ooda/bin/ooda run ooda/tests/c_backend_e2e/runner.oo
-          ooda/bin/ooda run ooda/tests/e2e_v2/runner.oo
-
-      - name: Verify Pure stdio JSON-RPC LSP
-        run: |
-          set -euo pipefail
-          MSG='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}'
-          printf 'Content-Length: %d\r\n\r\n%s' "${#MSG}" "$MSG" | timeout 5 ooda/bin/ooda lsp --stdio | grep -q 'jsonrpc'
-
-      - name: Package & Test Artifact Verification
-        env:
-          MINISIGN_SECRET_KEY: ${{ secrets.MINISIGN_SECRET_KEY }}
-          MINISIGN_PASSWORD: ${{ secrets.MINISIGN_PASSWORD }}
-        run: |
-          set -euo pipefail
-          VER=$(grep 'version = ' ooda/ooda.pkg | head -n 1 | cut -d'"' -f2 || echo "2.9.2")
-          NAME="ooda-v${VER}-linux-x86_64"
-          mkdir -p "dist/${NAME}"
-          cp -r ooda/bin ooda/fixtures ooda/oodac ooda/runtime ooda/std "dist/${NAME}/"
-          rm -f "dist/${NAME}.tar.gz"
-          LC_ALL=C GZIP=-n tar --sort=name -czf "dist/${NAME}.tar.gz" -C dist "${NAME}"
-          sha256sum "dist/${NAME}.tar.gz" > "dist/${NAME}.tar.gz.sha256"
-          if [ -n "${MINISIGN_SECRET_KEY:-}" ] && [ -n "${MINISIGN_PASSWORD:-}" ]; then
-            SEC_FILE="${RUNNER_TEMP}/ooda-release.sec"
-            printf '%s' "$MINISIGN_SECRET_KEY" | base64 -d > "$SEC_FILE"
-            printf '%s\n' "$MINISIGN_PASSWORD" | minisign -S -s "$SEC_FILE" -m "dist/${NAME}.tar.gz" -x "dist/${NAME}.tar.gz.minisig"
-            minisign -V -p openOODA.github.io/install/ooda-release.pub -m "dist/${NAME}.tar.gz" -x "dist/${NAME}.tar.gz.minisig"
-            rm -f "$SEC_FILE"
-          else
-            echo "MINISIGN secret key not provided in CI run; artifact packaging verified."
+          # Reject SECURITY hardcoded Current version — must reference SSoT
+          if grep -q 'v2\.10\.x.*Current' SECURITY.md; then
+            echo "FAIL: SECURITY.md hardcodes v2.10.x — must reference ooda.pkg SSoT"
+            exit 1
           fi
+          # Double-run determinism: run same check twice
+          grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw1.txt || true
+          grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw2.txt || true
+          diff -u /tmp/gw1.txt /tmp/gw2.txt
+          echo "gateway SSoT pin check: PASS (double-run identical)"
 
-  # =========================================================================
-  # TIER 3: DISTRIBUTION, REGISTRY & PUBLIC PORTAL (openOODA.github.io)
-  # =========================================================================
-  tier3-portal:
-    name: "Tier 3: Distribution, Registry & CD"
-    needs: [tier2-engine]
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout openOODA Ecosystem
-        uses: actions/checkout@v4
-
-      - name: Setup Web & Verification Substrate
+      - name: Validate profile README uses SSoT dynamic version
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq nodejs minisign
+          grep -q "img.shields.io/github/v/tag/openOODA/ooda" profile/README.md
+          grep -q "ooda/ooda.pkg.*SSoT" profile/README.md
+          grep -q 'VER=$(grep.*ooda/ooda.pkg' profile/README.md
 
-      - name: Validate Ed25519 Package Registry & Catalogs
+      - name: Verify ISSUE_TEMPLATE and CONTRIBUTING reference SSoT
         run: |
           set -euo pipefail
-          test -f openOODA.github.io/registry/catalog
-          test -f openOODA.github.io/registry/index
-          test -f openOODA.github.io/registry/registry.pub
-          minisign -V -p openOODA.github.io/registry/registry.pub -m openOODA.github.io/registry/index -x openOODA.github.io/registry/index.minisig
+          grep -q "ooda/ooda.pkg" ISSUE_TEMPLATE/bug_report.md
+          grep -q "ooda/ooda.pkg" CONTRIBUTING.md
+          ! grep -q "Current: \`v2\." CONTRIBUTING.md || { echo "FAIL: CONTRIBUTING hardcodes version"; exit 1; }
 
-      - name: Execute Bootstrap Installer Breaktests
+      - name: Gateway is archived — canonical CI lives in openOODA
         run: |
           set -euo pipefail
-          ooda/bin/ooda run openOODA/scripts/install_redteam_breaktest.oo
-
-      - name: Execute Full Distribution & Portal Test Matrix
-        run: |
-          set -euo pipefail
-          node openOODA.github.io/tests/run_all_tests.js
-
-      - name: Continuous Deployment Build Stamp
-        run: |
-          set -euo pipefail
-          BUILD_TIMESTAMP="${SOURCE_DATE_EPOCH:-$(date -u +'%Y-%m-%dT%H:%M:%SZ')}"
-          echo "CD Build Stamp: $BUILD_TIMESTAMP"
+          grep -q "ARCHIVED & CONSOLIDATED" README.md
+          grep -q "openOODA/openOODA" README.md
+          echo "gateway: stationary topology validated — zero build drag (5 min, 1 job vs 186-line 3-tier matrix)"

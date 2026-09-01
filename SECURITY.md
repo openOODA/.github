@@ -10,9 +10,9 @@ Security patches and vulnerability remediation are actively maintained for the f
 
 | Version | Status | Security Support | Architectures |
 |---|---|---|---|
-| `v2.9.x` (Current) | **Active** | Full Capability & Adversarial Updates | `x86_64`, `aarch64`, `wasm32` |
-| `v2.8.x` | **Maintenance** | Critical Security Fixes Only | `x86_64` |
-| `< v2.8.0` | **End of Life** | Unsupported — Upgrade Immediately | N/A |
+| Current (`ooda/ooda.pkg` + `git tag v*` SSoT) | **Active** | Full Capability & Adversarial Updates | `x86_64`, `aarch64`, `wasm32` |
+| Previous tag (`git tag --sort=-v:refname`) | **Maintenance** | Critical Security Fixes Only | `x86_64` |
+| `< previous` | **End of Life** | Unsupported — Upgrade Immediately | N/A |
 
 ---
 
