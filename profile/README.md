@@ -3,7 +3,7 @@
 # openOODA
 ### Sovereign Systems Programming Language & Autonomic AI Substrate
 
-[![Version](https://img.shields.io/badge/version-v2.9.2-00f2fe.svg?style=flat-square)](https://github.com/openOODA/ooda/releases)
+[![Version](https://img.shields.io/badge/version-v2.9.4-00f2fe.svg?style=flat-square)](https://github.com/openOODA/ooda/releases)
 [![10-Pillar Enforcer](https://img.shields.io/badge/10--Pillar%20Enforcer-PASS%20(__FAILS__%3D0)-00e676.svg?style=flat-square)](https://github.com/openOODA/openOODA)
 [![8D Red Team](https://img.shields.io/badge/8D%20Red%20Team-PASS%20(9%20Gates)-brightgreen.svg?style=flat-square)](https://github.com/openOODA/ooda)
 [![13 Process Boards](https://img.shields.io/badge/13%20Process%20Boards-13%2F13%20VERIFIED-7928ca.svg?style=flat-square)](https://github.com/openOODA/openOODA)
@@ -227,7 +227,7 @@ irm https://openooda.org/install.ps1 | iex
 ### 2. Verify Cryptographic Integrity
 All official distribution archives are signed with Minisign Ed25519:
 ```bash
-minisign -Vm ooda-v2.9.2-x86_64-linux.tar.gz \
+minisign -Vm ooda-v2.9.4-x86_64-linux.tar.gz \
   -P RWTrl0z1EzuELsS9SzufTcBTXLV5kUWiO7Yu+WyJqN4wgoKLblKv5NkA
 ```
 
