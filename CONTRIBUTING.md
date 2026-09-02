@@ -86,10 +86,10 @@ All test suites and verification scripts must be executed twice sequentially in 
 ### 4.2 Master Governance Linters
 Before submitting a PR, verify that all master linters pass with `0` errors:
 ```bash
-./ooda/bin/ooda run openOODA/scripts/enforcer.oo
-./ooda/bin/ooda run openOODA/scripts/check_board.oo
-./ooda/bin/ooda run openOODA/scripts/verify_all.oo
-./ooda/bin/ooda run openOODA/scripts/redteam_hook.oo
+./ooda/bin/ooda run openOODA/scripts/governance_enforce.oo
+./ooda/bin/ooda run openOODA/scripts/governance_check_boards.oo
+./ooda/bin/ooda run openOODA/scripts/governance_verify.oo
+./ooda/bin/ooda run openOODA/scripts/redteam_orchestrate.oo
 ```
 
 ---

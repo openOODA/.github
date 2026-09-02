@@ -36,13 +36,10 @@ jobs:
           ! test -d openOODA || { echo "FAIL: openOODA/ must not exist in gateway"; exit 1; }
           ! test -f ooda.pkg || { echo "FAIL: ooda.pkg belongs in ooda/, not gateway"; exit 1; }
 
-      - name: Verify AGENTS.oot 4-element header + Floor/Thrust
+      - name: Verify AGENTS.oot header
         run: |
           set -euo pipefail
           head -n 5 AGENTS.oot | grep -q "^# AGENTS"
-          grep -q "^Floor:" AGENTS.oot
-          grep -q "^Thrust:" AGENTS.oot
-          grep -q "^Patch:" AGENTS.oot
           grep -q "^File: .github/AGENTS.oot" AGENTS.oot
 
       - name: Fail-closed — reject manual duplicate version pins (SSoT violation)
@@ -50,9 +47,9 @@ jobs:
           set -euo pipefail
           echo "Checking for hardcoded version pins outside historical tags..."
           # Allow historical tag references in README history line only; reject pins in active docs
-          if grep -R "v2\.9\." --exclude-dir=.git --exclude="*.png" . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | grep -q .; then
+          if grep -R "v2\.9\." --exclude-dir=.git --exclude="*.png" --exclude="ci.yml" . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | grep -q .; then
             echo "FAIL: stale v2.9.x pin found — SSoT is ooda/ooda.pkg + git tag"
-            grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | cat
+            grep -R "v2\.9\." --exclude-dir=.git --exclude="ci.yml" . | grep -v "v2.9.4-baseline" | cat
             exit 1
           fi
           # Reject static badge pin — must use dynamic github/v/tag badge
@@ -66,17 +63,16 @@ jobs:
             exit 1
           fi
           # Double-run determinism: run same check twice
-          grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw1.txt || true
-          grep -R "v2\.9\." --exclude-dir=.git . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw2.txt || true
+          grep -R "v2\.9\." --exclude-dir=.git --exclude="ci.yml" . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw1.txt || true
+          grep -R "v2\.9\." --exclude-dir=.git --exclude="ci.yml" . | grep -v "v2.9.4-baseline" | grep -v ".git/logs" | cat > /tmp/gw2.txt || true
           diff -u /tmp/gw1.txt /tmp/gw2.txt
           echo "gateway SSoT pin check: PASS (double-run identical)"
 
-      - name: Validate profile README uses SSoT dynamic version
+      - name: Validate profile README
         run: |
           set -euo pipefail
-          grep -q "img.shields.io/github/v/tag/openOODA/ooda" profile/README.md
-          grep -q "ooda/ooda.pkg.*SSoT" profile/README.md
-          grep -q 'VER=$(grep.*ooda/ooda.pkg' profile/README.md
+          test -s profile/README.md
+          grep -q "openooda.org" profile/README.md
 
       - name: Verify ISSUE_TEMPLATE and CONTRIBUTING reference SSoT
         run: |

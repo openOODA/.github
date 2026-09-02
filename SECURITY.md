@@ -74,6 +74,6 @@ Every privileged operation requires an unforgeable capability token passed as an
 
 1. **Immediate Execution Termination**: Any missing, invalid, null, or forged capability token immediately terminates execution via `process_exit(1)` with standard capability diagnostics (`ERR\tcap\t...`).
 2. **Deterministic Sandboxing**: Subprocesses execute with scrubbed environment variables and Landlock filesystem restrictions.
-3. **Continuous Red Team Validation**: Every security remediation requires an adversarial falsification probe added to `openOODA/scripts/redteam_hook.oo` and `qa/`.
+3. **Continuous Red Team Validation**: Every security remediation requires an adversarial falsification probe added to `openOODA/scripts/redteam_orchestrate.oo` and `qa/`.
 4. **Minisign Cryptographic Verification**: All official releases are signed with Ed25519 public key:
    `RWTrl0z1EzuELsS9SzufTcBTXLV5kUWiO7Yu+WyJqN4wgoKLblKv5NkA`.

@@ -1,7 +1,4 @@
 # AGENTS — AI Agent Swarm Onboarding & Operational Substrate
-Floor: 2
-Thrust: 9
-Patch: 2
 File: .github/AGENTS.oot
 
 This document defines the onboarding blueprint, operational protocols, and governance invariants for autonomous AI agent swarms operating across the openOODA ecosystem.
@@ -13,7 +10,7 @@ The openOODA ecosystem is organized into a 3-tier sovereign topology:
 
 1. **Tier 1 (openOODA — Governance SSoT)**:
    - Contains the 13 canonical process boards (`RULES.oot`, `SECURITY.oot`, `NORTHSTAR.oot`, etc.).
-   - Houses formal RFC specifications and master governance linters (`scripts/enforcer.oo`, `scripts/check_board.oo`, `scripts/verify_all.oo`, `scripts/redteam_hook.oo`).
+   - Houses formal RFC specifications and master governance linters (`scripts/governance_enforce.oo`, `scripts/governance_check_boards.oo`, `scripts/governance_verify.oo`, `scripts/redteam_orchestrate.oo`).
 2. **Tier 2 (ooda — Compiler & Runtime Engine)**:
    - Self-hosted compiler (`oodac/`), standard library (`std/`), capability runtime (`runtime/`), and product CLI (`cli/`).
    - Direct ELF64/WASM emission, SIMD acceleration, and 14 unforgeable capability tokens.
@@ -104,5 +101,5 @@ Agents coordinate asynchronously using self-contained 5-component handoff report
 4. **Conclusion**: Clear, actionable summary of implemented changes and system state.
 5. **Verification Method**: Specific executable commands enabling independent verification.
 
-Execute `scripts/enforcer.oo` and `scripts/check_board.oo` before completing any dispatch.
+Execute `scripts/governance_enforce.oo` and `scripts/governance_check_boards.oo` before completing any dispatch.
 Fail closed on any defect.
