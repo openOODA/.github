@@ -6,7 +6,6 @@
  / /_/ / /_/ /  __/ / / / | | | | | | | | | |/ _ \ 
  \____/ .___/\___/_/ /_/  | |_| | |_| | |_| / ___ \
      /_/                   \___/ \___/|____/_/   \_\
-   Observe · Orient · Decide · Act — Sovereign Development Substrate
 ```
 
 ### [openOODA.org](https://openooda.org)
