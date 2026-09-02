@@ -81,9 +81,9 @@ jobs:
           grep -q "ooda/ooda.pkg" CONTRIBUTING.md
           ! grep -q "Current: \`v2\." CONTRIBUTING.md || { echo "FAIL: CONTRIBUTING hardcodes version"; exit 1; }
 
-      - name: Gateway is archived — canonical CI lives in openOODA
+      - name: Validate README
         run: |
           set -euo pipefail
-          grep -q "ARCHIVED & CONSOLIDATED" README.md
-          grep -q "openOODA/openOODA" README.md
+          test -s README.md
+          grep -q "openooda.org" README.md
           echo "gateway: stationary topology validated — zero build drag (5 min, 1 job vs 186-line 3-tier matrix)"

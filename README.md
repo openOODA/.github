@@ -1,29 +1,13 @@
-# openOODA GitHub Organization Configuration (Archived & Consolidated)
+<div align="center">
 
-> **NOTICE: REPOSITORY ARCHIVED & CONSOLIDATED**
->
-> This repository is archived. The organization profile, community health files, and centralized workflow definitions are now consolidated into Tier 1 (`openOODA/openOODA`).
+```text
+   ____  ____  ___  ____    ___   ___  ____    _   
+  / __ \/ __ \/ _ \/ __ \  / _ \ / _ \|  _ \  / \  
+ / /_/ / /_/ /  __/ / / / | | | | | | | | | |/ _ \ 
+ \____/ .___/\___/_/ /_/  | |_| | |_| | |_| / ___ \
+     /_/                   \___/ \___/|____/_/   \_\
+```
 
-## Canonical Location
+### [openOODA.org](https://openooda.org)
 
-All organization profile files and centralized workflows reside in:
-- **Repository**: [`openOODA/openOODA`](https://github.com/openOODA/openOODA)
-- **Directory**: `openOODA/.github/`
-- **Architecture Tier**: Tier 1 (Governance, Process, Formal Specifications & SSoT)
-
-## Consolidated Components
-
-The following configuration assets have moved to `openOODA/openOODA/.github/`:
-- `profile/`: Organization profile README and visual headers
-- Issue and pull request templates
-- Centralized CI/CD workflow matrices
-
-## Historical Git History
-
-Full commit history and tags (`v2.10.0-baseline`, `pre-migration-phase-0`) are preserved in this repository for auditability.
-
-## License
-
-Dual-licensed under either:
-- MIT License ([LICENSE-MIT](LICENSE-MIT))
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
+</div>
