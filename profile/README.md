@@ -38,5 +38,6 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [catalog](https://github.com/openOODA/catalog) | The public list. No accounts. |
 | [lsp](https://github.com/openOODA/lsp) | The editor. Humans first. |
 | [mcp](https://github.com/openOODA/mcp) | The agent. Same rules as the human. |
+| [blackbox](https://github.com/openOODA/blackbox) | The telemetry. Crash autopsy for agents. |
 
 License: MIT.
