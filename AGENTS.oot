@@ -12,7 +12,7 @@ The openOODA ecosystem is organized into a 3-tier sovereign topology:
    - Contains the 13 canonical process boards (`RULES.oot`, `SECURITY.oot`, `NORTHSTAR.oot`, etc.).
    - Houses formal RFC specifications and master governance linters (`scripts/governance_enforce.oo`, `scripts/governance_check_boards.oo`, `scripts/governance_verify.oo`, `scripts/redteam_orchestrate.oo`).
 2. **Tier 2 (ooda — Compiler & Runtime Engine)**:
-   - Self-hosted compiler (`oodac/`), standard library (`std/`), capability runtime (`runtime/`), and product CLI (`cli/`).
+   - Self-hosted compiler (`oodac/`), standard library (`std/`), capability runtime (`runtime/`), and product CLI (`ooda/`).
    - Direct ELF64/WASM emission, SIMD acceleration, and 14 unforgeable capability tokens.
 3. **Tier 3 (openOODA.github.io — Portal & Distribution)**:
    - Decentralized Ed25519 package registry, web portal, interactive playground, and sovereign bootstrap installer (`install.sh`).
