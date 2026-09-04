@@ -1,25 +1,14 @@
-// # openOODA GitHub Repository Entry Point
-//
-// Logline: Points users and tools to the central openOODA website and documentation hubs.
-//
-// Setup: ASD-STE100 technical documentation index.
-//
-// Beats:
-//   1. Link to public web portal and documentation assets.
-//   2. Direct developers to verified specification boards.
-// RULES.oot 1.7: Strictly under 256 lines.
+# .github — org profile
+File: .github/README.oot
 
-All documentation, status, and information have been consolidated into our central website:
+GitHub org files for openOODA. Public home board:
+`docs/HOME.oot`. Live site: https://openooda.org.
 
-- Central Web Portal: https://openOODA.github.io
-- Documentation Index: https://openOODA.github.io/guide/Home.oot
-- Process and Proof: openOODA/SHIPPED.oot
+This repo is not a product sidebar item. The brand link on
+the site loads `docs/HOME.oot`.
 
-## License
+```
+curl -fsSL https://openooda.org/install.sh | bash
+```
 
-Dual-licensed under either of:
-- **MIT License** ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
-- **Apache License, Version 2.0** ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
-
-at your option.
-
+License: MIT.

@@ -1,0 +1,14 @@
+// # .github — Org Profile
+//
+// Logline: GitHub org files. Public home copy is docs/HOME.oot.
+//
+// Setup: Website Source: openOODA/.github/docs/. Default site
+//        route is home. Do not add this repo to the sidebar.
+//
+// Beats:
+//   1. docs/HOME.oot — marketing home for openooda.org.
+//   2. profile/ — github.com/openOODA README.
+//   3. workflows/ — org reusable Actions.
+//   4. AGENTS.oot — swarm onboarding (separate from home).
+
+import "docs/ANCHOR.oo";

@@ -1,0 +1,13 @@
+// # .github/docs — Package Manual
+//
+// Logline: Public home copy for openooda.org and the GitHub
+//          org profile.
+//
+// Setup: RFC-0005. Website Source: openOODA/.github/docs/.
+//        Default site route is home. This repo is not a
+//        sidebar item. Brand link loads this board.
+//
+// Beats:
+//   1. HOME.oot — marketing home. Caps, ten product repos.
+
+import "HOME.oot";
