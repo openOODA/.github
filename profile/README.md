@@ -33,7 +33,7 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [oodac](https://github.com/openOODA/oodac) | The compiler. Everything else borrows it. |
 | [std](https://github.com/openOODA/std) | The library. Still needs a token. |
 | [ooda](https://github.com/openOODA/ooda) | The binary you type. Not the compiler. |
-| [packaging](https://github.com/openOODA/packaging) | How bits land on a machine. |
+| [install](https://github.com/openOODA/install) | How bits land on a machine. |
 | [opm](https://github.com/openOODA/opm) | Packages. Extra caps are a refusal. |
 | [catalog](https://github.com/openOODA/catalog) | The public list. No accounts. |
 | [lsp](https://github.com/openOODA/lsp) | The editor. Humans first. |
