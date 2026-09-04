@@ -14,7 +14,9 @@
 
 </div>
 
-A capability-secure systems language. Every effect needs an unforgeable cap token. The compiler checks source ahead of time. Zero ambient authority.
+Your process is born with no privileges. That is not an accident. That is the type system.
+
+We assume the source is hostile, the tests are optimistic, and the agent will try the network. Then we make those attempts fail closed.
 
 ```sh
 curl -fsSL https://openooda.org/install.sh | bash
@@ -26,15 +28,15 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 
 | Repo | Role |
 |------|------|
-| [openOODA](https://github.com/openOODA/openOODA) | Laws, RFCs, practices |
-| [oodar](https://github.com/openOODA/oodar) | Gen 1 C host |
-| [oodac](https://github.com/openOODA/oodac) | Compiler |
-| [std](https://github.com/openOODA/std) | Standard library |
-| [ooda](https://github.com/openOODA/ooda) | `ooda` driver |
-| [packaging](https://github.com/openOODA/packaging) | apt, dnf, pacman |
-| [opm](https://github.com/openOODA/opm) | Package manager |
-| [catalog](https://github.com/openOODA/catalog) | Public package list |
-| [lsp](https://github.com/openOODA/lsp) | Language server |
-| [mcp](https://github.com/openOODA/mcp) | MCP server |
+| [openOODA](https://github.com/openOODA/openOODA) | The laws. They do not change. |
+| [oodar](https://github.com/openOODA/oodar) | Gen 1. Silicon, in C. |
+| [oodac](https://github.com/openOODA/oodac) | The compiler. Everything else borrows it. |
+| [std](https://github.com/openOODA/std) | The library. Still needs a token. |
+| [ooda](https://github.com/openOODA/ooda) | The binary you type. Not the compiler. |
+| [packaging](https://github.com/openOODA/packaging) | How bits land on a machine. |
+| [opm](https://github.com/openOODA/opm) | Packages. Extra caps are a refusal. |
+| [catalog](https://github.com/openOODA/catalog) | The public list. No accounts. |
+| [lsp](https://github.com/openOODA/lsp) | The editor. Humans first. |
+| [mcp](https://github.com/openOODA/mcp) | The agent. Same rules as the human. |
 
 License: MIT.

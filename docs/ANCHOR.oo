@@ -8,6 +8,6 @@
 //        sidebar item. Brand link loads this board.
 //
 // Beats:
-//   1. HOME.oot — marketing home. Caps, ten product repos.
+//   1. HOME.oot — zero-trust home. Caps, ten product repos.
 
 import "HOME.oot";
