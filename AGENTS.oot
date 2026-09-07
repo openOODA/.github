@@ -9,13 +9,11 @@ All AI agents and human contributors must follow these instructions to eliminate
 The openOODA ecosystem is organized into a 3-tier sovereign topology:
 
 1. **Tier 1 (openOODA — Governance SSoT)**:
-   - Contains the 13 canonical process boards (`RULES.oot`, `SECURITY.oot`, `NORTHSTAR.oot`, etc.).
-   - Houses formal RFC specifications and master governance linters (`scripts/governance_enforce.oo`, `scripts/governance_check_boards.oo`, `scripts/governance_verify.oo`, `scripts/redteam_orchestrate.oo`).
-2. **Tier 2 (ooda — Compiler & Runtime Engine)**:
-   - Self-hosted compiler (`oodac/`), standard library (`std/`), capability runtime (`runtime/`), and product CLI (`ooda/`).
-   - Direct ELF64/WASM emission, SIMD acceleration, and 14 unforgeable capability tokens.
-3. **Tier 3 (openOODA.github.io — Portal & Distribution)**:
-   - Decentralized Ed25519 package registry, web portal, interactive playground, and sovereign bootstrap installer (`install.sh`).
+   - Front door `ANCHOR.oo`. Laws `RULES.oot`. Architecture `NORTHSTAR.oot`.
+   - RFCs 0001–0007 under `rfcs/`. Practices under `practices/`.
+2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `blackbox/`.
+3. **Tier 3 (Tactical)**: `oodac/` compiler, `std/` library, `oodar/` Gen 1 C host.
+   - 20 language tokens ⊂ 26 substrate caps. SSoT is `oodar/sec/cap/cap_table.json`.
 
 Coordination Overhead Elimination:
 Maintaining stationary directory topology reduces swarm coordination paths from $C(12)=66$ to $C(3)=3$, eliminating 95.5% of coordination drag.
@@ -83,6 +81,7 @@ Candidate code must pass the 4-Gate Blocking Veto Protocol (`REDTEAM.oot`):
 2. **Gate 2 (Boundary Falsifier)**: Probes runtime validators with dynamic oversized inputs.
 3. **Gate 3 (Data-Path Tracer)**: Traces execution wiring and rejects stub fallbacks.
 4. **Gate 4 (Hermetic Jailor)**: Verifies Landlock sandboxing and path containment.
+Gates 5–8 are in `openOODA/practices/8d-red-team.oot`.
 
 ### The Double-Run Law
 Every test suite must execute twice sequentially in fresh, independent processes:
