@@ -54,3 +54,5 @@ All design, RFCs, practices, and onboarding live in [openOODA/openOODA](https://
 ## License
 
 Licensed under MIT. See [LICENSE](LICENSE).
+
+[![Necrometer](necrometer.svg)](https://necrometer.dev/?u=openooda)
