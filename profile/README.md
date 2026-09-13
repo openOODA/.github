@@ -41,3 +41,5 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [blackbox](https://github.com/openOODA/blackbox) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
 
 License: MIT.
+
+[![Necrometer](necrometer.svg)](https://necrometer.dev/?u=openooda)
