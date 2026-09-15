@@ -42,4 +42,10 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 
 License: MIT.
 
-[![Necrometer](necrometer.svg)](https://necrometer.dev/?u=openooda)
+---
+
+<div align="center">
+
+[![Necrometer](necrometer.svg)](https://necrometer.dev/?u=openOODA)
+
+</div>
