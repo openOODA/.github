@@ -8,7 +8,7 @@
 // Beats:
 //   1. docs/HOME.oot — marketing home for openooda.org.
 //   2. profile/ — github.com/openOODA README.
-//   3. workflows/ — org reusable Actions.
+//   3. workflows/ — org profile CI. Live Actions: .github/workflows/.
 //   4. AGENTS.oot — swarm onboarding (separate from home).
 
 import "docs/ANCHOR.oo";

@@ -12,7 +12,7 @@ A clear and concise description of the bug or unexpected behavior.
 ## 2. Minimal Reproduction Code
 Provide a minimal `.oo` source snippet that reproduces the issue:
 
-```rust
+```
 // minimal_repro.oo
 pub fn main() {
     // reproduction code
@@ -21,7 +21,7 @@ pub fn main() {
 
 ## 3. Execution Commands & Observed Output
 ```bash
-./ooda/bin/ooda run minimal_repro.oo
+ooda run minimal_repro.oo
 ```
 
 **Observed Output:**
@@ -33,7 +33,7 @@ pub fn main() {
 A clear description of what should happen according to the openOODA specification.
 
 ## 5. Environment & System Details
-- **openOODA Version**: run `./ooda/bin/ooda --version` and check `ooda/ooda.pkg` `version` / `git tag` (SSoT — do not pin)
+- **openOODA Version**: run `ooda --version` and the repo `git tag` (SSoT — do not pin)
 - **Host OS**: Linux (x86_64 / aarch64)
 - **Compiler / Toolchain**: GCC / Clang
 - **Relevant Capability Tokens**: (e.g. `&FsReadCap`, `&ProcessCap`)

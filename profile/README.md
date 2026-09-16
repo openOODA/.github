@@ -38,7 +38,7 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [catalog](https://github.com/openOODA/catalog) | The public list. No accounts. |
 | [lsp](https://github.com/openOODA/lsp) | The editor. Humans first. |
 | [mcp](https://github.com/openOODA/mcp) | The agent. Same rules as the human. |
-| [blackbox](https://github.com/openOODA/blackbox) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
+| [bb](https://github.com/openOODA/bb) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
 
 License: MIT.
 

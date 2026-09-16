@@ -9,9 +9,9 @@ All AI agents and human contributors must follow these instructions to eliminate
 The openOODA ecosystem is organized into a 3-tier sovereign topology:
 
 1. **Tier 1 (openOODA — Governance SSoT)**:
-   - Front door `ANCHOR.oo`. Laws `RULES.oot`. Architecture `NORTHSTAR.oot`.
+   - Front door `anchor.oo`. Laws `rules.oot`. Architecture `northstar.oot`.
    - RFCs 0001–0007 under `rfcs/`. Practices under `practices/`.
-2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `blackbox/`.
+2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `bb/`.
 3. **Tier 3 (Tactical)**: `oodac/` compiler, `std/` library, `oodar/` Gen 1 C host.
    - 20 language tokens ⊂ 26 substrate caps. SSoT is `oodar/sec/cap/cap_table.json`.
 
@@ -75,7 +75,7 @@ Every agent action must comply with the 10 Governance Pillars:
 
 ## 6. Adversarial Verification & 4-Gate Veto Protocol
 
-Candidate code must pass the 4-Gate Blocking Veto Protocol (`REDTEAM.oot`):
+Candidate code must pass the 4-Gate Blocking Veto Protocol (`practices/8d-red-team.oot`):
 
 1. **Gate 1 (Heuristic Hunter)**: Probes AST lowering to reject string/regex keyword heuristics.
 2. **Gate 2 (Boundary Falsifier)**: Probes runtime validators with dynamic oversized inputs.
@@ -86,8 +86,8 @@ Gates 5–8 are in `openOODA/practices/8d-red-team.oot`.
 ### The Double-Run Law
 Every test suite must execute twice sequentially in fresh, independent processes:
 ```bash
-./ooda/bin/ooda run <test.oo>
-./ooda/bin/ooda run <test.oo>
+ooda run <test.oo>
+ooda run <test.oo>
 ```
 
 ## 7. Operational Workflow & Handoff Protocol

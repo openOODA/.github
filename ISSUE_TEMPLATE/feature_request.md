@@ -18,7 +18,7 @@ A detailed description of the proposed feature or compiler optimization.
 - **Velocity ($V$)**: How does this accelerate the OODA turnaround cycle?
 
 ## 3. Capability Security & Boundary Alignment
-- Which of the 14 unforgeable capability tokens (`&CapName`) are required?
+- Which of the 20 unforgeable capability tokens (`&CapName`) are required?
 - How does the feature maintain zero ambient authority and fail-closed safety?
 
 ## 4. Alternative Approaches Considered
@@ -26,4 +26,4 @@ A description of any alternative designs, workarounds, or prior art considered.
 
 ## 5. RFC Backlog / Specification Seams
 - Proposed RFC name (e.g. `openOODA/rfcs/0023-feature-name.oot`)
-- Affected canonical boards (e.g. `NORTHSTAR.oot`, `ROADMAP.oot`, `SECURITY.oot`)
+- Affected canonical boards (e.g. `northstar.oot`, `roadmap.oot`, `rfcs/0001-capability-security.oot`)
