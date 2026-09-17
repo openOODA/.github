@@ -11,4 +11,4 @@
 //   3. workflows/ — org profile CI. Live Actions: .github/workflows/.
 //   4. AGENTS.oot — swarm onboarding (separate from home).
 
-import "docs/ANCHOR.oo";
+import "docs/anchor.oo";
