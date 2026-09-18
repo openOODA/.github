@@ -11,4 +11,4 @@ the site loads `docs/HOME.oot`.
 curl -fsSL https://openooda.org/install.sh | bash
 ```
 
-License: MIT.
+License: Apache-2.0.

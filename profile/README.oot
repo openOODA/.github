@@ -12,4 +12,4 @@ Every effect needs an unforgeable cap token.
 curl -fsSL https://openooda.org/install.sh | bash
 ```
 
-License: MIT.
+License: Apache-2.0.

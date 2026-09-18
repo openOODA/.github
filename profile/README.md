@@ -40,7 +40,7 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [mcp](https://github.com/openOODA/mcp) | The agent. Same rules as the human. |
 | [bb](https://github.com/openOODA/bb) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
 
-License: MIT.
+License: Apache-2.0.
 
 ---
 
