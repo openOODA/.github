@@ -41,11 +41,3 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | [bb](https://github.com/openOODA/bb) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
 
 License: Apache-2.0.
-
----
-
-<div align="center">
-
-[![Necrometer](necrometer.svg)](https://necrometer.dev/?u=openOODA)
-
-</div>
