@@ -1,16 +1,32 @@
 ---
 name: Feature Request
-about: Suggest an idea for this project
-title: '[FEATURE] '
-labels: enhancement
+about: Propose a new feature, compiler optimization pass, or capability extension for openOODA
+title: '[FEATURE]: '
+labels: ['enhancement', 'proposal']
 assignees: ''
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+File: .github/ISSUE_TEMPLATE/feature_request.oot
+Mirror of feature_request.md for openOODA-side readers. Keep the two in sync.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## 1. Problem Statement / Motivation
+Is your feature request related to a problem or performance bottleneck?
+A clear and concise description of the motivation.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## 2. Proposed Solution & E-M Impact
+A detailed description of the proposed feature or compiler optimization.
+- Thrust: how does this increase semantic throughput or emission speed?
+- Drag: how does this eliminate allocation, search, or rebuild latency?
+- Weight: what is the impact on AST/binary size?
+- Velocity: how does this accelerate the OODA turnaround cycle?
+
+## 3. Capability Security & Boundary Alignment
+- Which capability tokens (`&CapName`) are required?
+- How does the feature maintain zero ambient authority and fail-closed safety?
+
+## 4. Alternative Approaches Considered
+A description of any alternative designs, workarounds, or prior art considered.
+
+## 5. RFC Backlog / Specification Seams
+- Proposed RFC name (e.g. `openOODA/rfcs/0023-feature-name.oot`)
+- Affected canonical boards (e.g. `northstar.oot`, `roadmap.oot`)

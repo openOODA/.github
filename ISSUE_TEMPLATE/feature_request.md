@@ -18,7 +18,7 @@ A detailed description of the proposed feature or compiler optimization.
 - **Velocity ($V$)**: How does this accelerate the OODA turnaround cycle?
 
 ## 3. Capability Security & Boundary Alignment
-- Which of the 20 unforgeable capability tokens (`&CapName`) are required?
+- Which capability tokens (`&CapName`) are required?
 - How does the feature maintain zero ambient authority and fail-closed safety?
 
 ## 4. Alternative Approaches Considered

@@ -21,7 +21,7 @@ pub fn main() {
 
 ## 3. Execution Commands & Observed Output
 ```bash
-ooda run minimal_repro.oo
+cli run minimal_repro.oo
 ```
 
 **Observed Output:**
@@ -33,7 +33,7 @@ ooda run minimal_repro.oo
 A clear description of what should happen according to the openOODA specification.
 
 ## 5. Environment & System Details
-- **openOODA Version**: run `ooda --version` and the repo `git tag` (SSoT — do not pin)
+- **openOODA Version**: run `cli version`, and name the repo's latest release tag
 - **Host OS**: Linux (x86_64 / aarch64)
 - **Compiler / Toolchain**: GCC / Clang
 - **Relevant Capability Tokens**: (e.g. `&FsReadCap`, `&ProcessCap`)

@@ -1,19 +1,15 @@
 # Scorecard Audit & Daily Trend Pipeline
 #
-# Runs daily at 00:00 UTC and on workflow_dispatch to execute proof_of_today.oo,
-# publish_daily_audit.oo, and record historical trend entries in trend.csv.
+# PARKED: manual-run only until this moves to the repo that owns its
+# scripts. It names ./bin/ooda plus proof_of_today.oo and
+# publish_daily_audit.oo, and none exist in this org-profile checkout,
+# so the daily schedule and push triggers only produced red runs. Do
+# not re-add triggers here; move the file to the owning repo instead.
 
 name: scorecard-audit
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
-  push:
-    branches: [master]
-    paths:
-      - 'openOODA/scripts/**'
-      - 'openOODA/docs/audit-history/**'
 
 permissions:
   contents: write
