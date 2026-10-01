@@ -11,7 +11,7 @@ The openOODA ecosystem is organized into a 3-tier sovereign topology:
 1. **Tier 1 (openOODA — Governance SSoT)**:
    - Front door `anchor.oo`. Laws `rules.oot`. Architecture `northstar.oot`.
    - RFCs 0001–0007 under `rfcs/`. Practices under `practices/`.
-2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `bb/`.
+2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `tui/`.
 3. **Tier 3 (Tactical)**: `oodac/` compiler, `std/` library, `oodar/` Gen 1 C host.
    - 20 language tokens ⊂ 26 substrate caps. SSoT is `oodar/sec/cap/cap_table.json`.
 
@@ -71,7 +71,7 @@ Every agent action must comply with the 10 Governance Pillars:
    - `.oo` source files: `// # <Title>`, `// Logline:`, `// Setup:`, `// Beats:`.
    - `.oot` documentation: `# <NAME> — <Title>`, `Floor:`, `Thrust:`, `Patch:`, `File:`.
 3. **Zero Ambient Authority**: Privileged operations require unforgeable tokens (`&FsReadCap`, `&FsWriteCap`, `&ProcessCap`, etc.).
-4. **Prohibited File Extensions**: Zero tolerance for `.py`, `.sh`, `.js`, or `.md` in product code (exemptions: `README.md`, `install.sh`, `oodac_pure_build`).
+4. **Prohibited File Extensions**: Zero tolerance for `.py`, `.ts`, `.rb`, or `.pl`; `.js` permitted only in `website/js/`; `.md` permitted for `AGENTS.md`, `README.md`, `.github/`, and `install/docs/`.
 
 ## 6. Adversarial Verification & 4-Gate Veto Protocol
 
