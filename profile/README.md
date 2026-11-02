@@ -30,9 +30,9 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | :--- | :---: | :--- |
 | **Layer 0: [openOODA](https://github.com/openOODA)** | **14** | Self-hosting compiler (`oodac`), C host substrate (`oodar`), `std`, `cli`, `opm`, `lsp`, `mcp`, `tui`, governance |
 | **Layer 1: [openOODA-kernel](https://github.com/openOODA-kernel)** | **16** | Ring-0 NT/seL4 hybrid microkernel (`ookernel-ob`, `ookernel-mm`, `ookernel-sched`, `ookernel-ipc`) & Ring-3 drivers |
-| **Layer 2: [openOODA-OS](https://github.com/openOODA-OS)** | **16** | Zero-root system daemons (`ooinit`, `oovfs`, `oonetd`, `oosysbus`, `oohealthd`, `ooimage`) |
+| **Layer 2: [openOODA-OS](https://github.com/openOODA-OS)** | **18** | Zero-root system daemons (`ooinit`, `oovfs`, `oonetd`, `oosysbus`, `oohealthd`, `ooimage`, `ooaid`, `oorealm`) |
 | **Layer 3: [openOODA-tools](https://github.com/openOODA-tools)** | **256** | Userland CLI / TUI / MCP utilities across 12 functional categories (`oosh`, `oogrep`, `oofind`, `oojq`) |
-| **Layer 4: [openOODA-DE](https://github.com/openOODA-DE)** | **18** | Capability Wayland Desktop Environment (`oocomp`, `oowm`, `oopanel`, `ooportal`, `ooterm`, `ooagent-hud`) |
+| **Layer 4: [openOODA-DE](https://github.com/openOODA-DE)** | **20** | Capability Wayland Desktop Environment (`oocomp`, `oowm`, `oopanel`, `ooportal`, `oobazaar`, `oocockpit`, `ooagent-hud`) |
 
 ## Layer 0 Constellation (14 Repositories in `@openOODA`)
 
@@ -52,6 +52,14 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | | [tui](https://github.com/openOODA/tui) | Terminal coding harness with prompt dock & live thought canvas. |
 | **Web & Community** | [website](https://github.com/openOODA/website) | Source for [openooda.org](https://openooda.org). |
 | | [.github](https://github.com/openOODA/.github) | Org profile, shared issue templates, and reusable CI workflows. |
+
+## 3-Tier Universal App Compatibility & Store Architecture
+
+| Tier | Bridge & Subsystems | Capability Enforcement |
+| :--- | :--- | :--- |
+| **Tier 1: Flathub / Bazaar Desktop Store Bridge** | `ooportal` + `ooimage` + `oopolicyd` | `ooimage` ingests Flathub OSTree Merkle commits into the immutable content-addressed store; `oopolicyd` translates Flatpak metadata permissions (`sockets=wayland;pulseaudio;network`, `filesystems=...`) 1-to-1 into attenuated `WindowCap`, `FrameCap`, `AudioCap`, `NetConnectCap`, and scoped `FsReadCap` mediated by `ooportal`. |
+| **Tier 2: Podman-Style Rootless Server Containers** | `oocage` + `ooimage` + `oosvc-mgr` | Daemonless, rootless OCI container execution (Bazarr, Sonarr, Plex, Postgres) where each container runs in an isolated `CSpace` over read-only `ooimage` Merkle layers and explicit volume/port capabilities (`FsReadCap`/`FsWriteCap`/`NetBindCap`). |
+| **Tier 3: Steam/Proton Cell + IOMMU Anti-Cheat (`WinRealm`)** | `ookernel-iommu` + `ookernel-unikernel` + `oocomp` | Linux Steam + Proton (`DXVK`/`VKD3D`) runs inside a GPU capability cell (`GpuCap` + `FrameCap` + `AudioCap` + `HidCap`). For kernel anti-cheat Windows games (Destiny 2 / BattlEye `BEDaisy.sys`), `ookernel-iommu` + `oodrv-pci` binds the GPU/NVMe partition to an IOMMU-fenced Windows NT Gaming Realm (`WinRealm`) with vTPM/SMBIOS passthrough from `ookernel-boot`, streaming frames at 144Hz/240Hz via zero-copy shared-memory `FrameCap` (LookingGlass/IVSHMEM ring) into a native `oocomp` window while mixing audio via `ooaudiod` and forwarding raw input via `oodrv-usb-hid`. |
 
 ---
 
