@@ -6,7 +6,7 @@ The public home board is `docs/HOME.oot`. The live site is
 https://openooda.org.
 
 A capability-secure systems language.
-Every effect needs an unforgeable cap token.
+Every effect needs an explicit capability.
 
 ```
 curl -fsSL https://openooda.org/install.sh | bash

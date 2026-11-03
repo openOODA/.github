@@ -36,7 +36,7 @@ A clear description of what should happen according to the openOODA specificatio
 - **openOODA Version**: run `cli version`, and name the repo's latest release tag
 - **Host OS**: Linux (x86_64 / aarch64)
 - **Compiler / Toolchain**: GCC / Clang
-- **Relevant Capability Tokens**: (e.g. `&FsReadCap`, `&ProcessCap`)
+- **Relevant Capabilities**: (e.g. `&FsReadCap`, `&ProcessCap`)
 
 ## 6. Additional Context / Red Team Analysis
 Add any other context, SMT verification logs, or adversarial break-tests related to the problem.

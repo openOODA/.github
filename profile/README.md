@@ -26,12 +26,12 @@ Every process in **openOODA** is born with **zero privileges**. That is not an a
 
 Modern software infrastructure was built for an era of implicit human trust, where every library, script, or autonomous routine inherits the full ambient authority of the host process. In an era where AI systems and humans collaborate at machine speed, ambient authority means any component can touch everything.
 
-**openOODA** rebuilds the computing stack from first principles so that authority is explicit, scoped, and provable at every boundary:
+**openOODA** rebuilds the computing stack from first principles by fusing **Linux/Unix systems architecture**, **cryptographic bearer authority and Merkle provenance**, and **closed-loop autonomous AI** so that authority is explicit, scoped, and provable at every boundary:
 
-1. **Zero Ambient Authority**: No function, service, or application can access the network, filesystem, devices, or IPC without holding an explicit, unforgeable capability token.
-2. **Fail-Closed Compile-Time Verification**: Unpermitted effects and memory bounds violations fail at compile time rather than surfacing as runtime vulnerabilities.
-3. **Deterministic Execution**: Linear arena memory management and zero-copy channels eliminate garbage-collection pauses from the lowest systems layer up to the desktop and cloud.
-4. **Hardware-Enforced Isolation**: Language-level capability guarantees are backed by a capability microkernel, a zero-root operating system, and isolated compatibility realms for existing workloads.
+1. **Zero Ambient Authority & Conservation of Authority**: No function, service, or application can access the network, filesystem, devices, or IPC without holding an explicit capability. Like cryptographic bearer assets, capabilities cannot be minted out of thin air or widened—only explicitly delegated or monotonically attenuated.
+2. **Cryptographic Provenance at Silicon Speed**: Merkle-DAG AST and build state, post-quantum warrants, and deterministic resource/memory quotas bring cryptographic proof directly into the compiler and kernel ABI without blockchain consensus latency.
+3. **Fail-Closed Compile-Time & Adversarial Verification**: Unpermitted effects, contract violations, and memory bounds errors fail at compile time and under automated adversarial falsification before deployment.
+4. **Hardware-Enforced Zero-Root OS & Bounded OODA Loops**: Language-level capability guarantees are backed by a capability microkernel, a zero-root operating system, linear-arena memory without GC pauses, and bounded Observe–Orient–Decide–Act autonomous engines.
 
 ## The Unified 8-Layer Architecture (`L0`–`L7`)
 

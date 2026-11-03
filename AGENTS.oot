@@ -57,7 +57,7 @@ Every agent action must comply with the 10 Governance Pillars:
 2. **Boyd E-M Engine**: Maximize Specific Excess Power ($P_s = ((T - D) / W) \times V$).
 3. **Negative Trust**: Treat unproven code as defective. Deploy adversarial falsification.
 4. **80/20 Leverage**: Focus on SSA mem2reg, flat closures, SIMD, direct ELF64/WASM, and linear arenas.
-5. **Capability Security**: Zero ambient authority. Require explicit tokens (`&CapName`).
+5. **Capability Security**: Zero ambient authority. Require explicit capabilities (`&CapName`).
 6. **Multi-Agent Stratification**: Treat lower generational tiers (Gen 1-4) as stable libraries.
 7. **Bit-Identical Determinism**: Reproducible compilation with zero-timestamp Merkle digests.
 8. **Sparing Ingress**: Query module structure via outlines to eliminate context waste.
@@ -70,7 +70,7 @@ Every agent action must comply with the 10 Governance Pillars:
 2. **4-Element Academy Headers**:
    - `.oo` source files: `// # <Title>`, `// Logline:`, `// Setup:`, `// Beats:`.
    - `.oot` documentation: `# <NAME> — <Title>`, `Floor:`, `Thrust:`, `Patch:`, `File:`.
-3. **Zero Ambient Authority**: Privileged operations require unforgeable tokens (`&FsReadCap`, `&FsWriteCap`, `&ProcessCap`, etc.).
+3. **Zero Ambient Authority**: Privileged operations require explicit capabilities (`&FsReadCap`, `&FsWriteCap`, `&ProcessCap`, etc.).
 4. **Prohibited File Extensions**: Zero tolerance for `.py`, `.ts`, `.rb`, or `.pl`; `.js` permitted only in `website/js/`; `.md` permitted for `AGENTS.md`, `README.md`, `.github/`, and `install/docs/`.
 
 ## 6. Adversarial Verification & 4-Gate Veto Protocol
