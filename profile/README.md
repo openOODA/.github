@@ -8,9 +8,9 @@
       /_/                   \___/ \___/|____/_/   \_\
 </pre>
 
-### openOODA — Primary Systems Language & 5-Organization Ecosystem for the AI Era
+### openOODA — Primary Systems Language & 9-Organization Ecosystem (Root + L0-L7) for the AI Era
 
-[openooda.org](https://openooda.org) • [llms.txt](https://openooda.org/llms.txt) • [openOODA-kernel](https://github.com/openOODA-kernel) • [openOODA-OS](https://github.com/openOODA-OS) • [openOODA-tools](https://github.com/openOODA-tools) • [openOODA-DE](https://github.com/openOODA-DE)
+[openooda.org](https://openooda.org) • [llms.txt](https://openooda.org/llms.txt) • [openOODA-core](https://github.com/openOODA-core) • [openOODA-kernel](https://github.com/openOODA-kernel) • [openOODA-OS](https://github.com/openOODA-OS) • [openOODA-tools](https://github.com/openOODA-tools) • [openOODA-DE](https://github.com/openOODA-DE) • [openOODA-apps](https://github.com/openOODA-apps) • [openOODA-cloud](https://github.com/openOODA-cloud) • [openOODA-agents](https://github.com/openOODA-agents)
 
 </div>
 
@@ -24,34 +24,38 @@ curl -fsSL https://openooda.org/install.sh | bash
 
 Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../docs/HOME.oot).
 
-## The 5-Organization Ecosystem (325 Repositories at v0.2.3)
+## The 9-Organization Ecosystem (Root `@openOODA` + L0–L7)
 
 | Layer & Org | Count | Focus |
 | :--- | :---: | :--- |
-| **Layer 0: [openOODA](https://github.com/openOODA)** | **14** | Sublayers L0.1-L0.4: host/silicon ABI (`oodar`: Landlock, `sys_spawn`/`sys_wait`, `OODA_LISTEN_FD`), deterministic runtime & memory (`std` linear arenas), self-hosting compiler (`oodac`: `.oo` -> LLVM IR -> native), language/stdlib/tools (`cli`, `opm`, `lsp`, `mcp`, `tui`), governance |
+| **Root Umbrella: [openOODA](https://github.com/openOODA)** | **5** | Governance, 24 laws & RFCs (`openOODA`), fleet buildbox (`buildbox`), website (`website`), one-line installer (`install`), public package registry (`catalog`), and `.github` |
+| **Layer 0: [openOODA-core](https://github.com/openOODA-core)** | **10** | Sublayers L0.1-L0.4: host/silicon ABI (`oodar`: Landlock, `sys_spawn`/`sys_wait`, `OODA_LISTEN_FD`), deterministic runtime & memory (`std` linear arenas), self-hosting compiler (`oodac`: `.oo` -> LLVM IR -> native), language/stdlib/tools (`cli`, `ooda`, `opm`, `lsp`, `mcp`, `tui`) |
 | **Layer 1: [openOODA-kernel](https://github.com/openOODA-kernel)** | **16** | Ring-0 NT/seL4 hybrid microkernel (`ookernel-ob`, `ookernel-mm`, `ookernel-sched`, `ookernel-ipc`) & Ring-3 drivers |
 | **Layer 2: [openOODA-OS](https://github.com/openOODA-OS)** | **18** | Zero-root system daemons (`ooinit`, `oosvc-mgr`, `oovfs`, `oonetd`, `oosysbus`, `oohealthd`, `ooimage`, `ooaid --serve`, `oorealm`) |
 | **Layer 3: [openOODA-tools](https://github.com/openOODA-tools)** | **257** | Userland CLI / TUI / MCP utilities across 12 functional categories (`oosh`, `oogrep`, `oofind`, `oojq`, `oollama`) |
 | **Layer 4: [openOODA-DE](https://github.com/openOODA-DE)** | **20** | Capability Wayland Desktop Environment (`oocomp`, `oowm`, `oopanel`, `ooportal`, `oobazaar`, `oocockpit`, `ooagent-hud`) |
+| **Layer 5: [openOODA-apps](https://github.com/openOODA-apps)** | **16** | Flagship GUI Applications & Creator Suite (`oobrowser`, `oostudio`, `oodocs`, `oosheet`, `oodeck`, `oonotes`, `oocanvas`, `oopaint`, `oomedia`, `oodaw`, `oopdf`, `oomail`, `oochat`, `oopass`, `oovm-ui`, `oogit-ui`) |
+| **Layer 6: [openOODA-cloud](https://github.com/openOODA-cloud)** | **16** | Distributed Cluster, Mesh & GPU Compute Grid (`oomesh`, `oogrid-sched`, `oostore-cas`, `oocontainer`, `ooinfer-grid`, `oobuild-grid`, `ookv-raft`, `oolb`, `ooci-runner`, `ooobserv`, `oosecrets`, `ooregistry`, `oodns-grid`, `oobackup`, `oogateway`, `oochron`) |
+| **Layer 7: [openOODA-agents](https://github.com/openOODA-agents)** | **16** | Autonomous OODA Loops, Swarm & Governance (`oooda-engine`, `ooherdr`, `ooquota`, `ooredteam`, `oofalsify`, `ooconsensus`, `ooreviewer`, `ooarchitect`, `oocoder`, `oorelease`, `oomemory`, `ooplanner`, `oorouter`, `ooeval`, `oogovern`, `ooevolve`) |
 
-## Layer 0 Constellation — Sublayers L0.1-L0.4 (14 Repositories in `@openOODA`)
+## Root Umbrella (`@openOODA`) & Layer 0 Constellation (`@openOODA-core`)
 
 | Layer | Repo | Role |
 |:---|:---|:---|
-| **L0.4 Language/Stdlib/Tools** | [openOODA](https://github.com/openOODA/openOODA) | The laws and RFCs. They do not change. |
-| **L0.3 Self-Hosted Compiler** | [oodac](https://github.com/openOODA/oodac) | Self-hosting compiler (`.oo` → LLVM IR → native). |
-| **L0.1 Host/Silicon ABI** | [oodar](https://github.com/openOODA/oodar) | C host substrate: Landlock sandbox (`PR_SET_NO_NEW_PRIVS`), non-blocking `sys_spawn`/`sys_wait`/`sys_kill`, `OODA_LISTEN_FD` socket activation, PQC, GPU. |
-| **L0.2 Deterministic Runtime & Memory** | [std](https://github.com/openOODA/std) | 8-domain standard library: 188 modules, linear-arena memory, `tcp_bind` socket slot tables. |
-| **L0.4 Language/Stdlib/Tools** | [cli](https://github.com/openOODA/cli) | Primary developer driver (build, test, fmt, qa). |
-| | [ooda](https://github.com/openOODA/ooda) | Top-level workflow command runner. |
-| | [opm](https://github.com/openOODA/opm) | Capability-aware deterministic package manager. |
-| | [catalog](https://github.com/openOODA/catalog) | Public package registry for `opm`. |
-| | [install](https://github.com/openOODA/install) | One-line toolchain bootstrap & package hooks. |
-| **L0.4 Language/Stdlib/Tools** | [lsp](https://github.com/openOODA/lsp) | Language Server Protocol daemon for editor diagnostics. |
-| | [mcp](https://github.com/openOODA/mcp) | Model Context Protocol server (26 capability-aware agent tools). |
-| | [tui](https://github.com/openOODA/tui) | Terminal coding harness with prompt dock & live thought canvas. |
-| **L0.4 Language/Stdlib/Tools** | [website](https://github.com/openOODA/website) | Source for [openooda.org](https://openooda.org). |
-| | [.github](https://github.com/openOODA/.github) | Org profile, shared issue templates, and reusable CI workflows. |
+| **Root Governance & Buildbox** | [openOODA/openOODA](https://github.com/openOODA/openOODA) | The laws, RFCs, and `buildbox/` watchdog. |
+| **Root Website & Installer** | [openOODA/website](https://github.com/openOODA/website) | Source for [openooda.org](https://openooda.org). |
+| | [openOODA/install](https://github.com/openOODA/install) | One-line toolchain bootstrap & package hooks. |
+| | [openOODA/catalog](https://github.com/openOODA/catalog) | Public package registry for `opm`. |
+| | [openOODA/.github](https://github.com/openOODA/.github) | Org profile, shared issue templates, and reusable CI workflows. |
+| **L0.3 Self-Hosted Compiler** | [openOODA-core/oodac](https://github.com/openOODA-core/oodac) | Self-hosting compiler (`.oo` → LLVM IR → native). |
+| **L0.1 Host/Silicon ABI** | [openOODA-core/oodar](https://github.com/openOODA-core/oodar) | C host substrate: Landlock sandbox (`PR_SET_NO_NEW_PRIVS`), non-blocking `sys_spawn`/`sys_wait`/`sys_kill`, `OODA_LISTEN_FD` socket activation, PQC, GPU. |
+| **L0.2 Deterministic Runtime & Memory** | [openOODA-core/std](https://github.com/openOODA-core/std) | 8-domain standard library: 188 modules, linear-arena memory, `tcp_bind` socket slot tables. |
+| **L0.4 Language/Stdlib/Tools** | [openOODA-core/cli](https://github.com/openOODA-core/cli) | Primary developer driver (build, test, fmt, qa). |
+| | [openOODA-core/ooda](https://github.com/openOODA-core/ooda) | Top-level workflow command runner. |
+| | [openOODA-core/opm](https://github.com/openOODA-core/opm) | Capability-aware deterministic package manager. |
+| | [openOODA-core/lsp](https://github.com/openOODA-core/lsp) | Language Server Protocol daemon for editor diagnostics. |
+| | [openOODA-core/mcp](https://github.com/openOODA-core/mcp) | Model Context Protocol server (26 capability-aware agent tools). |
+| | [openOODA-core/tui](https://github.com/openOODA-core/tui) | Terminal coding harness with prompt dock & live thought canvas. |
 
 ## 3-Tier Canonical OODA Containers & Multimodal Inference Fleet
 
@@ -69,9 +73,9 @@ Public home: [openooda.org](https://openooda.org). Copy: [`docs/HOME.oot`](../do
 | **Tier 2: Podman-Style Rootless Server Containers** | `oocage` + `ooimage` + `oosvc-mgr` | Daemonless, rootless OCI container execution (Bazarr, Sonarr, Plex, Postgres) where each container runs in an isolated `CSpace` over read-only `ooimage` Merkle layers and explicit volume/port capabilities (`FsReadCap`/`FsWriteCap`/`NetBindCap`). |
 | **Tier 3: Steam/Proton Cell + IOMMU Anti-Cheat (`WinRealm`)** | `ookernel-iommu` + `ookernel-unikernel` + `oocomp` | Linux Steam + Proton (`DXVK`/`VKD3D`) runs inside a GPU capability cell (`GpuCap` + `FrameCap` + `AudioCap` + `HidCap`). For kernel anti-cheat Windows games (Destiny 2 / BattlEye `BEDaisy.sys`), `ookernel-iommu` + `oodrv-pci` binds the GPU/NVMe partition to an IOMMU-fenced Windows NT Gaming Realm (`WinRealm`) with vTPM/SMBIOS passthrough from `ookernel-boot`, streaming frames at 144Hz/240Hz via zero-copy shared-memory `FrameCap` (LookingGlass/IVSHMEM ring) into a native `oocomp` window while mixing audio via `ooaudiod` and forwarding raw input via `oodrv-usb-hid`. |
 
-## Unified L0-L4 Layer Model & Fleet Verification at v0.2.3
+## Unified L0-L7 Layer Model & Fleet Verification at v0.2.3
 
-The five organizations form one unified L0-L4 layer model. **L0 (`@openOODA`)** is subdivided into **L0.1 Host/Silicon ABI** (`oodar`), **L0.2 Deterministic Runtime & Memory** (`std` linear arenas, bulk resets), **L0.3 Self-Hosted Compiler** (`oodac`), and **L0.4 Language/Stdlib/Tools** (`cli`, `ooda`, `opm`, `catalog`, `install`, `lsp`, `mcp`, `tui`, governance). Above it: **L1 `openOODA-kernel`** (16), **L2 `openOODA-OS`** (18), **L3 `openOODA-tools`** (257), **L4 `openOODA-DE`** (20).
+The ecosystem is structured into the root umbrella (`@openOODA`) plus 8 layer organizations (**L0–L7**). **L0 (`@openOODA-core`)** is subdivided into **L0.1 Host/Silicon ABI** (`oodar`), **L0.2 Deterministic Runtime & Memory** (`std` linear arenas, bulk resets), **L0.3 Self-Hosted Compiler** (`oodac`), and **L0.4 Language/Stdlib/Tools** (`cli`, `ooda`, `opm`, `lsp`, `mcp`, `tui`). Above it: **L1 `openOODA-kernel`** (16), **L2 `openOODA-OS`** (18), **L3 `openOODA-tools`** (257), **L4 `openOODA-DE`** (20), **L5 `openOODA-apps`** (16), **L6 `openOODA-cloud`** (16), **L7 `openOODA-agents`** (16).
 
 **54/54 KVM microVM boot verification at v0.2.3:** `eco-vm-test` stages all 54 core subsystem binaries (16 kernel + 18 OS + 20 DE), sha256 Merkle-hashes them, gates each on `--self-test`, and boots the initramfs in a QEMU/KVM microVM on a Landlock-enforced kernel; PID 1 runs `status` + `--self-test` on every `/bin/<repo>` and the serial log must read `RESULT: 54/54 subsystems verified in hardware VM (fail=0)`.
 
