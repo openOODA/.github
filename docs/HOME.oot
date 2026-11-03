@@ -10,13 +10,13 @@ Then we make those attempts fail closed.
 
 ## Caps
 
-Twenty explicit capabilities. Not environment
-variables. Not a terms-of-service clause.
+Thirty-two explicit capabilities (`32 + 32 = 64` cycle register: 19 software/OS + 13 hardware).
+Not environment variables. Not a terms-of-service clause.
 A function that talks to the network takes
 `&NetCap` or it does not compile. `E_CAP` is
 not a warning.
 
-Filesystem, network, process, GPU, FFI.
+Filesystem, network, process, GPU, MMIO, DMA, FFI.
 If it is not on the list, it does not happen.
 
 ## First principles

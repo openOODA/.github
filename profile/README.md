@@ -29,9 +29,10 @@ Modern software infrastructure was built for an era of implicit human trust, whe
 **openOODA** rebuilds the computing stack from first principles by fusing **Linux/Unix systems architecture**, **cryptographic bearer authority and Merkle provenance**, and **closed-loop autonomous AI** so that authority is explicit, scoped, and provable at every boundary:
 
 1. **Zero Ambient Authority & Conservation of Authority**: No function, service, or application can access the network, filesystem, devices, or IPC without holding an explicit capability. Like cryptographic bearer assets, capabilities cannot be minted out of thin air or widened—only explicitly delegated or monotonically attenuated.
-2. **Cryptographic Provenance at Silicon Speed**: Merkle-DAG AST and build state, post-quantum warrants, and deterministic resource/memory quotas bring cryptographic proof directly into the compiler and kernel ABI without blockchain consensus latency.
-3. **Fail-Closed Compile-Time & Adversarial Verification**: Unpermitted effects, contract violations, and memory bounds errors fail at compile time and under automated adversarial falsification before deployment.
-4. **Hardware-Enforced Zero-Root OS & Bounded OODA Loops**: Language-level capability guarantees are backed by a capability microkernel, a zero-root operating system, linear-arena memory without GC pauses, and bounded Observe–Orient–Decide–Act autonomous engines.
+2. **Full Use of Every 64-Bit CPU Cycle (`32 + 32 = 64` Capability Register)**: The lower 32 bits (`WHAT`) encode all **32 Root Capabilities** (`13` Hardware + `19` Software/OS, fitting a single 32-lane GPU warp mask and 32-bit seccomp-BPF accumulator), while the upper 32 bits (`HOW & WHEN`) pack a **16-bit OODA Epoch** (instant revocation) + **8-bit Rights Mask** (`R/W/X/Delegate/Revoke`) + **8-bit Scope Badge**—validating both *which* capabilities a process holds and *how* they are used in a single 64-bit CPU clock cycle.
+3. **Cryptographic Provenance at Silicon Speed**: Merkle-DAG AST and build state, post-quantum warrants, and deterministic resource/memory quotas bring cryptographic proof directly into the compiler and kernel ABI without blockchain consensus latency.
+4. **Fail-Closed Compile-Time & Adversarial Verification**: Unpermitted effects, contract violations, and memory bounds errors fail at compile time and under automated adversarial falsification before deployment.
+5. **Hardware-Enforced Zero-Root OS & Bounded OODA Loops**: Language-level capability guarantees are backed by a capability microkernel, a zero-root operating system, linear-arena memory without GC pauses, and bounded Observe–Orient–Decide–Act autonomous engines.
 
 ## The Unified 8-Layer Architecture (`L0`–`L7`)
 

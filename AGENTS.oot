@@ -13,7 +13,7 @@ The openOODA ecosystem is organized into a 3-tier sovereign topology:
    - RFCs 0001–0007 under `rfcs/`. Practices under `practices/`.
 2. **Tier 2 (Operational)**: `ooda/`, `lsp/`, `mcp/`, `opm/`, `install/`, `catalog/`, `tui/`.
 3. **Tier 3 (Tactical)**: `oodac/` compiler, `std/` library, `oodar/` Gen 1 C host.
-   - 20 language tokens ⊂ 26 substrate caps. SSoT is `oodar/sec/cap/cap_table.json`.
+   - 32 explicit capabilities (`bits 0..31`, 19 software/OS + 13 hardware, 64-bit cycle register). SSoT is `oodar/sec/cap/cap_table.json`.
 
 Coordination Overhead Elimination:
 Maintaining stationary directory topology reduces swarm coordination paths from $C(12)=66$ to $C(3)=3$, eliminating 95.5% of coordination drag.
