@@ -50,7 +50,3 @@ All design, RFCs, practices, and onboarding live in [openOODA/openOODA](https://
 | [openOODA/bb](https://github.com/openOODA/bb) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
 | [openOODA/website](https://github.com/openOODA/website) | Website source |
 | [openOODA/.github](https://github.com/openOODA/.github) | Org profile, shared community files, workflows |
-
-## License
-
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE).
