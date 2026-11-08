@@ -40,7 +40,7 @@ All design, RFCs, practices, and onboarding live in [openOODA/openOODA](https://
 | [openOODA/openOODA](https://github.com/openOODA/openOODA) | Governance, RFCs, laws |
 | [openOODA-core/oodar](https://github.com/openOODA-core/oodar) | Runtime substrate |
 | [openOODA-core/oodac](https://github.com/openOODA-core/oodac) | Compiler |
-| [openOODA-core/std](https://github.com/openOODA-core/std) | Standard library |
+| [openOODA-core/oostd](https://github.com/openOODA-core/oostd) | Standard library |
 | [openOODA-core/ooda](https://github.com/openOODA-core/ooda) | `ooda` workflow driver |
 | [openOODA/install](https://github.com/openOODA/install) | How the toolchain lands (install.sh, apt, dnf, pacman) |
 | [openOODA-core/opm](https://github.com/openOODA-core/opm) | Package manager |

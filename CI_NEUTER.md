@@ -18,7 +18,7 @@ were preserved untouched everywhere they exist (tools layer).
 | openOODA-apps | 17 | 16 | 1 (ooflash) | — |
 | openOODA-agents | 17 | 0 | 17 | — |
 | openOODA | 6 | 2 | 3 | audits: no `ooda` branch |
-| openOODA-core | 10 | 6 | 3 | `std` skipped (fleet off-limits law) |
+| openOODA-core | 10 | 6 | 3 | `oostd` skipped (fleet off-limits law) |
 | openOODA-kernel | 21 | 16 | 4 | oodrv-io: no `ooda` branch |
 | **Totals** | **382** | **305 landed** | **73 already clean** | **4 exempt** |
 
@@ -52,8 +52,8 @@ Every landing: VERSION patch bump + what-changed commit message +
 
 ## Exclusions / carry-overs
 
-- `openOODA-core/std`, `oodac`, `oodar`, `oohat`: fleet off-limits law —
-  std was a scan offender and is **deliberately not neutered**; the other
+- `openOODA-core/oostd`, `oodac`, `oodar`, `oohat`: fleet off-limits law —
+  oostd was a scan offender and is **deliberately not neutered**; the other
   three are already clean on `ooda`.
 - `openOODA/audits`, `openOODA-kernel/oodrv-io`: no `ooda` branch on
   github — out of migration scope, flagged for owner decision.
