@@ -60,7 +60,3 @@ Modern software infrastructure was built for an era of implicit human trust, whe
 | **`L5`** | [`@openOODA-apps`](https://github.com/openOODA-apps) | `16` | `oomedia`, `oodaw`, `oocanvas`, `oooffice` (`docs`/`sheet`/`deck`/`notes`/`pdf`), `oobrowser`, `oostudio`, `ooflash`, `oochat`, `oopass`, `ookvm`, `oocamera`, and 5 flagship games (`ooemu`, `ooarcade`, `oocommand`, `oostrike`, `oovoxel`) |
 | **`L6`** | [`@openOODA-cloud`](https://github.com/openOODA-cloud) | `8` | Content-addressed storage + `media-ingest` (`oostore`), PQC mesh + `media-relay` (`oomesh`), `oodb`, `oodeploy`, `oogateway`, `ooidentity`, `ootelemetry`, `oobilling` |
 | **`L7`** | [`@openOODA-agents`](https://github.com/openOODA-agents) | `10` | 8-Hat consensus (`oohat`), CISA KEV + media fuzzing (`oofalsify`), `ooloop`, `ooswarm`, `oobench`, `ooquota`, `ooconsensus`, `oocode`, `oomemory`, `oogovern` |
-
----
-
-License: Apache-2.0.

@@ -12,4 +12,3 @@ Every effect needs an explicit capability.
 curl -fsSL https://openooda.org/install.sh | bash
 ```
 
-License: Apache-2.0.
