@@ -1,107 +1,18 @@
-# openOODA: House Laws & Agent Engineering Standards (v1)
-
-This document is the **single canonical source of truth** for all code, architecture, and system integration standards across the `openOODA` organization. Every human contributor and AI agent must strictly follow these rules without exception.
-
----
-
-## 1. The Page Rule (Code Layout & Sizing)
-
-A **page** is one committed `.oo` or `.oot` file. Every page holds one idea, fits in one head, and carries its own weight.
-
-### Hard Sizing Invariants
-- **16–256 Lines**: Every committed `.oo` source file must be between **16 and 256 lines**, counted as exact line breaks (blank lines and comments count).
-- **Shim Exemption (Floor Only)**: A file is a shim when every non-comment line is an import or re-export (`import "..."`). Shims skip the 16-line floor. The **256-line ceiling still strictly applies**.
-- **Directory Density ($\le 8$ pages)**: At most **8 `.oo` pages per directory**, tests included. Crowded directories must split into functional subdirectories grouped by domain, linked via an `anchor.oo` shim.
-- **Banned File Names (Name the function, not the drawer)**:
-  `util.oo`, `utils.oo`, `helper.oo`, `helpers.oo`, `common.oo`, `misc.oo`, `shared.oo`, `base.oo`, `core.oo`.
-
-### Splitting, Folding, and Naming
-- **Over 256 lines**: Split along functional boundaries into a new subdirectory with an `anchor.oo` shim. One page = one verb or one wholly owned noun.
-- **Under 16 lines (and not a shim)**: Fold into its closest sibling or caller. Never pad lines with artificial whitespace or comments to reach 16.
-- **Action pages lead with a verb**: `render_prompt.oo`, `dispatch_intent.oo`, `emit_llvm.oo`.
-- **State pages name what they own**: `session_state.oo`, `symbol_table.oo`.
-- **Boundary pages speak trust verbs**: `verify_token.oo`, `admit_binary.oo`, `enforce_sandbox.oo`.
-
----
-
-## 2. The 4-Element Academy Header (Mandatory on Every Page)
-
-Every committed `.oo` file must begin with the standard 4-element Academy docstring:
-
-```oo
-// # Component Name - Subtitle
-//
-// Logline: Single-sentence imperative summary of functional responsibility.
-//
-// Setup: Preconditions, wired capabilities, imported contracts.
-//
-// Beats:
-//   1. First sequential phase of execution.
-//   2. Next phase.
-//   3. Final phase / exit state.
-```
-
-- **ASD-STE100 Compliance**: Clear, concise technical English. No marketing fluff or ambiguous verbs.
-- **Imports**: All imports must be relative string literals (e.g. `import "std/fs/path.oo";`). Never use `::` namespaces.
-
----
-
-## 3. openOODA Capability & Security Discipline
-
-openOODA operates strictly on the Object-Capability (OCap) security model:
-
-### Explicit Capabilities
-- **Zero Ambient Authority**: Privileged operations (spawning processes, reading files, opening network sockets, modifying environment) require explicit capabilities passed as arguments (`&ProcessCap`, `&FsReadCap`, `&FsWriteCap`, `&EnvCap`, `&NetCap`, `&SysCap`, `&TimeCap`, `&AllocCap`, `&ThreadCap`).
-- **Landlock & Sandboxing**: All runtime execution and untrusted evaluation must execute within isolated Landlock sandboxes via `oodar`.
-- **Subprocess Safety**: Never invoke `/bin/sh -c` or `/bin/bash -c` blindly. Direct binary execution must use explicit argv arrays via `ProcessCap`. Clean environment variables of child processes to prevent leakage of credentials or internal state.
-
----
-
-## 4. Per-Page Performance Scorecard & Invariants
-
-Performance is verified continuously across the ecosystem:
-- **`lines`**: Source line count (16–256).
-- **`ir_lines`**: Number of LLVM IR lines emitted by `oodac emit-ir`.
-- **`check_time_ms`**: Duration to typecheck with `oodac check`.
-- **`rss_kb`**: Compiler peak memory during module check.
-- **The Performance Invariant**: **A change may not grow a page's binary weight, emitted IR line count, or compiler memory overhead without written justification in the commit message.**
-
----
-
-## 5. Universal QA & Negative-Trust Verification
-
-Before any commit or release is certified, the codebase must pass the verification gate:
-
-1. **Sovereign Test Driver (`cli qa`)**: Run tests locally with `cli qa` or polyrepo suites with `cli qa --all`.
-2. **Negative-Trust Edge Falsification**: Prohibit single-sided happy-path suites. Releases require fail-closed validation on boundary inputs (0-byte files, oversized inputs, malformed envelopes, invalid tokens).
-3. **Sequential Double-Run Determinism Filter**: Every verification probe must execute twice sequentially in fresh processes (`Run_1 == Run_2`). Double-run is a determinism filter ensuring zero state leakage across invocations.
-4. **Binary Parity Law**: Release certification must run against the bit-identical binary installed for the user (`sha256sum ~/.openooda/bin/<tool> == sha256sum dist/<tool>`).
-
----
-
-## 6. Ecosystem Directory Roles & Decoupled Architecture
-
-The N-Binary ecosystem strictly separates domains:
-- **`oodac`**: Direct LLVM IR compiler (AST, mem2reg, IR emission).
-- **`oodar`**: C runtime substrate, Landlock sandboxing, and OCap primitives.
-- **`cli`**: Sovereign developer driver (`build`, `run`, `test`, `fmt`, `install`, `qa`, `fix`).
-- **`ooda`**: Back-compat command router forwarding to `cli`, `opm`, `lsp`, `mcp`, `tui`.
-- **`mcp`**: Model Context Protocol server, flight recording, telemetry, and fold protocol.
-- **`tui`**: Terminal interface and motor-reflex interactive shell ($\le 2\text{ms}$ keystroke SLA).
-- **`opm`**: Package manager and template code generator.
-- **`lsp`**: Language Server Protocol engine.
-- **`std`**: Standard library across 8 functional domains.
-
----
-
-## 7. Multi-Engine Audit Protocol (Pre-Release)
-
-Advisory tiered audit run before tagging releases, budgeted by token capacity:
-1. **`mcode`** (Abundant tokens): Full codebase scan for contract mismatches, packaging specs, and CI gates.  
-   `mcode exec --permission full "<prompt>"`
-2. **`vibe`** (Moderate tokens): Adversarial diff inspection for subtle regressions, security bypasses, and API validity.  
-   `vibe -p "<prompt>" --trust --auto-approve`
-3. **`grok`** (Strict quota): High-value referee and final sanity check on critical release diffs.  
-   `grok -p "<prompt>" --always-approve`
-
-**Rule:** External audits are strictly advisory; all findings must be verified against source code. External LLMs never gate CI—the §5 Verification Ladder is the sole canonical authority.
+# openOODA (.oo) Agent Quick Card
+1. **The 8 Canonical Quick Cards** (Zero-bloat ~24-line cards built into `ooda`):
+   - `ooda ooda`     -> `ooda.md`     (How to rapidly build, test, and adapt openOODA software)
+   - `ooda layers`   -> `layers.md`   (The 8-Layer Architecture Map `L0`–`L7` across Desktop, Server & Mobile)
+   - `ooda spec`     -> `spec.md`     (`.oo` syntax, types, structs, `match`, and `oostd` builtins)
+   - `ooda rules`    -> `rules.md`    (Power-of-2 Shape Ladder `1/2/4/8/16/32/64/128/256` & CLI laws)
+   - `ooda ui`       -> `ui.md`       (CLI, TUI, Desktop & Mobile UI + `ootheme` 25 presets & 34 tokens)
+   - `ooda security` -> `security.md` (Zero-Trust `CapReg64` `0..31` caps, `oosandbox`, `oosign`, `ooprovenance`, `oovault`)
+   - `ooda privacy`  -> `privacy.md`  (Zero-telemetry, PII/EXIF/SECRET scrubbing `ooredact`, LED & clipboard TTL gates)
+   - `ooda defense`  -> `defense.md`  (Active defense `oodefense` IDS/canary/honeypot, `oofirewall`, DMA/DRAM/USB guards)
+2. **Power-of-2 Shape Ladder (`1/2/4/8/16/32/64/128/256`)**:
+   - `1`: Link count == 1 (0 symlinks/hardlinks) & max 1 statement/line. `2`: Min 2 tests (functional + negative-trust exit != 0).
+   - `4`: Max 4 nesting depth. `8`: Max 8 files/dir, 8 fns/file, 8 params/fn. `16`: Min 16 lines/file.
+   - `32`: 32 explicit capabilities (`&FsReadCap`, `&FsWriteCap`, `&NetCap`, `&ProcessCap`, `&EnvCap`), max 32 chars/name (no `*_1.oo` splits), <=32 files/repo.
+   - `64`: Max 64 code lines/fn. `128`: Max 128 chars/line. `256`: Max 256 lines/file.
+3. **Syntax & Workflow**:
+   - Relative string imports only (`import "core/engine.oo";` or `import "oostd/fs/os/fs.oo";`, never `::`). No parens on `if cond { }` / `while cond { }`. No struct trailing commas. Connect all CLI/TUI/GUI output to `ootheme` and expose `<binary> about`.
+   - Build & Verify: `ooda build && ooda test && ooda check && ooda audit`.

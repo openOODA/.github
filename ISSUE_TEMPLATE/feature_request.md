@@ -26,4 +26,4 @@ A description of any alternative designs, workarounds, or prior art considered.
 
 ## 5. RFC Backlog / Specification Seams
 - Proposed RFC name (e.g. `openOODA/rfcs/0023-feature-name.oot`)
-- Affected canonical boards (e.g. `northstar.oot`, `roadmap.oot`, `rfcs/0001-capability-security.oot`)
+- Affected canonical boards (e.g. `AGENTS.md`, `README.md`, `rfcs/0001-capability-security.oot`)
