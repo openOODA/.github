@@ -37,16 +37,17 @@ All design, RFCs, practices, and onboarding live in [openOODA/openOODA](https://
 
 | Repo | Purpose |
 |------|---------|
-| [openOODA/openOODA](https://github.com/openOODA/openOODA) | Governance, RFCs, laws |
-| [openOODA-core/oodar](https://github.com/openOODA-core/oodar) | Runtime substrate |
-| [openOODA-core/oodac](https://github.com/openOODA-core/oodac) | Compiler |
-| [openOODA-core/oostd](https://github.com/openOODA-core/oostd) | Standard library |
-| [openOODA-core/ooda](https://github.com/openOODA-core/ooda) | `ooda` workflow driver |
-| [openOODA/install](https://github.com/openOODA/install) | How the toolchain lands (install.sh, apt, dnf, pacman) |
-| [openOODA-core/opm](https://github.com/openOODA-core/opm) | Package manager |
-| [openOODA/catalog](https://github.com/openOODA/catalog) | Public package catalog |
-| [openOODA-core/lsp](https://github.com/openOODA-core/lsp) | Language server |
-| [openOODA-core/mcp](https://github.com/openOODA-core/mcp) | MCP server |
-| [openOODA/bb](https://github.com/openOODA/bb) | Operational Logistics: Agent-native execution flight recorder and crash autopsy engine |
-| [openOODA/website](https://github.com/openOODA/website) | Website source |
+| [openOODA/openOODA](https://github.com/openOODA/openOODA) | Governance, RFCs, laws, and the 8 Quick Cards (`ooda <card>`) |
+| [openOODA-core/oodar](https://github.com/openOODA-core/oodar) | Runtime substrate (`liboodar.a`) |
+| [openOODA-core/oodac](https://github.com/openOODA-core/oodac) | Capability-secure `.oo` compiler |
+| [openOODA-core/oostd](https://github.com/openOODA-core/oostd) | Standard library (`oostd` + `sec/kev_guard.oo` + `hw/media.oo`) |
+| [openOODA-core/ooda](https://github.com/openOODA-core/ooda) | `ooda` flagship workflow driver |
+| [openOODA/install](https://github.com/openOODA/install) | Public Binary Hub (`install@hub`), `install.sh`, `apt`, `dnf`, `pacman`, `winget` |
+| [openOODA-core/oopm](https://github.com/openOODA-core/oopm) | Package & `@group` manager (`oopm`) |
+| [openOODA/catalog](https://github.com/openOODA/catalog) | Public package catalog (`groups.oot`, `packages.oot`, `SHA256SUMS`) |
+| [openOODA-core/oolsp](https://github.com/openOODA-core/oolsp) | Language server (`oolsp`) |
+| [openOODA-core/oomcp](https://github.com/openOODA-core/oomcp) | MCP server (`oomcp`) |
+| [openOODA/website](https://github.com/openOODA/website) | Website source ([openooda.org](https://openooda.org)) |
+| [openOODA/status](https://github.com/openOODA/status) | Ecosystem health & telemetry portal |
+| [openOODA/bench](https://github.com/openOODA/bench) | Cross-layer deterministic benchmark suite |
 | [openOODA/.github](https://github.com/openOODA/.github) | Org profile, shared community files, workflows |

@@ -8,11 +8,25 @@
       /_/                   \___/ \___/|____/_/   \_\
 </pre>
 
-### openOODA — Capability-Secure Computing Stack (L0–L7)
+### openOODA — Capability-Secure Computing Stack (`L0`–`L7`)
 
-[openooda.org](https://openooda.org) • [Overview (`llms.txt`)](https://openooda.org/llms.txt)
+[openooda.org](https://openooda.org) • [Overview (`llms.txt`)](https://openooda.org/llms.txt) • [Public Binary Hub (`install@hub`)](https://github.com/openOODA/install/releases/tag/hub) • [Package Catalog (`catalog`)](https://github.com/openOODA/catalog)
 
 </div>
+
+---
+
+## Quick Install & Fedora-Style Group Bundles (`oopm`)
+
+```sh
+curl -fsSL https://openooda.org/install.sh | bash
+
+oopm group list                  # List @core, @kernel, @os, @tools, @de, @apps, @cloud, @agents, @workstation, @all
+oopm install @core               # L0 compiler (oodac), runtime (oodar), stdlib (oostd), CLI (ooda), oopm, oolsp, oomcp
+oopm install @tools              # 39 capability-sandboxed L3 Unix, security, UI, and game-engine utilities
+oopm install @workstation        # Full desktop stack (@core + @tools + @de + @apps)
+oopm install @all                # All 93 canonical packages across L0–L7
+```
 
 ---
 
@@ -22,27 +36,30 @@ Every process in **openOODA** is born with **zero privileges**. That is not an a
 
 Modern software infrastructure was built for an era of implicit human trust, where every library, script, or autonomous routine inherits the full ambient authority of the host process. In an era where AI systems and humans collaborate at machine speed, ambient authority means any component can touch everything.
 
-**openOODA** rebuilds the computing stack from first principles by fusing **Linux/Unix systems architecture**, **cryptographic bearer authority and Merkle provenance**, and **closed-loop autonomous AI** so that authority is explicit, scoped, and provable at every boundary:
+**openOODA** rebuilds the computing stack from first principles across eight unified layers (`L0`–`L7`, `93` canonical product packages) so that authority is explicit, scoped, and provable at every boundary:
 
-1. **Zero Ambient Authority & Conservation of Authority**: No function, service, or application can access the network, filesystem, devices, or IPC without holding an explicit capability. Like cryptographic bearer assets, capabilities cannot be minted out of thin air or widened—only explicitly delegated or monotonically attenuated.
-2. **Full Use of Every 64-Bit CPU Cycle (`32 + 32 = 64` Capability Register)**: The lower 32 bits (`WHAT`) encode all **32 Root Capabilities** (`13` Hardware + `19` Software/OS, fitting a single 32-lane GPU warp mask and 32-bit seccomp-BPF accumulator), while the upper 32 bits (`HOW & WHEN`) pack a **16-bit OODA Epoch** (instant revocation) + **8-bit Rights Mask** (`R/W/X/Delegate/Revoke`) + **8-bit Scope Badge**—validating both *which* capabilities a process holds and *how* they are used in a single 64-bit CPU clock cycle.
-3. **Cryptographic Provenance at Silicon Speed**: Merkle-DAG AST and build state, post-quantum warrants, and deterministic resource/memory quotas bring cryptographic proof directly into the compiler and kernel ABI without blockchain consensus latency.
-4. **Fail-Closed Compile-Time & Adversarial Verification**: Unpermitted effects, contract violations, and memory bounds errors fail at compile time and under automated adversarial falsification before deployment.
-5. **Hardware-Enforced Zero-Root OS & Bounded OODA Loops**: Language-level capability guarantees are backed by a capability microkernel, a zero-root operating system, linear-arena memory without GC pauses, and bounded Observe–Orient–Decide–Act autonomous engines.
+1. **Zero Ambient Authority & Single-Cycle 64-Bit Capability Register (`CapReg64` = `32 + 32 = 64`)**:
+   - The lower 32 bits (`WHAT`) encode all **32 Root Capabilities (`0..31`)** (`13` Hardware + `19` Software/OS, fitting a single 32-lane GPU warp mask and 32-bit seccomp-BPF accumulator), while the upper 32 bits (`HOW & WHEN`) pack a **16-bit OODA Epoch** (instant revocation) + **8-bit Rights Mask** (`R/W/X/Delegate/Revoke` + privacy/zero-telemetry bits) + **8-bit Scope Badge** (`badge8`).
+2. **CISA KEV Shield, Active Cyber Defense & Post-Quantum Provenance**:
+   - Compile-time and runtime elimination of **CISA Known Exploited Vulnerabilities (KEV)** classes (`CWE-22` path traversal admission, `CWE-78` shell-free argv execution, `CWE-190`/`CWE-787` checked integer/slice arithmetic, `CWE-502` bounded `.oot` parsing), backed by bijective ELF binary polymorphism (`oodefense mutate`), Landlock `O_NOFOLLOW` `link_count==1` + Seccomp-BPF containment (`oosandbox kev-contain`), and post-quantum (`ML-KEM-768`, `ML-DSA-65`) + Stage0 `hex0` + Diverse Double-Compilation (`make det`) provenance (`oosign`, `ooprovenance`).
+3. **Full-Stack `L0`–`L7` Hardware + Software Media, Surround Audio & Document Architecture (Zero `ffmpeg`)**:
+   - Hardware codec probing (`NVENC`/`NVDEC`, `VAAPI`, `Vulkan`, `V4L2`/`MIPI-CSI`, `DRM`/`KMS`/`GOP`, `DMA-BUF`, `ALSA` 8ch) paired with native zero-FFmpeg codecs across **Surround/Spatial Audio** (`1.0`..`7.1.4` 12ch Atmos bed, Ambisonics, WAV/RF64, FLAC, QOA, DTS/DTS:X, AC-3/E-AC-3/TrueHD, IAMF, Opus, MP3, AAC + ITU-R BS.775 & HRTF), **Video & HDR** (MP4, MKV, MPEG-TS, AVI, Y4M, `.oov` with PQC frame seals, AV1/H.264/HEVC, HDR10, Dolby Vision), **Images** (`.qoi`, `.png` HDR, `.ppm`, `.bmp`, `.svg`, `.tga`, `.ico`, `.webp`, `.jpeg`, `.tiff`/`.dng` RAW), **Subtitles** (`.srt`, `.vtt`, `.ass`), **MIDI/DAW Synthesis** (`oodaw`), and **Office Documents** (`oooffice`: `.docx`/`.odt`/`.rtf`, `.pptx`/`.odp`, `.xlsx`/`.ods`/`.parquet`, `%PDF-1.7`/`.epub`).
+4. **Power-of-2 Shape Ladder (`1/2/4/8/16/32/64/128/256`) & 8-Hat Adversarial Consensus (`oohat` + `oofalsify`)**:
+   - Every `.oo` page obeys strict Power-of-2 structural laws and must pass deterministic double-compilation (`make det`), adversarial fuzzing (`oofalsify`), and the 8-Hat consensus gate (`oohat cycle` `quorum_mask=255`).
 
 ## The Unified 8-Layer Architecture (`L0`–`L7`)
 
-| Layer | Domain | Architectural Focus |
-| :--- | :--- | :--- |
-| **Root (`@openOODA`)** | **Umbrella & Portal** | Architectural specifications, governance standards, installer, and package catalog ([openooda.org](https://openooda.org)) |
-| **Layer 0 (`L0`)** | **Core Language & Toolchain** | Capability-secure systems language, self-hosting native compiler, deterministic standard library, and developer tooling |
-| **Layer 1 (`L1`)** | **Microkernel & Drivers** | Capability microkernel, hardware abstraction layers, IOMMU DMA isolation, and user-space device drivers |
-| **Layer 2 (`L2`)** | **Zero-Root Operating System** | Least-privilege system services, capability filesystems, networking stack, and isolated compatibility realms |
-| **Layer 3 (`L3`)** | **Userland Toolchain** | Capability-scoped command-line utilities, structured data pipelines, and system inspection tools |
-| **Layer 4 (`L4`)** | **Desktop Environment** | Capability compositor, spatial window management, interactive privacy portals, and visual authority indicators |
-| **Layer 5 (`L5`)** | **Native Applications** | Productivity, creative, communication, and engineering applications with zero ambient tracking |
-| **Layer 6 (`L6`)** | **Distributed Cloud Grid** | Content-addressed storage, encrypted mesh networking, cluster scheduling, and distributed compute |
-| **Layer 7 (`L7`)** | **Autonomous OODA Loops** | Capability-bounded Observe–Orient–Decide–Act engines, formal verification workflows, and fleet governance |
+| Layer | Organization | Repos | Architectural Focus |
+| :--- | :--- | :---: | :--- |
+| **Root** | [`@openOODA`](https://github.com/openOODA) | `6` | Governance & Quick Cards ([`openOODA`](https://github.com/openOODA/openOODA)), Package Index ([`catalog`](https://github.com/openOODA/catalog)), Public Binary Hub ([`install`](https://github.com/openOODA/install)), [`website`](https://openooda.org), [`status`](https://github.com/openOODA/status), [`bench`](https://github.com/openOODA/bench) |
+| **`L0`** | [`@openOODA-core`](https://github.com/openOODA-core) | `7` | Capability-secure `.oo` compiler (`oodac`), native C/ASM/GPU/audio runtime (`oodar`), standard library (`oostd`), master CLI (`ooda`), package manager (`oopm`), `oolsp`, `oomcp` |
+| **`L1`** | [`@openOODA-kernel`](https://github.com/openOODA-kernel) | `6` | UEFI boot (`ooboot`), capability microkernel (`ookernel`), HAL + DRM/KMS/HDR10 (`oohal`), IOMMU DMA isolation, and ring-3 drivers (`oodrv-storage`, `oodrv-io` V4L2/ALSA/DMA-BUF, `oodrv-virt`) |
+| **`L2`** | [`@openOODA-OS`](https://github.com/openOODA-OS) | `9` | Zero-root system daemons (`ooinit`, `oovfs`, `oonetd`, `oosysbus` + PipeWire-style `media-graph`, `ooauthd`, `oohealthd`, `oocontainer`, `oollama` + `ingest-media`, `oomodemd`) |
+| **`L3`** | [`@openOODA-tools`](https://github.com/openOODA-tools) | `39` | `7` Security hosts (`oodefense`, `oosandbox`, `ooprovenance`, `ooredact`, `oosign`, `oofirewall`, `oovault`) + `32` Unix, hardware (`oohw`), theme (`ootheme`), UI (`ooui`), and game-engine (`ooengine`) utilities |
+| **`L4`** | [`@openOODA-DE`](https://github.com/openOODA-DE) | `8` | Wayland compositor + DMA-BUF/`.oov` capture (`oocomp`), panel/OSK (`oopanel`), privacy portals + `screencast`/`audio-capture` leases (`ooportal`), `ooterm`, `oofiles`, `oosettings`, `oobazaar`, `ooagent-hud` |
+| **`L5`** | [`@openOODA-apps`](https://github.com/openOODA-apps) | `16` | `oomedia`, `oodaw`, `oocanvas`, `oooffice` (`docs`/`sheet`/`deck`/`notes`/`pdf`), `oobrowser`, `oostudio`, `ooflash`, `oochat`, `oopass`, `ookvm`, `oocamera`, and 5 flagship games (`ooemu`, `ooarcade`, `oocommand`, `oostrike`, `oovoxel`) |
+| **`L6`** | [`@openOODA-cloud`](https://github.com/openOODA-cloud) | `8` | Content-addressed storage + `media-ingest` (`oostore`), PQC mesh + `media-relay` (`oomesh`), `oodb`, `oodeploy`, `oogateway`, `ooidentity`, `ootelemetry`, `oobilling` |
+| **`L7`** | [`@openOODA-agents`](https://github.com/openOODA-agents) | `10` | 8-Hat consensus (`oohat`), CISA KEV + media fuzzing (`oofalsify`), `ooloop`, `ooswarm`, `oobench`, `ooquota`, `ooconsensus`, `oocode`, `oomemory`, `oogovern` |
 
 ---
 
