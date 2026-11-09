@@ -54,5 +54,8 @@
 //       -> keyword.control.contract.oo
 //   // TYPESTATE directives -> comment.line.directive.typestate.oo
 //   assert_eq! println! macros -> entity.name.function.macro.oo
+//   literals 0x4F4F4441 hex / 0b0101 binary / 0o755 octal / 2.0 Float
+//       -> constant.numeric.*.oo
+//   @attribute markers in doc surface -> entity.other.attribute-name.oo
 //
 // See smt_contracts.oo and typestate_machine.oo for the full pages.

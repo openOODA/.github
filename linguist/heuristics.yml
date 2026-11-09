@@ -2,7 +2,10 @@
 # First matching rule wins; each rule names a distinctive .oo surface that no
 # conflicting language emits: Academy doc headers, TYPESTATE directives, string
 # imports, contract clauses, &XxxCap capability references, -> Result[T, E]
-# returns, oo_* runtime veneers, and the SCHEMA: OODA marker.
+# returns, and oo_* runtime veneers. Bare `struct X`/`enum X` declarations are
+# not product syntax (real decls are `type X = struct`) and appear only in
+# ERR-test fixtures, so no rule fires on them; the SCHEMA: marker was dropped —
+# it has no presence in the fleet.
 disambiguations:
   - extensions:
       - ".oo"
@@ -17,8 +20,6 @@ disambiguations:
       - language: OODA
         pattern: '^\s*(pub\s+)?type\s+[A-Z][A-Za-z0-9_]*\s*=\s*(struct|[A-Z])'
       - language: OODA
-        pattern: '^\s*(struct|enum)\s+[A-Z][A-Za-z0-9_]*'
-      - language: OODA
         pattern: '^\s*(requires|ensures|invariant|decreases|verify)\s'
       - language: OODA
         pattern: '^\s*spec\s+"'
@@ -30,5 +31,3 @@ disambiguations:
         pattern: '\b(oo|rt)_(cap|mmio|nostd|alloc|read|write|free|monotonic)_[a-z0-9_]*\s*\('
       - language: OODA
         pattern: '\boo_cap_(reg64|bit_index)_[a-z0-9_]*\s*\(|\boo_cap_(pack|check|attenuate|args_ok)\s*\('
-      - language: OODA
-        pattern: 'SCHEMA:\s*OODA'
