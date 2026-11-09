@@ -1,0 +1,8 @@
+# Official github-linguist/linguist heuristics.yml disambiguation rule for OODA (.oo / .oot)
+disambiguations:
+  - extensions:
+      - ".oo"
+      - ".oot"
+    rules:
+      - language: OODA
+        pattern: '^\s*(//\s*#|import\s+"[^"]+\.oo"|pub\s+fn\s+|fn\s+[a-z_][a-zA-Z0-9_]*\s*\(|struct\s+[A-Z]|enum\s+[A-Z]|requires\s+|ensures\s+|SCHEMA:\s+OODA)'

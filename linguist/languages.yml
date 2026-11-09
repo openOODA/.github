@@ -1,0 +1,13 @@
+# Official github-linguist/linguist languages.yml entry for OODA (.oo / .oot)
+OODA:
+  type: programming
+  color: "#FF6B00"
+  extensions:
+    - ".oo"
+    - ".oot"
+  tm_scope: source.oo
+  ace_mode: text
+  codemirror_mode: rust
+  codemirror_mime_type: text/x-rustsrc
+  wrap: false
+  language_id: 109482104

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "OODA",
+  "scopeName": "source.oo",
+  "fileTypes": [
+    "oo",
+    "oot"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#contracts"
+    },
+    {
+      "include": "#declarations"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#capabilities"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#functions"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.documentation.oo",
+          "match": "//\\s*(#|Logline:|Setup:|Beats:).*$"
+        },
+        {
+          "name": "comment.line.double-slash.oo",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "contracts": {
+      "patterns": [
+        {
+          "name": "keyword.control.contract.oo",
+          "match": "\\b(requires|ensures|invariant|decreases|TYPESTATE|cap)\\b"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "name": "storage.modifier.oo",
+          "match": "\\b(pub|mut|const|extern)\\b"
+        },
+        {
+          "name": "keyword.other.declaration.oo",
+          "match": "\\b(fn|let|struct|enum|type|import|impl|trait)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.oo",
+          "match": "\\b(if|else|while|for|in|match|return|break|continue)\\b"
+        },
+        {
+          "name": "constant.language.boolean.oo",
+          "match": "\\b(true|false|Ok|Err|Some|None)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.primitive.oo",
+          "match": "\\b(Int|Float|Bool|String|List|Result|Option|Void| u8|u16|u32|u64|i8|i16|i32|i64)\\b"
+        },
+        {
+          "name": "entity.name.type.oo",
+          "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+        }
+      ]
+    },
+    "capabilities": {
+      "patterns": [
+        {
+          "name": "support.type.capability.oo",
+          "match": "\\b(Cap|CapReg64|FsReadCap|FsWriteCap|NetCap|EnvCap|ProcCap|TimeCap|EntropyCap|GpuCap|IpcCap|SysCap)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.oo",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.oo",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.oo",
+          "match": "\\b0x[0-9a-fA-F_]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.oo",
+          "match": "\\b[0-9][0-9_]*\\.[0-9][0-9_]*\\b"
+        },
+        {
+          "name": "constant.numeric.integer.oo",
+          "match": "\\b[0-9][0-9_]*\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.oo",
+          "match": "(->|=>|==|!=|<=|>=|&&|\\|\\||<<|>>|[+\\-*/%&|^!<>]=?)"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.oo",
+          "match": "\\b([a-z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+// # OODA Capability-Attenuated Systems Language Sample
+//
+// Logline: Demonstrates compile-time SMT contracts, CapReg64 zero-ambient capability admission, and bounded slice access.
+// Setup: Pure L0 .oo program with explicit FsReadCap and compile-time requires/ensures clauses.
+// Beats:
+//   1. Verify non-negative bounds via ahead-of-time linear integer arithmetic (LIA) solver.
+//   2. Enforce explicit capability token admission with zero ambient authority.
+//   3. Return deterministic Result[Int, String] status.
+
+import "oostd/sec/capreg.oo";
+
+pub struct PacketHeader {
+    magic: Int,
+    epoch: Int,
+    payload_len: Int
+}
+
+pub fn verify_header(hdr: PacketHeader, reg64: Int) -> Result[Int, String]
+    requires hdr.payload_len >= 0 && hdr.payload_len <= 65536
+    ensures result >= 0
+{
+    if !oo_cap_reg64_admit(reg64, 1) {
+        return Err("refused: capability epoch or rights mask rejected");
+    }
+    if hdr.magic != 0x4F4F4441 {
+        return Err("refused: invalid OODA packet magic");
+    }
+    return Ok(hdr.payload_len);
+}
+
+pub fn main(fs: &FsReadCap, args: List[String]) -> Int {
+    let reg64: Int = oo_cap_reg64_pack(1, 1, 1, 1);
+    let hdr: PacketHeader = PacketHeader {
+        magic: 0x4F4F4441,
+        epoch: 1,
+        payload_len: 256
+    };
+    match verify_header(hdr, reg64) {
+        Ok(n) => {
+            if n == 256 && list_len(args) >= 0 { return 0; }
+            return 1;
+        }
+        Err(_) => { return 2; }
+    }
+}
