@@ -5,5 +5,5 @@
   <circle cx="256" cy="180" r="64" stroke="#ffb300" stroke-width="16" fill="none"/>
   <circle cx="256" cy="180" r="24" fill="#ffffff"/>
   <path d="M256 96 V116 M256 244 V264 M172 180 H192 M320 180 H340" stroke="#ffb300" stroke-width="14" stroke-linecap="round"/>
-  <text x="256" y="408" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="120" font-weight="800" fill="#ffffff">L2</text>
+  <text x="256" y="408" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="120" font-weight="800" fill="#ffffff">L2</text>
 </svg>

@@ -8,5 +8,5 @@
   <circle cx="256" cy="120" r="22" fill="#ffffff"/>
   <circle cx="184" cy="228" r="22" fill="#1de9b6"/>
   <circle cx="328" cy="228" r="22" fill="#1de9b6"/>
-  <text x="256" y="408" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="120" font-weight="800" fill="#ffffff">L6</text>
+  <text x="256" y="408" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="120" font-weight="800" fill="#ffffff">L6</text>
 </svg>

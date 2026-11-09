@@ -4,5 +4,5 @@
   <path d="M68 108 L68 68 L108 68 M404 68 L444 68 L444 108 M68 404 L68 444 L108 444 M404 444 L444 444 L444 404" stroke="#d500f9" stroke-width="8" stroke-linecap="round" fill="none"/>
   <polygon points="256,104 336,150 336,232 256,272 176,232 176,150" stroke="#d500f9" stroke-width="15" fill="none" stroke-linejoin="round"/>
   <path d="M176 150 L256 192 L336 150 M256 192 V272" stroke="#ffffff" stroke-width="12" stroke-linejoin="round" fill="none"/>
-  <text x="256" y="408" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="120" font-weight="800" fill="#ffffff">L5</text>
+  <text x="256" y="408" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="120" font-weight="800" fill="#ffffff">L5</text>
 </svg>

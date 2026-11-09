@@ -5,5 +5,5 @@
   <rect x="172" y="116" width="76" height="128" rx="12" stroke="#2979ff" stroke-width="14" fill="none"/>
   <rect x="268" y="116" width="72" height="56" rx="10" fill="#ffffff"/>
   <rect x="268" y="188" width="72" height="56" rx="10" stroke="#2979ff" stroke-width="14" fill="none"/>
-  <text x="256" y="408" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="120" font-weight="800" fill="#ffffff">L4</text>
+  <text x="256" y="408" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="120" font-weight="800" fill="#ffffff">L4</text>
 </svg>

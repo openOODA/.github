@@ -2,6 +2,6 @@
   <rect width="512" height="512" fill="#05070a"/>
   <rect x="24" y="24" width="464" height="464" fill="none" stroke="#ffffff" stroke-width="16"/>
   <rect x="24" y="24" width="464" height="96" fill="#d500f9"/>
-  <text x="256" y="92" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="56" font-weight="900" fill="#ffffff">APPS</text>
-  <text x="256" y="352" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="216" font-weight="900" fill="#ffffff">L5</text>
+  <text x="256" y="92" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="56" font-weight="900" fill="#ffffff">APPS</text>
+  <text x="256" y="352" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="216" font-weight="900" fill="#ffffff">L5</text>
 </svg>

@@ -5,5 +5,5 @@
   <rect x="196" y="120" width="120" height="120" rx="16" stroke="#ff3366" stroke-width="16" fill="none"/>
   <rect x="232" y="156" width="48" height="48" rx="6" fill="#ffffff"/>
   <path d="M226 96 V120 M286 96 V120 M226 240 V264 M286 240 V264 M172 150 H196 M172 210 H196 M316 150 H340 M316 210 H340" stroke="#ff3366" stroke-width="12" stroke-linecap="round"/>
-  <text x="256" y="408" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="120" font-weight="800" fill="#ffffff">L1</text>
+  <text x="256" y="408" text-anchor="middle" font-family="Noto Sans Mono, monospace" font-size="120" font-weight="800" fill="#ffffff">L1</text>
 </svg>
