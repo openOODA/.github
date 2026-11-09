@@ -1,63 +1,58 @@
-# OODA Verification Surface — SMT Contracts & TYPESTATE
-
-File: linguist/samples/OODA/contracts_typestate.oot
-
-Two compile-time verification surfaces ship in every `.oo` page:
-**SMT contracts** (`requires` / `ensures` / `spec`) checked by the
-ahead-of-time `QF_LIA` solver, and **TYPESTATE machines** checked by the
-`check_typestate` walker before codegen. Both fail closed: an unprovable
-clause or an illegal transition is a compile error, not a warning.
-
-## SMT requires / ensures
-
-`requires` narrows the legal input space; `ensures` binds the return
-value as `result` and states provable arithmetic facts. `spec` records
-the solver fragment for audit.
-
-```oo
-pub fn floor_div(num: Int, den: Int) -> Int
-    requires num >= 0 && den > 0
-    ensures result >= 0 && result * den <= num && num < (result + 1) * den
-    spec "Floor division satisfies the Euclidean identity under QF_LIA"
-{
-    return num / den;
-}
-```
-
-`verify` blocks carry `assert_eq!` negative-trust checks that run as the
-functional half of the two-test rule (functional + hostile-refusal).
-
-```oo
-verify smt_contracts_hold {
-    assert_eq!(floor_div(17, 5), 3);
-    assert_eq!(clamp(7, 0, 5), 5);
-}
-```
-
-## TYPESTATE state machines
-
-Machine declarations live in comments so the contract stays in the
-source: `TYPESTATE:` declares the machine and its state set,
-`TYPESTATE end` marks the terminal state, and `TYPESTATE fn` maps each
-function to one legal edge `From -> To`. The walker refuses skipped or
-repeated transitions (e.g. double `file_close` on a `Closed` handle).
-
-```oo
-// TYPESTATE: LinkSession Down Handshake Up Closed
-// TYPESTATE end Closed
-// TYPESTATE fn link_init: -> Down
-// TYPESTATE fn link_begin_handshake: Down -> Handshake
-// TYPESTATE fn link_complete_handshake: Handshake -> Up
-// TYPESTATE fn link_send: Up -> Up
-// TYPESTATE fn link_close: Up -> Closed
-```
-
-## Grammar scopes
-
-| Surface | TextMate scope |
-| :--- | :--- |
-| `requires` `ensures` `invariant` `decreases` `spec` `cap` `verify` | `keyword.control.contract.oo` |
-| `// TYPESTATE` directives | `comment.line.directive.typestate.oo` |
-| `assert_eq!` `println!` macros | `entity.name.function.macro.oo` |
-
-See `smt_contracts.oo` and `typestate_machine.oo` for the full pages.
+// # OODA Verification Surface — SMT Contracts & TYPESTATE
+//
+// File: linguist/samples/OODA/contracts_typestate.oot
+//
+// Two compile-time verification surfaces ship in every `.oo` page:
+// SMT contracts (`requires` / `ensures` / `spec`) checked by the
+// ahead-of-time `QF_LIA` solver, and TYPESTATE machines checked by the
+// `check_typestate` walker before codegen. Both fail closed: an
+// unprovable clause or an illegal transition is a compile error, not a
+// warning. (Fleet `.oot` docs also exist in `#`-markdown style; this
+// `//`-comment form is the oodar/docs convention and stays lexable.)
+//
+// ## SMT requires / ensures
+//
+// `requires` narrows the legal input space; `ensures` binds the return
+// value as `result` and states provable arithmetic facts. `spec` records
+// the solver fragment for audit.
+//
+//   pub fn floor_div(num: Int, den: Int) -> Int
+//       requires num >= 0 && den > 0
+//       ensures result >= 0 && result * den <= num && num < (result + 1) * den
+//       spec "Floor division satisfies the Euclidean identity under QF_LIA"
+//   {
+//       return num / den;
+//   }
+//
+// `verify` blocks carry `assert_eq!` negative-trust checks that run as the
+// functional half of the two-test rule (functional + hostile-refusal).
+//
+//   verify smt_contracts_hold {
+//       assert_eq!(floor_div(17, 5), 3);
+//       assert_eq!(clamp(7, 0, 5), 5);
+//   }
+//
+// ## TYPESTATE state machines
+//
+// Machine declarations live in comments so the contract stays in the
+// source: `TYPESTATE:` declares the machine and its state set,
+// `TYPESTATE end` marks the terminal state, and `TYPESTATE fn` maps each
+// function to one legal edge `From -> To`. The walker refuses skipped or
+// repeated transitions (e.g. double `file_close` on a `Closed` handle).
+//
+//   TYPESTATE: LinkSession Down Handshake Up Closed
+//   TYPESTATE end Closed
+//   TYPESTATE fn link_init: -> Down
+//   TYPESTATE fn link_begin_handshake: Down -> Handshake
+//   TYPESTATE fn link_complete_handshake: Handshake -> Up
+//   TYPESTATE fn link_send: Up -> Up
+//   TYPESTATE fn link_close: Up -> Closed
+//
+// ## Grammar scopes
+//
+//   requires ensures invariant decreases spec cap verify
+//       -> keyword.control.contract.oo
+//   // TYPESTATE directives -> comment.line.directive.typestate.oo
+//   assert_eq! println! macros -> entity.name.function.macro.oo
+//
+// See smt_contracts.oo and typestate_machine.oo for the full pages.

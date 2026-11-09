@@ -1,0 +1,37 @@
+// # liboodar.a Bare-Metal Veneer Declarations Sample
+//
+// Logline: Compile-time declarations for the zero-GC oodar substrate veneers that bare-metal .oo pages call.
+// Setup: In production these symbols are provided by liboodar.a at link time; they are declared here as
+//        minimal bodies so `oodac check` resolves the full capability-gated surface without the C archive.
+// Beats:
+//   1. oo_mmio_read8/write8/barrier form the memory-mapped I/O triple: poll status, push data, order access.
+//   2. oo_nostd_uart_init/uart_write drive the freestanding UART; oo_nostd_cap_mask reads the active cap bits.
+//   3. oo_nostd_alloc serves fixed-size slots from the static nostd arena; a null return means exhausted.
+
+pub fn oo_mmio_read8(addr: Int) -> Int {
+    return 0;
+}
+
+pub fn oo_mmio_write8(addr: Int, val: Int) -> Int {
+    return 0;
+}
+
+pub fn oo_mmio_barrier() -> Int {
+    return 0;
+}
+
+pub fn oo_nostd_uart_init(data_reg: Int, status_reg: Int) -> Int {
+    return 0;
+}
+
+pub fn oo_nostd_uart_write(buf: String, len: Int) -> Int {
+    return len;
+}
+
+pub fn oo_nostd_cap_mask() -> Int {
+    return 0;
+}
+
+pub fn oo_nostd_alloc(size: Int, align: Int) -> Int {
+    return 0;
+}

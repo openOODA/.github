@@ -1,64 +1,60 @@
-# OODA Zero-Trust Surface — CapReg64 & Bare-Metal oodar
-
-File: linguist/samples/OODA/capreg64_oodar.oot
-
-`CapReg64` is the single-cycle 64-bit capability register: the lower 32
-bits say **WHAT** (one bit per explicit capability, `0..31`), the upper
-32 bits say **HOW/WHEN**. A null register fails closed; there is no
-ambient authority anywhere in `oostd` or `oodar`.
-
-## Register layout
-
-```text
-[63:48] epoch16  |  [47:40] rights8  |  [39:32] badge8  |  [31:0] caps32
-```
-
-The 32 explicit capabilities split into 19 software/OS bits (`NetCap`,
-`ProcessCap`, `FsWriteCap`, `FsReadCap`, `SysCap`, `FsCap`, `TimeCap`,
-`RandCap`, `AllocCap`, `ArenaCap`, `FfiCap`, `MetricsCap`, `SignCap`,
-`TcpCap`/`TlsCap`, `UdpCap`, `BindCap`, `ThreadCap`, `EnvCap`,
-`CompilerReadCap`) and 13 hardware bits (`MmioCap`, `DmaCap`, `IrqCap`,
-`PciCap`, `AudioCap`, `CameraCap`, `UsbCap`, `HidCap`, `WindowCap`,
-`FrameCap`, `GpuCap`, `BlockCap`, `TpmCap`).
-
-## The fail-closed admit gate
-
-`cap_admit` is the canonical gate shape: `-13` on a null register, `-22`
-on out-of-field-width args checked BEFORE the masking call (a
-`req_rights` of `999` would silently narrow to `231` and wrongly pass),
-`-13` on `oo_cap_reg64_check` failure, `0` on admit. `req_caps` is
-hoisted into a `let` so the compiler counts arguments correctly.
-
-```oo
-fn cap_admit(reg64: Int, epoch: Int, req_rights: Int) -> Int {
-    let req_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
-    if reg64 == 0 { return -13; }
-    if epoch < 0 || req_rights < 0 || req_rights > 255 { return -22; }
-    if !oo_cap_reg64_check(reg64, epoch, req_rights, req_caps) { return -13; }
-    return 0;
-}
-```
-
-`oo_cap_reg64_attenuate` then restricts a parent register monotonically
-for child delegation; `oo_cap_privacy_attenuate` additionally strips
-network, camera, mic, and frame bits for privacy handoffs.
-
-## Bare-metal oodar substrate
-
-The `nostd` path of `liboodar.a` exports the freestanding veneers:
-`oo_mmio_read8/16/32/64`, `oo_mmio_write8/16/32/64`, `oo_mmio_barrier`,
-`oo_nostd_uart_init/read/write`, `oo_nostd_arena_init`,
-`oo_nostd_alloc`, `oo_nostd_cap_mask`, `oo_nostd_abort`,
-`oo_nostd_panic`. Every veneer takes an explicit token; a forged or
-missing token aborts at the cap check.
-
-```oo
-pub fn uart_putc(reg64: Int, epoch: Int, ch: Int) -> Int {
-    if uart_hw_admit(reg64, epoch) != 0 { return -13; }
-    while (oo_mmio_read8(536936452) & 32) == 0 { oo_mmio_barrier(); }
-    oo_mmio_write8(536936448, ch & 255);
-    return 0;
-}
-```
-
-See `capreg_attenuation.oo` and `bare_metal_oodar.oo` for the full pages.
+// # OODA Zero-Trust Surface — CapReg64 & Bare-Metal oodar
+//
+// File: linguist/samples/OODA/capreg64_oodar.oot
+//
+// `CapReg64` is the single-cycle 64-bit capability register: the lower 32
+// bits say WHAT (one bit per explicit capability, `0..31`), the upper 32
+// bits say HOW & WHEN. A null register fails closed; there is no ambient
+// authority anywhere in `oostd` or `oodar`.
+//
+// ## Register layout
+//
+//   [63:48] epoch16  |  [47:40] rights8  |  [39:32] badge8  |  [31:0] caps32
+//
+// The 32 explicit capabilities split into 19 software/OS bits (`NetCap`,
+// `ProcessCap`, `FsWriteCap`, `FsReadCap`, `SysCap`, `FsCap`, `TimeCap`,
+// `RandCap`, `AllocCap`, `ArenaCap`, `FfiCap`, `MetricsCap`, `SignCap`,
+// `TcpCap`/`TlsCap`, `UdpCap`, `BindCap`, `ThreadCap`, `EnvCap`,
+// `CompilerReadCap`) and 13 hardware bits (`MmioCap`, `DmaCap`, `IrqCap`,
+// `PciCap`, `AudioCap`, `CameraCap`, `UsbCap`, `HidCap`, `WindowCap`,
+// `FrameCap`, `GpuCap`, `BlockCap`, `TpmCap`).
+//
+// ## The fail-closed admit gate
+//
+// `cap_admit` is the canonical gate shape: `-13` on a null register,
+// `-22` on out-of-field-width args checked BEFORE the masking call (a
+// `req_rights` of `999` would silently narrow to `231` and wrongly
+// pass), `-13` on `oo_cap_reg64_check` failure, `0` on admit. `req_caps`
+// is hoisted into a `let` so the compiler counts arguments correctly.
+//
+//   fn cap_admit(reg64: Int, epoch: Int, req_rights: Int) -> Int {
+//       let req_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+//       if reg64 == 0 { return -13; }
+//       if epoch < 0 || req_rights < 0 || req_rights > 255 { return -22; }
+//       if !oo_cap_reg64_check(reg64, epoch, req_rights, req_caps) { return -13; }
+//       return 0;
+//   }
+//
+// `oo_cap_reg64_attenuate` then restricts a parent register monotonically
+// for child delegation; `oo_cap_privacy_attenuate` additionally strips
+// network, camera, mic, and frame bits for privacy handoffs.
+//
+// ## Bare-metal oodar substrate
+//
+// The `nostd` path of `liboodar.a` exports the freestanding veneers:
+// `oo_mmio_read8/16/32/64`, `oo_mmio_write8/16/32/64`, `oo_mmio_barrier`,
+// `oo_nostd_uart_init/read/write`, `oo_nostd_arena_init`, `oo_nostd_alloc`,
+// `oo_nostd_cap_mask`, `oo_nostd_abort`, `oo_nostd_panic`. Every veneer
+// takes an explicit token; a forged or missing token aborts at the cap
+// check. `samples/OODA/oodar_veneers.oo` declares the compile-time
+// surface that `oodac check` resolves.
+//
+//   pub fn uart_putc(reg64: Int, epoch: Int, ch: Int) -> Int {
+//       if uart_hw_admit(reg64, epoch) != 0 { return -13; }
+//       while (oo_mmio_read8(536936452) & 32) == 0 { oo_mmio_barrier(); }
+//       oo_mmio_write8(536936448, ch & 255);
+//       return 0;
+//   }
+//
+// See capreg_attenuation.oo, bare_metal_oodar.oo, and oodar_veneers.oo
+// for the full pages.

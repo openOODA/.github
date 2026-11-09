@@ -8,6 +8,7 @@
 //   3. oo_nostd_alloc serves DMA ring slots from a static arena; oo_mmio_barrier orders every access.
 
 import "oostd/sec/capreg.oo";
+import "oodar_veneers.oo";
 
 fn uart_hw_admit(reg64: Int, epoch: Int) -> Int {
     let mmio: Int = 1 << oo_cap_bit_index("MmioCap");

@@ -40,6 +40,11 @@ pub fn clamp(v: Int, lo: Int, hi: Int) -> Int
     return v;
 }
 
+/// Halves x; covers the /// doc-comment and Float literal surfaces.
+pub fn half(x: Float) -> Float {
+    return x / 2.0;
+}
+
 pub fn checked_div(num: Int, den: Int) -> Result[Int, String] {
     if den == 0 { return Err("checked_div: divisor is zero"); }
     return Ok(num / den);
