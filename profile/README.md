@@ -47,3 +47,12 @@ oopm install @all          # Complete L0–L7 stack
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-agents.png" width="28"> | **L7** | [`@openOODA-agents`](https://github.com/openOODA-agents) | Autonomous OODA Loops (`ooloop`, `ooswarm`), Falsification (`oofalsify`), Consensus (`ooconsensus`), Code (`oocode`), Memory, Quota, Govern |
 
 `oostd` (L0) ships the expanded scientific & mathematical discovery library: `oostd/core/math/{exact,geometry,blas,fft,algebra,graph_topology}/...`, `oostd/core/proofs/...`, `oostd/core/science/{phys,chem,bio,comm,econ}/...`, frontier AI-for-science `oostd/core/app/ai/...`, 2D/3D engine physics `oostd/core/app/ui/game_engine/...` (`collision_{aabb,circle,gjk,sat}` + `ecs_*`), `oostd/core/collection/...`, and `oostd/sec/{hash,capability,pqc,symmetric}/...`.
+
+## System Requirements
+
+| Tier | Target Workload | CPU & Architecture | Memory (RAM) | Storage | Host OS / Firmware |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tier 1: CLI / TUI & Tools** | Pre-built `L2`–`L5` tools, `idlescreen`, `ooflash` | `x86_64`, `ARM64` (`aarch64`), or `RISC-V` (`riscv64gc`) (1+ core) | **64 – 256 MiB** (`2–24 MiB` RSS per tool) | **10 – 250 MiB** (`~0.3–3 MiB` per static binary) | Linux `4.19+` (`5.15+` for `io_uring`/Landlock), openOODA OS, Windows 10/11 (`PE32+`), macOS, WASM32 |
+| **Tier 2: Bare-Metal OS & Desktop** | `ooboot` + `ookernel` + `oode` (`oocomp`, `ooterm`, `oobrowser`, 128 Hz engines) | 2+ cores (`4+` recommended for 128 Hz physics) | **512 MiB** min (TUI) / **2 – 4 GiB** rec (full Wayland desktop & 3D apps) | **1 – 4 GiB** NVMe / VirtIO-Blk / AHCI / USB (`oofs-core`) | UEFI (`x86_64` / `AA64`) with GOP framebuffer or DRM-KMS / VirtIO-GPU |
+| **Tier 3: Developer Workstation** | Building from source with `oodac`, SMT/Z3 proofs & 8-hat `oohat` verification | 4+ cores / 8+ threads (`16+` threads recommended) | **8 – 16 GiB** min (`3` compiler slots) / **32 – 64 GiB+** rec (`8` slots) | **20 – 50 GiB** NVMe SSD (107 repos + `.ooda-cache`) | Linux `x86_64` / `ARM64` or openOODA Buildbox container |
+| **Tier 4: AI & Frontier Science** | Local `L7` agent swarm (`ooaid`, `oocoder`) & `oostd` GPU compute kernels | Multi-core CPU + NVIDIA (`CUDA` SM 7.5+) or AMD (`ROCm`) GPU | **16 GiB+** system RAM + **8 – 24 GiB+ VRAM** per GPU | **50 GiB+** NVMe SSD (local model weights & telemetry) | Linux / openOODA OS with CUDA, ROCm, or Vulkan compute (automatic CPU fallback) |
