@@ -1,0 +1,56 @@
+// # CapReg64 Attenuation & Fail-Closed Admit Gate Sample
+//
+// Logline: Pack a parent CapReg64, admit via the -13/-22 fail-closed gate, attenuate to a child, prove restriction.
+// Setup: Register layout [63:48] epoch16 | [47:40] rights8 | [39:32] badge8 | [31:0] caps32. Zero ambient authority.
+// Beats:
+//   1. cap_admit returns -13 on null reg, -22 on out-of-field-width args BEFORE the mask check, -13 on check failure, else 0.
+//   2. oo_cap_reg64_attenuate monotonically restricts rights and caps for child delegation.
+//   3. verify blocks run the six negative-trust asserts against the gate and the child register.
+
+import "oostd/sec/capreg.oo";
+
+fn cap_admit(reg64: Int, epoch: Int, req_rights: Int) -> Int {
+    let req_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+    if reg64 == 0 { return -13; }
+    if epoch < 0 || req_rights < 0 || req_rights > 255 { return -22; }
+    if !oo_cap_reg64_check(reg64, epoch, req_rights, req_caps) { return -13; }
+    return 0;
+}
+
+pub fn read_sector(reg64: Int, epoch: Int, sector: Int) -> Int {
+    if sector < 0 { return 0; }
+    return sector * 512;
+}
+
+pub fn read_sector_gated(reg64: Int, epoch: Int, sector: Int) -> Int {
+    if cap_admit(reg64, epoch, 1) != 0 { return 0; }
+    return read_sector(reg64, epoch, sector);
+}
+
+pub fn child_register(parent: Int, badge: Int) -> Int {
+    let child_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+    return oo_cap_reg64_attenuate(parent, 1, badge, child_caps);
+}
+
+verify capreg_gate_negative_trust {
+    let caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+    let reg64: Int = oo_cap_reg64_pack(7, 1, 1, caps);
+    assert_eq!(cap_admit(reg64, 7, 1), 0);
+    assert_eq!(cap_admit(0, 7, 1), -13);
+    assert_eq!(cap_admit(reg64, 8, 1), -13);
+    let net_caps: Int = 1 << oo_cap_bit_index("NetCap");
+    let net_only: Int = oo_cap_reg64_pack(7, 1, 1, net_caps);
+    assert_eq!(cap_admit(net_only, 7, 1), -13);
+    assert_eq!(cap_admit(reg64, 7, 999), -22);
+    assert_eq!(read_sector_gated(0, 7, 4), 0);
+}
+
+verify capreg_attenuate_monotone {
+    let fsr: Int = 1 << oo_cap_bit_index("FsReadCap");
+    let fsw: Int = 1 << oo_cap_bit_index("FsWriteCap");
+    let both_caps: Int = fsr | fsw;
+    let parent: Int = oo_cap_reg64_pack(7, 255, 1, both_caps);
+    let child: Int = child_register(parent, 9);
+    assert_eq!(oo_cap_reg64_check(child, 7, 1, fsr), true);
+    assert_eq!(oo_cap_reg64_check(child, 7, 1, fsw), false);
+}

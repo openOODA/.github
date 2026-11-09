@@ -1,0 +1,59 @@
+// # Bare-Metal oodar Integration Sample
+//
+// Logline: Capability-gated MMIO UART bring-up on the zero-GC oodar substrate: admit a hardware reg64, drain TX, poll RX.
+// Setup: MmioCap bit 13 plus IrqCap bit 15 packed into one CapReg64; every oodar veneer refuses a forged or missing token.
+// Beats:
+//   1. uart_hw_admit packs the hardware cap mask and admits the register before any MMIO address is touched.
+//   2. oo_nostd_uart_init binds data/status registers; oo_mmio_write8 pushes bytes once TX-empty (status bit 5).
+//   3. oo_nostd_alloc serves DMA ring slots from a static arena; oo_mmio_barrier orders every access.
+
+import "oostd/sec/capreg.oo";
+
+fn uart_hw_admit(reg64: Int, epoch: Int) -> Int {
+    let mmio: Int = 1 << oo_cap_bit_index("MmioCap");
+    let irq: Int = 1 << oo_cap_bit_index("IrqCap");
+    let req_caps: Int = mmio | irq;
+    if reg64 == 0 { return -13; }
+    if epoch < 0 { return -22; }
+    if !oo_cap_reg64_check(reg64, epoch, 1, req_caps) { return -13; }
+    return 0;
+}
+
+pub fn uart_putc(reg64: Int, epoch: Int, ch: Int) -> Int {
+    if uart_hw_admit(reg64, epoch) != 0 { return -13; }
+    let status: Int = 536936452;
+    while (oo_mmio_read8(status) & 32) == 0 {
+        oo_mmio_barrier();
+    }
+    oo_mmio_write8(536936448, ch & 255);
+    return 0;
+}
+
+pub fn uart_getc(reg64: Int, epoch: Int) -> Int {
+    if uart_hw_admit(reg64, epoch) != 0 { return -13; }
+    let status: Int = 536936452;
+    if (oo_mmio_read8(status) & 1) == 0 { return -1; }
+    return oo_mmio_read8(536936448);
+}
+
+pub fn dma_ring_grab(reg64: Int, epoch: Int, slots: Int) -> Result[Int, String]
+    requires slots > 0 && slots <= 256
+{
+    if uart_hw_admit(reg64, epoch) != 0 {
+        return Err("refused: hardware reg64 admit failed");
+    }
+    let p: Int = oo_nostd_alloc(slots * 64, 64);
+    if p == 0 { return Err("refused: nostd arena exhausted"); }
+    return Ok(p);
+}
+
+pub fn main(reg64: Int, epoch: Int) -> Int {
+    if uart_hw_admit(reg64, epoch) != 0 { return 1; }
+    oo_nostd_uart_init(536936448, 536936452);
+    let sent: Int = oo_nostd_uart_write("OODA-L0\n", 8);
+    let mask: Int = oo_nostd_cap_mask();
+    let mmio: Int = 1 << oo_cap_bit_index("MmioCap");
+    if (mask & mmio) == 0 { return 3; }
+    if uart_putc(reg64, epoch, 88) != 0 { return 4; }
+    return sent - 8;
+}

@@ -1,8 +1,34 @@
-# Official github-linguist/linguist heuristics.yml disambiguation rule for OODA (.oo / .oot)
+# Official github-linguist/linguist heuristics.yml disambiguation rules for OODA (.oo / .oot)
+# First matching rule wins; each rule names a distinctive .oo surface that no
+# conflicting language emits: Academy doc headers, TYPESTATE directives, string
+# imports, contract clauses, &XxxCap capability references, -> Result[T, E]
+# returns, oo_* runtime veneers, and the SCHEMA: OODA marker.
 disambiguations:
   - extensions:
       - ".oo"
       - ".oot"
     rules:
       - language: OODA
-        pattern: '^\s*(//\s*#|import\s+"[^"]+\.oo"|pub\s+fn\s+|fn\s+[a-z_][a-zA-Z0-9_]*\s*\(|struct\s+[A-Z]|enum\s+[A-Z]|requires\s+|ensures\s+|SCHEMA:\s+OODA)'
+        pattern: '^\s*//\s*(#|Logline:|Setup:|Beats:|TYPESTATE)'
+      - language: OODA
+        pattern: '^\s*import\s+"[^"]+\.oo"\s*;'
+      - language: OODA
+        pattern: '^\s*(pub\s+)?fn\s+[a-z_][a-zA-Z0-9_]*\s*\('
+      - language: OODA
+        pattern: '^\s*(pub\s+)?type\s+[A-Z][A-Za-z0-9_]*\s*=\s*(struct|[A-Z])'
+      - language: OODA
+        pattern: '^\s*(struct|enum)\s+[A-Z][A-Za-z0-9_]*'
+      - language: OODA
+        pattern: '^\s*(requires|ensures|invariant|decreases|verify)\s'
+      - language: OODA
+        pattern: '^\s*spec\s+"'
+      - language: OODA
+        pattern: ':\s*&[A-Z][A-Za-z0-9_]*Cap\b'
+      - language: OODA
+        pattern: '->\s*(Result|Option|List)\s*\['
+      - language: OODA
+        pattern: '\b(oo|rt)_(cap|mmio|nostd|alloc|read|write|free|monotonic)_[a-z0-9_]*\s*\('
+      - language: OODA
+        pattern: '\boo_cap_(reg64|bit_index)_[a-z0-9_]*\s*\(|\boo_cap_(pack|check|attenuate|args_ok)\s*\('
+      - language: OODA
+        pattern: 'SCHEMA:\s*OODA'

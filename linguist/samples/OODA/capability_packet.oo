@@ -9,29 +9,31 @@
 
 import "oostd/sec/capreg.oo";
 
-pub struct PacketHeader {
+type PacketHeader = struct {
     magic: Int,
     epoch: Int,
     payload_len: Int
-}
+};
 
 pub fn verify_header(hdr: PacketHeader, reg64: Int) -> Result[Int, String]
     requires hdr.payload_len >= 0 && hdr.payload_len <= 65536
     ensures result >= 0
 {
-    if !oo_cap_reg64_admit(reg64, 1) {
+    let req_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+    if !oo_cap_reg64_check(reg64, hdr.epoch, 1, req_caps) {
         return Err("refused: capability epoch or rights mask rejected");
     }
-    if hdr.magic != 0x4F4F4441 {
-        return Err("refused: invalid OODA packet magic");
+    if hdr.magic != 1330921057 {
+        return Err("refused: invalid OODA packet magic 0x4F4F4441");
     }
     return Ok(hdr.payload_len);
 }
 
 pub fn main(fs: &FsReadCap, args: List[String]) -> Int {
-    let reg64: Int = oo_cap_reg64_pack(1, 1, 1, 1);
+    let caps: Int = 1 << oo_cap_bit_index("FsReadCap");
+    let reg64: Int = oo_cap_reg64_pack(1, 1, 1, caps);
     let hdr: PacketHeader = PacketHeader {
-        magic: 0x4F4F4441,
+        magic: 1330921057,
         epoch: 1,
         payload_len: 256
     };

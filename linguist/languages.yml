@@ -1,4 +1,7 @@
 # Official github-linguist/linguist languages.yml entry for OODA (.oo / .oot)
+# Grammar:  grammars/oo.tmLanguage.json  (scopeName source.oo == tm_scope below)
+# Heuristics: heuristics.yml             (disambiguation rules for .oo/.oot)
+# Samples:  samples/OODA/*.oo *.oot      (SMT contracts, TYPESTATE, CapReg64, oodar)
 OODA:
   type: programming
   color: "#FF6B00"

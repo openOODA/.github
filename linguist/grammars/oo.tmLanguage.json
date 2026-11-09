@@ -20,10 +20,10 @@
       "include": "#keywords"
     },
     {
-      "include": "#types"
+      "include": "#capabilities"
     },
     {
-      "include": "#capabilities"
+      "include": "#types"
     },
     {
       "include": "#strings"
@@ -32,7 +32,13 @@
       "include": "#numbers"
     },
     {
+      "include": "#attributes"
+    },
+    {
       "include": "#operators"
+    },
+    {
+      "include": "#builtins"
     },
     {
       "include": "#functions"
@@ -41,6 +47,14 @@
   "repository": {
     "comments": {
       "patterns": [
+        {
+          "name": "comment.line.triple-slash.documentation.oo",
+          "match": "///.*$"
+        },
+        {
+          "name": "comment.line.directive.typestate.oo",
+          "match": "//\\s*TYPESTATE\\b.*$"
+        },
         {
           "name": "comment.line.double-slash.documentation.oo",
           "match": "//\\s*(#|Logline:|Setup:|Beats:).*$"
@@ -55,7 +69,7 @@
       "patterns": [
         {
           "name": "keyword.control.contract.oo",
-          "match": "\\b(requires|ensures|invariant|decreases|TYPESTATE|cap)\\b"
+          "match": "\\b(requires|ensures|invariant|decreases|spec|cap|verify)\\b"
         }
       ]
     },
@@ -63,11 +77,19 @@
       "patterns": [
         {
           "name": "storage.modifier.oo",
-          "match": "\\b(pub|mut|const|extern)\\b"
+          "match": "\\b(pub|mut|const|extern|export)\\b"
         },
         {
           "name": "keyword.other.declaration.oo",
-          "match": "\\b(fn|let|struct|enum|type|import|impl|trait)\\b"
+          "match": "\\b(fn|let|struct|enum|type|import|impl|trait|newtype|where|gpu)\\b"
+        },
+        {
+          "name": "entity.name.function.declaration.oo",
+          "match": "(?<=\\bfn\\s)[a-z_][a-zA-Z0-9_]*"
+        },
+        {
+          "name": "entity.name.type.declaration.oo",
+          "match": "(?<=\\btype\\s)[A-Z][A-Za-z0-9_]*"
         }
       ]
     },
@@ -79,7 +101,27 @@
         },
         {
           "name": "constant.language.boolean.oo",
-          "match": "\\b(true|false|Ok|Err|Some|None)\\b"
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "name": "constant.language.variant.oo",
+          "match": "\\b(Ok|Err|Some|None)\\b"
+        },
+        {
+          "name": "variable.language.wildcard.oo",
+          "match": "\\b_\\b"
+        }
+      ]
+    },
+    "capabilities": {
+      "patterns": [
+        {
+          "name": "support.type.capability.reference.oo",
+          "match": "&[A-Z][A-Za-z0-9_]*Cap\\b"
+        },
+        {
+          "name": "support.type.capability.oo",
+          "match": "\\b(NetCap|ProcessCap|FsWriteCap|FsReadCap|SysCap|FsCap|TimeCap|RandCap|AllocCap|ArenaCap|FfiCap|MetricsCap|SignCap|MmioCap|DmaCap|IrqCap|PciCap|TlsCap|TcpCap|UdpCap|BindCap|AudioCap|CameraCap|UsbCap|HidCap|WindowCap|FrameCap|ThreadCap|GpuCap|EnvCap|CompilerReadCap|BlockCap|TpmCap|Cap|CapReg64|CapDescriptor256|CSpaceTable|CdtTree)\\b"
         }
       ]
     },
@@ -87,19 +129,11 @@
       "patterns": [
         {
           "name": "storage.type.primitive.oo",
-          "match": "\\b(Int|Float|Bool|String|List|Result|Option|Void| u8|u16|u32|u64|i8|i16|i32|i64)\\b"
+          "match": "\\b(Int|Float|Bool|String|List|Result|Option|Void|f64|u8|u16|u32|u64|i8|i16|i32|i64)\\b"
         },
         {
           "name": "entity.name.type.oo",
           "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
-        }
-      ]
-    },
-    "capabilities": {
-      "patterns": [
-        {
-          "name": "support.type.capability.oo",
-          "match": "\\b(Cap|CapReg64|FsReadCap|FsWriteCap|NetCap|EnvCap|ProcCap|TimeCap|EntropyCap|GpuCap|IpcCap|SysCap)\\b"
         }
       ]
     },
@@ -122,7 +156,15 @@
       "patterns": [
         {
           "name": "constant.numeric.hex.oo",
-          "match": "\\b0x[0-9a-fA-F_]+\\b"
+          "match": "\\b0x[0-9a-fA-F][0-9a-fA-F_]*\\b"
+        },
+        {
+          "name": "constant.numeric.binary.oo",
+          "match": "\\b0b[01][01_]*\\b"
+        },
+        {
+          "name": "constant.numeric.octal.oo",
+          "match": "\\b0o[0-7][0-7_]*\\b"
         },
         {
           "name": "constant.numeric.float.oo",
@@ -134,11 +176,35 @@
         }
       ]
     },
+    "attributes": {
+      "patterns": [
+        {
+          "name": "entity.other.attribute-name.oo",
+          "match": "@[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
     "operators": {
       "patterns": [
         {
           "name": "keyword.operator.oo",
-          "match": "(->|=>|==|!=|<=|>=|&&|\\|\\||<<|>>|[+\\-*/%&|^!<>]=?)"
+          "match": "(\\.\\.=|\\.\\.|->|=>|==|!=|<=|>=|&&|\\|\\||<<|>>|[+\\-*/%&|^!<>=?:@])"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "entity.name.function.macro.oo",
+          "match": "\\b[a-z_][a-zA-Z0-9_]*(?=\\s*!)"
+        },
+        {
+          "name": "support.function.builtin.oo",
+          "match": "\\b(println|process_exit|panic|assert|assert_eq|list_len|list_new|list_push|list_get|chars_len|char_at|str_slice|mk_raw|hex_decode)(?=\\s*\\()"
+        },
+        {
+          "name": "support.function.runtime.oo",
+          "match": "\\b(oo|rt)_[a-z0-9_]+(?=\\s*\\()"
         }
       ]
     },

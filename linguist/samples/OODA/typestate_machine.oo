@@ -1,0 +1,57 @@
+// # TYPESTATE Link-Session State Machine Sample
+//
+// Logline: A compiler-checked session lifecycle: check_typestate refuses call orders that skip or repeat a transition.
+// Setup: TYPESTATE directives live in comments so the contract stays in the source; each fn maps a legal state edge.
+// Beats:
+//   1. Declare LinkSession with Down, Handshake, Up, and terminal Closed states.
+//   2. Map fns to edges; transitions may fan back (rekey) only along declared edges.
+//   3. drive_link walks init -> handshake -> complete -> send -> rekey -> close.
+
+// TYPESTATE: LinkSession Down Handshake Up Closed
+// TYPESTATE end Closed
+// TYPESTATE fn link_init: -> Down
+// TYPESTATE fn link_begin_handshake: Down -> Handshake
+// TYPESTATE fn link_complete_handshake: Handshake -> Up
+// TYPESTATE fn link_rekey: Up -> Handshake
+// TYPESTATE fn link_send: Up -> Up
+// TYPESTATE fn link_close: Up -> Closed
+// TYPESTATE fn link_abort: Handshake -> Closed
+
+fn link_init() -> Int {
+    return 0;
+}
+
+fn link_begin_handshake(l: Int) -> Int {
+    return l + 1;
+}
+
+fn link_complete_handshake(l: Int) -> Int {
+    return l + 1;
+}
+
+fn link_rekey(l: Int) -> Int {
+    return l - 1;
+}
+
+fn link_send(l: Int) -> Int {
+    return l + 8;
+}
+
+fn link_close(l: Int) -> Int {
+    return l;
+}
+
+fn link_abort(l: Int) -> Int {
+    return l;
+}
+
+pub fn drive_link() -> Int {
+    let l0: Int = link_init();
+    let l1: Int = link_begin_handshake(l0);
+    let l2: Int = link_complete_handshake(l1);
+    let l3: Int = link_send(l2);
+    let l4: Int = link_rekey(l3);
+    let l5: Int = link_complete_handshake(l4);
+    let l6: Int = link_send(l5);
+    return link_close(l6);
+}
