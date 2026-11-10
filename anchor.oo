@@ -1,12 +1,17 @@
-// # .github Root Anchor - Linguist Sample Set Re-Export
+// # .github Root Anchor - Org Metadata & Linguist Sample Conformance Surface
 //
-// Logline: Re-exports the repository's compilable no-main .oo linguist samples as one anchor page.
-// Setup: Samples live under linguist/samples/OODA/; pages with pub fn main stay standalone binaries.
+// Logline: Re-exports the org-metadata checkers, the oogithub CLI subsystem, and the
+//          repository's compilable no-main .oo linguist samples as one anchor page.
+// Setup: core/ carries meta_check + meta_law; cli/ carries the oogithub entrypoint;
+//        linguist/samples/OODA/ carries the compilable CapReg64/typestate/SMT pages.
 // Beats:
-//   1. capreg_attenuation carries the fail-closed CapReg64 admit gate.
-//   2. typestate_machine carries the compile-time link-state machine.
-//   3. smt_contracts carries requires/ensures verified arithmetic.
+//   1. core/meta_check.oo owns the census, repo-count, org-link, and member folds.
+//   2. core/meta_law.oo owns the root, brand, linguist, and docs laws.
+//   3. capreg_attenuation / typestate_machine / smt_contracts anchor the sample surface.
 
+import "core/meta_check.oo";
+import "core/meta_law.oo";
+import "cli/anchor.oo";
 import "linguist/samples/OODA/capreg_attenuation.oo";
 import "linguist/samples/OODA/typestate_machine.oo";
 import "linguist/samples/OODA/smt_contracts.oo";

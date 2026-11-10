@@ -1,0 +1,89 @@
+// # .github Metadata Law Checker - Root, Brand, Linguist & Docs Invariants
+//
+// Logline: Prove the 11-entry root, 56 brand icons, linguist package, and canonical docs.
+// Setup: Explicit FsReadCap; bounded reads and path probes inside the fs jail; fail closed.
+// Beats:
+//   1. meta_root_ok probes the canonical 8-entry root plus profile/, brand/, linguist/.
+//   2. meta_brand_ok walks 9 orgs x 3 option themes x png+svg plus the avatar pair.
+//   3. meta_linguist_ok probes the package files and all 9 compilable samples.
+
+pub fn meta_title_ok(src: String) -> Bool {
+    let t: String = str_trim(src);
+    if !str_starts_with(t, "# .github (openOODA)") { return false; }
+    return str_contains(t, "Organization Profile");
+}
+
+pub fn meta_root_ok(fs: &FsReadCap) -> Bool {
+    if !path_exists(fs, "AGENTS.md") || !path_exists(fs, "README.md") { return false; }
+    if !path_exists(fs, "Makefile") || !path_exists(fs, "ooda.pkg") { return false; }
+    if !path_exists(fs, "anchor.oo") || !path_exists(fs, "cli") { return false; }
+    if !path_exists(fs, "core") || !path_exists(fs, "tests") { return false; }
+    if !path_exists(fs, "profile") || !path_exists(fs, "brand") { return false; }
+    return path_exists(fs, "linguist");
+}
+
+pub fn meta_brand_ok(fs: &FsReadCap) -> Bool {
+    if !path_exists(fs, "brand/avatar.png") { return false; }
+    if !path_exists(fs, "brand/avatar.svg") { return false; }
+    let orgs: List[String] = str_split("openOODA openOODA-core openOODA-kernel " +
+        "openOODA-OS openOODA-tools openOODA-DE openOODA-apps openOODA-cloud " +
+        "openOODA-agents", " ");
+    let opts: List[String] = str_split("option-a option-b option-c", " ");
+    let mut i: Int = 0;
+    while i < list_len(orgs) {
+        let mut j: Int = 0;
+        while j < list_len(opts) {
+            let p: String = "brand/" + list_get(opts, j) + "/" + list_get(orgs, i);
+            if !path_exists(fs, p + ".png") { return false; }
+            if !path_exists(fs, p + ".svg") { return false; }
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+    return path_exists(fs, "brand/README.md");
+}
+
+pub fn meta_linguist_ok(fs: &FsReadCap) -> Bool {
+    if !path_exists(fs, "linguist/Makefile") { return false; }
+    if !path_exists(fs, "linguist/validate.py") { return false; }
+    if !path_exists(fs, "linguist/heuristics.yml") { return false; }
+    if !path_exists(fs, "linguist/grammars/oo.tmLanguage.json") { return false; }
+    let lr: Result[String, String] = oo_read_file(fs, "linguist/languages.yml");
+    if lr.is_err() { return false; }
+    let l: String = match lr { Ok(s) => s, Err(_) => "" };
+    if !str_contains(l, "OODA:") { return false; }
+    if !str_contains(l, "tm_scope: source.oo") { return false; }
+    let ar: Result[String, String] = oo_read_file(fs, ".gitattributes");
+    if ar.is_err() { return false; }
+    let a: String = match ar { Ok(s) => s, Err(_) => "" };
+    if !str_contains(a, "linguist-language=OODA") { return false; }
+    if !str_contains(a, "*.oot") { return false; }
+    let samples: List[String] = str_split("bare_metal_oodar.oo capability_packet.oo " +
+        "capreg64_oodar.oot capreg_attenuation.oo contracts_typestate.oot " +
+        "oodar_veneers.oo smt_contracts.oo typestate_machine.oo verify_contracts.oo", " ");
+    let mut i: Int = 0;
+    while i < list_len(samples) {
+        if !path_exists(fs, "linguist/samples/OODA/" + list_get(samples, i)) { return false; }
+        i = i + 1;
+    }
+    return true;
+}
+
+pub fn meta_docs_ok(fs: &FsReadCap) -> Bool {
+    let ar: Result[String, String] = oo_read_file(fs, "AGENTS.md");
+    if ar.is_err() { return false; }
+    let a: String = match ar { Ok(s) => s, Err(_) => "" };
+    if !meta_title_ok(a) { return false; }
+    let rr: Result[String, String] = oo_read_file(fs, "README.md");
+    if rr.is_err() { return false; }
+    let r: String = match rr { Ok(s) => s, Err(_) => "" };
+    if !str_contains(r, "profile/README.md") { return false; }
+    return str_contains(r, "brand/");
+}
+
+pub fn meta_law_ok(fs: &FsReadCap) -> Bool {
+    if !meta_root_ok(fs) { return false; }
+    if !meta_brand_ok(fs) { return false; }
+    if !meta_linguist_ok(fs) { return false; }
+    return meta_docs_ok(fs);
+}

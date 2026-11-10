@@ -1,0 +1,10 @@
+// # oogithub CLI Subsystem Anchor
+//
+// Logline: Re-exports the verb renderers and component identity for the oogithub CLI surface (main.oo stays the lone entry page).
+// Setup: Pure subsystem anchor shim for cli/ pages (3 sibling pages total).
+// Beats:
+//   1. Export verbs.oo for check/audit/status/census/about/theme rendering.
+//   2. Export component.oo for canonical name/version/layer identity.
+
+import "verbs.oo";
+import "component.oo";

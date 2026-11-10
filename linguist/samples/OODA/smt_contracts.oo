@@ -1,11 +1,11 @@
 // # SMT requires/ensures Contract Sample
 //
-// Logline: Compile-time SMT contracts: requires preconditions, ensures postconditions on result, spec strings, verify asserts.
+// Logline: Compile-time SMT contracts: requires preconditions, ensures postconditions on result, spec strings.
 // Setup: Pure integer functions checked by the ahead-of-time QF_LIA solver; every clause is proved or refused before codegen.
 // Beats:
 //   1. requires narrows the legal input space (divisor > 0, lo <= hi, non-negative operands).
 //   2. ensures binds the return value as result and states provable arithmetic facts.
-//   3. spec records the solver fragment; verify runs assert_eq! negative-trust checks.
+//   3. spec records the solver fragment; verify_contracts.oo runs the negative-trust checks.
 
 pub fn floor_div(num: Int, den: Int) -> Int
     requires num >= 0 && den > 0
@@ -48,14 +48,4 @@ pub fn half(x: Float) -> Float {
 pub fn checked_div(num: Int, den: Int) -> Result[Int, String] {
     if den == 0 { return Err("checked_div: divisor is zero"); }
     return Ok(num / den);
-}
-
-verify smt_contracts_hold {
-    assert_eq!(floor_div(17, 5), 3);
-    assert_eq!(floor_div(0, 5), 0);
-    assert_eq!(gcd(12, 18), 6);
-    assert_eq!(clamp(7, 0, 5), 5);
-    assert_eq!(clamp(3, 0, 5), 3);
-    let r: Result[Int, String] = checked_div(10, 0);
-    assert_eq!(r.is_err(), true);
 }

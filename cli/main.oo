@@ -1,0 +1,112 @@
+// # oogithub Metadata CLI - Self-Verification Entrypoint
+//
+// Logline: Zero ambient authority CLI for the organization profile & governance
+//          metadata host - verifies the L0-L7 census, org links, brand icons, and
+//          linguist package over real reads; fails closed.
+// Setup: Explicit FsReadCap + EnvCap; exact exit codes (0 pass, 1 failure, 2 refusal).
+// Beats:
+//   1. oogithub_bad_arg refuses unknown flags, --persona/--mode personas, and '..' traversal.
+//   2. oogithub_run_cli routes help/version/about/census/theme/check/audit/status/self-test.
+//   3. oogithub_selftest re-verifies the pure checkers on literal fixtures.
+
+import "core/meta_check.oo";
+import "core/meta_law.oo";
+import "oostd/core/primitives/str_extra.oo";
+import "cli/component.oo";
+import "cli/verbs.oo";
+
+fn oogithub_bad_arg(args: List[String]) -> Int {
+    let mut i: Int = 0;
+    while i < list_len(args) {
+        let a: String = list_get(args, i);
+        if str_contains(a, "..") { return i; }
+        if a == "--persona" || a == "--personas" || a == "--mode" { return i; }
+        if str_starts_with(a, "--") && a != "--json" && a != "--help" &&
+            a != "--version" && a != "--self-test" && !str_starts_with(a, "--tui") { return i; }
+        i = i + 1;
+    }
+    return 0 - 1;
+}
+
+fn oogithub_json(args: List[String]) -> Bool {
+    let mut i: Int = 0;
+    while i < list_len(args) {
+        if list_get(args, i) == "--json" { return true; }
+        i = i + 1;
+    }
+    return false;
+}
+
+fn oogithub_target_ok(args: List[String]) -> Bool {
+    let mut i: Int = 1;
+    while i < list_len(args) {
+        let a: String = list_get(args, i);
+        if !str_starts_with(a, "-") && a != "." { return false; }
+        i = i + 1;
+    }
+    return true;
+}
+
+pub fn oogithub_selftest(fs: &FsReadCap) -> Bool {
+    if meta_ver_num(oogithub_version()) < 0 { return false; }
+    if !meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") { return false; }
+    let zsrc: String = "| `5` | `8` | `9` | `39` | `16` | `97` `105` `110`" +
+        " ooagent-hud +ooquota";
+    if meta_counts(zsrc) != 5 || meta_census(zsrc) != 5 { return false; }
+    let osrc: String = "github.com/openOODA) github.com/openOODA-core)" +
+        " github.com/openOODA-kernel) github.com/openOODA-OS)" +
+        " github.com/openOODA-tools) github.com/openOODA-DE)" +
+        " github.com/openOODA-apps) github.com/openOODA-cloud)" +
+        " github.com/openOODA-agents)";
+    if meta_orgs(osrc) != 9 { return false; }
+    let msrc: String = "oodac ookernel ooinit ootheme oocomp oobrowser oomesh ooloop oobench";
+    if meta_members(msrc) != 9 { return false; }
+    if !meta_title_ok("# .github (openOODA) - Organization Profile x\n") { return false; }
+    return meta_repo_ok(fs);
+}
+
+pub fn oogithub_run_cli(fs: &FsReadCap, env: &EnvCap, args: List[String]) -> Int {
+    let ver: String = oogithub_version();
+    if list_len(args) == 0 { return oogithub_help(ver); }
+    let a0: String = list_get(args, 0);
+    let bad: Int = oogithub_bad_arg(args);
+    if bad >= 0 {
+        println("oogithub " + ver + ": refused argument " + list_get(args, bad));
+        return 2;
+    }
+    let json: Bool = oogithub_json(args);
+    if a0 == "-h" || a0 == "--help" { return oogithub_help(ver); }
+    if a0 == "-v" || a0 == "--version" {
+        println("oogithub " + ver);
+        return 0;
+    }
+    if a0 == "theme" || a0 == "--tui" || str_starts_with(a0, "--tui=") {
+        return oogithub_theme(env, args, ver);
+    }
+    if a0 == "--self-test" {
+        if oogithub_selftest(fs) {
+            println("oogithub " + ver + ": PASS (self-test)");
+            return 0;
+        }
+        println("oogithub " + ver + ": FAIL (self-test)");
+        return 1;
+    }
+    if a0 == "about" || a0 == "census" || a0 == "status" ||
+        a0 == "check" || a0 == "verify" || a0 == "audit" {
+        if !oogithub_target_ok(args) {
+            println("oogithub " + ver + ": self-verification target must be the repository root '.'");
+            return 2;
+        }
+        if a0 == "about" { return oogithub_about(); }
+        if a0 == "census" { return oogithub_census(fs); }
+        if a0 == "status" { return oogithub_status(fs); }
+        return oogithub_report(fs, json, a0 == "audit");
+    }
+    if a0 == "--json" { return oogithub_report(fs, true, false); }
+    println("oogithub " + ver + ": unknown argument " + a0);
+    return 2;
+}
+
+pub fn main(fs_r: &FsReadCap, env: &EnvCap, args: List[String]) -> Int {
+    return oogithub_run_cli(fs_r, env, args);
+}

@@ -1,17 +1,17 @@
-// # Linguist Samples Refusal Suite - Negative-Trust Assertions
+// # .github Refusal Suite - Negative-Trust Assertions
 //
-// Logline: Negative-trust assertions over forged registers, stale epochs, zero divisors, and path
-//          traversal against the repository's compilable no-main .oo linguist samples.
-// Setup: Imports the sample set and the canonical CapReg64 primitives it wraps; FsReadCap for the
-//        bounded traversal attempt.
+// Logline: Forged registers, stale epochs, zero divisors, forged censuses, and traversal refuse.
+// Setup: Imports the emit-safe sample set, CapReg64 primitives, and the meta_check/meta_law pages.
 // Beats:
 //   1. Forged, stale, and wrong-capability registers are refused by the fail-closed gate.
 //   2. checked_div refuses a zero divisor; out-of-range sector reads normalize to zero.
-//   3. The fs jail refuses a parent-directory traversal read.
+//   3. Forged censuses/counts, missing orgs, bad semver, and traversal all refuse.
 
 import "linguist/samples/OODA/capreg_attenuation.oo";
 import "linguist/samples/OODA/smt_contracts.oo";
 import "oostd/sec/capreg.oo";
+import "core/meta_check.oo";
+import "core/meta_law.oo";
 
 fn t_expect(cond: Bool, label: String, p: Int) -> Int {
     if cond {
@@ -37,12 +37,29 @@ fn t_refuse(fs: &FsReadCap) -> Int {
     return p;
 }
 
+fn t_meta_refuse(fs: &FsReadCap) -> Int {
+    let mut p: Int = 0;
+    p = t_expect(meta_census("# profile\n`92` `100` `98` totals\n") < 5,
+        "forged census refused", p);
+    p = t_expect(meta_counts("| `4` | `7` | `12` | `38` | `15` |") < 5,
+        "forged repo counts refused", p);
+    p = t_expect(meta_orgs("github.com/examplecom) one two three") < 9 &&
+        meta_members("nothing canonical here") < 9,
+        "missing orgs + members refused", p);
+    p = t_expect(meta_ver_num("1.2") < 0 && meta_ver_num("1.2.3.4") < 0 &&
+        meta_ver_num("x.y.z") < 0, "forged semver refused", p);
+    p = t_expect(!meta_shape("no title\nl2\nl3\nl4\nl5\nl6\nl7\nl8\n") &&
+        !meta_title_ok("# openOODA (.oo) Agent Quick Card\n"),
+        "title-less + stale title refused", p);
+    return p;
+}
+
 pub fn main(fs: &FsReadCap, _args: List[String]) -> Result[Int, String] {
-    let p: Int = t_refuse(fs);
-    if p == 6 {
-        println("PASS: refusal suite (6/6 assertions)");
+    let p: Int = t_refuse(fs) + t_meta_refuse(fs);
+    if p == 11 {
+        println("PASS: refusal suite (11/11 assertions)");
         return Ok(0);
     }
-    println("FAIL: refusal suite (" + p.to_string() + "/6 assertions)");
+    println("FAIL: refusal suite (" + p.to_string() + "/11 assertions)");
     return Ok(2);
 }

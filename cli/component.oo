@@ -1,0 +1,22 @@
+// # oogithub Component Identity
+//
+// Logline: Canonical component name, version, and layer accessors for oogithub.
+//
+// Setup: Pure static metadata accessors surfaced through the CLI layer.
+//
+// Beats:
+//   1. Expose the canonical component name (oogithub).
+//   2. Expose the shipped component version.
+//   3. Expose the Root layer tag.
+
+pub fn oogithub_version() -> String {
+    return "2.11.7";
+}
+
+pub fn oogithub_name() -> String {
+    return "oogithub";
+}
+
+pub fn oogithub_layer() -> String {
+    return "Root";
+}

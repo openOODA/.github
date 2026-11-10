@@ -26,6 +26,9 @@
 //
 // `verify` blocks carry `assert_eq!` negative-trust checks that run as the
 // functional half of the two-test rule (functional + hostile-refusal).
+// They are a check-time surface: pages carrying them are `oodac check`
+// leaves, never linked into built binaries. The corpus keeps them on the
+// dedicated `verify_contracts.oo` page.
 //
 //   verify smt_contracts_hold {
 //       assert_eq!(floor_div(17, 5), 3);
