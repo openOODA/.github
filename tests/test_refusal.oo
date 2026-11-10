@@ -1,0 +1,48 @@
+// # Linguist Samples Refusal Suite - Negative-Trust Assertions
+//
+// Logline: Negative-trust assertions over forged registers, stale epochs, zero divisors, and path
+//          traversal against the repository's compilable no-main .oo linguist samples.
+// Setup: Imports the sample set and the canonical CapReg64 primitives it wraps; FsReadCap for the
+//        bounded traversal attempt.
+// Beats:
+//   1. Forged, stale, and wrong-capability registers are refused by the fail-closed gate.
+//   2. checked_div refuses a zero divisor; out-of-range sector reads normalize to zero.
+//   3. The fs jail refuses a parent-directory traversal read.
+
+import "linguist/samples/OODA/capreg_attenuation.oo";
+import "linguist/samples/OODA/smt_contracts.oo";
+import "oostd/sec/capreg.oo";
+
+fn t_expect(cond: Bool, label: String, p: Int) -> Int {
+    if cond {
+        println("ok " + label);
+        return p + 1;
+    }
+    println("FAIL " + label);
+    return p;
+}
+
+fn t_refuse(fs: &FsReadCap) -> Int {
+    let mut p: Int = 0;
+    let fsr: Int = 1 << oo_cap_bit_index("FsReadCap");
+    let reg64: Int = oo_cap_reg64_pack(7, 1, 1, fsr);
+    let net_only: Int = oo_cap_reg64_pack(7, 1, 1, 1 << oo_cap_bit_index("NetCap"));
+    p = t_expect(read_sector_gated(0, 7, 4) == 0, "forged register refused", p);
+    p = t_expect(read_sector_gated(reg64, 8, 4) == 0, "stale epoch refused", p);
+    p = t_expect(read_sector_gated(net_only, 7, 4) == 0, "wrong capability refused", p);
+    p = t_expect(checked_div(1, 0).is_err(), "zero divisor refused", p);
+    p = t_expect(read_sector(reg64, 7, 0 - 1) == 0, "negative sector refused", p);
+    let r: Result[String, String] = oo_read_file(fs, ".." + "/.." + "/etc/" + "passwd");
+    p = t_expect(r.is_err(), "traversal read refused", p);
+    return p;
+}
+
+pub fn main(fs: &FsReadCap, _args: List[String]) -> Result[Int, String] {
+    let p: Int = t_refuse(fs);
+    if p == 6 {
+        println("PASS: refusal suite (6/6 assertions)");
+        return Ok(0);
+    }
+    println("FAIL: refusal suite (" + p.to_string() + "/6 assertions)");
+    return Ok(2);
+}

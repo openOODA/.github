@@ -15,7 +15,7 @@
 // TYPESTATE fn link_rekey: Up -> Handshake
 // TYPESTATE fn link_send: Up -> Up
 // TYPESTATE fn link_close: Up -> Closed
-// TYPESTATE fn link_abort: Handshake -> Closed
+// TYPESTATE fn link_halt: Handshake -> Closed
 
 fn link_init() -> Int {
     return 0;
@@ -41,7 +41,7 @@ fn link_close(l: Int) -> Int {
     return l;
 }
 
-fn link_abort(l: Int) -> Int {
+fn link_halt(l: Int) -> Int {
     return l;
 }
 

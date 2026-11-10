@@ -1,0 +1,50 @@
+// # Linguist Samples Functional Suite - Positive-Trust Assertions
+//
+// Logline: Positive assertions over the repository's compilable no-main .oo linguist samples.
+// Setup: Imports the sample set and the canonical CapReg64 primitives it wraps; FsReadCap for the
+//        bounded sample-page read.
+// Beats:
+//   1. The fail-closed gate admits a valid register and computes the sector offset.
+//   2. The attenuated child register keeps FsRead and drops FsWrite exactly as declared.
+//   3. Contracted arithmetic and the typestate link walk land on their declared values.
+
+import "linguist/samples/OODA/capreg_attenuation.oo";
+import "linguist/samples/OODA/typestate_machine.oo";
+import "linguist/samples/OODA/smt_contracts.oo";
+import "oostd/sec/capreg.oo";
+
+fn t_expect(cond: Bool, label: String, p: Int) -> Int {
+    if cond {
+        println("ok " + label);
+        return p + 1;
+    }
+    println("FAIL " + label);
+    return p;
+}
+
+fn t_samples(fs: &FsReadCap) -> Int {
+    let mut p: Int = 0;
+    let fsr: Int = 1 << oo_cap_bit_index("FsReadCap");
+    let fsw: Int = 1 << oo_cap_bit_index("FsWriteCap");
+    let reg64: Int = oo_cap_reg64_pack(7, 1, 1, fsr);
+    p = t_expect(read_sector_gated(reg64, 7, 4) == 2048, "gated sector read", p);
+    let child: Int = child_register(oo_cap_reg64_pack(7, 255, 1, fsr | fsw), 9);
+    p = t_expect(oo_cap_reg64_check(child, 7, 1, fsr) &&
+        oo_cap_reg64_check(child, 7, 1, fsw) == false, "child keeps read drops write", p);
+    p = t_expect(floor_div(17, 5) == 3 && gcd(12, 18) == 6 && clamp(9, 0, 5) == 5,
+        "contracted arithmetic", p);
+    p = t_expect(checked_div(8, 2).is_ok() && drive_link() == 18, "div ok + link walk", p);
+    let page: Result[String, String] = oo_read_file(fs, "linguist/samples/OODA/capreg_attenuation.oo");
+    p = t_expect(page.is_ok(), "sample page readable under jail", p);
+    return p;
+}
+
+pub fn main(fs: &FsReadCap, _args: List[String]) -> Result[Int, String] {
+    let p: Int = t_samples(fs);
+    if p == 5 {
+        println("PASS: functional suite (5/5 assertions)");
+        return Ok(0);
+    }
+    println("FAIL: functional suite (" + p.to_string() + "/5 assertions)");
+    return Ok(2);
+}

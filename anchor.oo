@@ -1,0 +1,12 @@
+// # .github Root Anchor - Linguist Sample Set Re-Export
+//
+// Logline: Re-exports the repository's compilable no-main .oo linguist samples as one anchor page.
+// Setup: Samples live under linguist/samples/OODA/; pages with pub fn main stay standalone binaries.
+// Beats:
+//   1. capreg_attenuation carries the fail-closed CapReg64 admit gate.
+//   2. typestate_machine carries the compile-time link-state machine.
+//   3. smt_contracts carries requires/ensures verified arithmetic.
+
+import "linguist/samples/OODA/capreg_attenuation.oo";
+import "linguist/samples/OODA/typestate_machine.oo";
+import "linguist/samples/OODA/smt_contracts.oo";
