@@ -9,7 +9,7 @@
 
 import "linguist/samples/OODA/capreg_attenuation.oo";
 import "linguist/samples/OODA/smt_contracts.oo";
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 import "core/meta_check.oo";
 import "core/meta_law.oo";
 
@@ -41,11 +41,13 @@ fn t_meta_refuse(fs: &FsReadCap) -> Int {
     let mut p: Int = 0;
     p = t_expect(meta_census("# profile\n`92` `100` `98` totals\n") < 5,
         "forged census refused", p);
-    p = t_expect(meta_counts("| `4` | `7` | `12` | `38` | `15` |") < 5,
+    p = t_expect(meta_counts("| `4` | `7` | `12` | `38` | `15` |") < 4,
         "forged repo counts refused", p);
-    p = t_expect(meta_orgs("github.com/examplecom) one two three") < 9 &&
-        meta_members("nothing canonical here") < 9,
+    p = t_expect(meta_orgs("github.com/examplecom) one two three") < 4 &&
+        meta_members("nothing canonical here") < 4,
         "missing orgs + members refused", p);
+    p = t_expect(meta_orgs("github.com/openOODA-kernel) github.com/openOODA-OS)") < 4,
+        "retired org links refused", p);
     p = t_expect(meta_ver_num("1.2") < 0 && meta_ver_num("1.2.3.4") < 0 &&
         meta_ver_num("x.y.z") < 0, "forged semver refused", p);
     p = t_expect(!meta_shape("no title\nl2\nl3\nl4\nl5\nl6\nl7\nl8\n") &&
@@ -56,10 +58,10 @@ fn t_meta_refuse(fs: &FsReadCap) -> Int {
 
 pub fn main(fs: &FsReadCap, _args: List[String]) -> Result[Int, String] {
     let p: Int = t_refuse(fs) + t_meta_refuse(fs);
-    if p == 11 {
-        println("PASS: refusal suite (11/11 assertions)");
+    if p == 12 {
+        println("PASS: refusal suite (12/12 assertions)");
         return Ok(0);
     }
-    println("FAIL: refusal suite (" + p.to_string() + "/11 assertions)");
+    println("FAIL: refusal suite (" + p.to_string() + "/12 assertions)");
     return Ok(2);
 }

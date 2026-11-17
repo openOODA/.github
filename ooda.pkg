@@ -1,13 +1,13 @@
 name=oogithub
-version=2.11.7
+version=3.0.0
 layer=Root
 category=SE
 tags=github,profile,brand,linguist,governance,verify,census,metadata
 upstream=github
 status=shipped
-description=Organization profile & governance metadata host: self-verifies the L0-L7 org census (97/105/110), all 9 org links, 56 brand icons, and the linguist package; refuses forged censuses, missing assets, and traversal operands
+description=Organization profile & governance metadata host: self-verifies the 4-org 78-repo census (5+16+38+19 / 70 product packages), all 4 org links, 24 brand icons, and the linguist package; refuses forged censuses, missing assets, and traversal operands
 caps=FsRead,Env
-deps=
+deps=ooda-standard
 entry=cli/main.oo
 payload=cli/main.oo
 personas=oogithub

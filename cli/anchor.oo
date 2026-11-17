@@ -1,10 +1,20 @@
 // # oogithub CLI Subsystem Anchor
 //
-// Logline: Re-exports the verb renderers and component identity for the oogithub CLI surface (main.oo stays the lone entry page).
+// Logline: Re-exports verb renderers and component identity for the oogithub CLI.
+// Setup: main.oo stays the lone entry page.
 // Setup: Pure subsystem anchor shim for cli/ pages (3 sibling pages total).
 // Beats:
 //   1. Export verbs.oo for check/audit/status/census/about/theme rendering.
 //   2. Export component.oo for canonical name/version/layer identity.
+// Integration: cli/main.oo imports verbs.oo and component.oo directly while
+//          this anchor re-exports both for cli/ consumers and the root anchor.oo.
+// Identity: component oogithub version 3.0.0 with the Root layer tag.
+// Capabilities: explicit FsReadCap plus EnvCap with zero ambient authority.
+//
+// Verbs: check/audit/status/verify plus census, about, and theme via the
+//          ooda-standard ootheme palette resolved from EnvCap.
+// Law: subcommand dispatch only; persona and mode flags refuse with exit 2.
+// Check: ooda-compiler check holds over this shim with zero stubs.
 
 import "verbs.oo";
 import "component.oo";

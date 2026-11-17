@@ -1,13 +1,13 @@
 // # .github Org Metadata Conformance Checker
 //
-// Logline: Verify the profile census (97/105/110), row counts, 9 org links, and member needles.
-// Setup: Explicit FsReadCap for the bounded profile read; oostd str_extra; fail closed.
+// Logline: Verify the profile census (70/74/78), row counts, 4 org links, and member needles.
+// Setup: Explicit FsReadCap for the bounded profile read; ooda-standard str_extra; fail closed.
 // Beats:
 //   1. meta_ver_num folds x.y.z semver digit runs like the constitutional card check.
 //   2. meta_counts + meta_census count the Repos-column cells and fleet totals.
-//   3. meta_orgs + meta_members prove 9 org links and 9 layer member needles.
+//   3. meta_orgs + meta_members prove 4 org links and 4 org member needles.
 
-import "oostd/core/primitives/str_extra.oo";
+import "ooda-standard/core/primitives/str_extra.oo";
 import "core/meta_law.oo";
 
 pub fn meta_ver_num(ver: String) -> Int {
@@ -42,20 +42,19 @@ pub fn meta_shape(src: String) -> Bool {
 pub fn meta_counts(src: String) -> Int {
     let mut n: Int = 0;
     if str_contains(src, "| `5` |") { n = n + 1; }
-    if str_contains(src, "| `8` |") { n = n + 1; }
-    if str_contains(src, "| `9` |") { n = n + 1; }
-    if str_contains(src, "| `39` |") { n = n + 1; }
     if str_contains(src, "| `16` |") { n = n + 1; }
+    if str_contains(src, "| `38` |") { n = n + 1; }
+    if str_contains(src, "| `19` |") { n = n + 1; }
     return n;
 }
 
 pub fn meta_census(src: String) -> Int {
     let mut n: Int = 0;
-    if str_contains(src, "`97`") { n = n + 1; }
-    if str_contains(src, "`105`") { n = n + 1; }
-    if str_contains(src, "`110`") { n = n + 1; }
-    if str_contains(src, "ooagent-hud") { n = n + 1; }
-    if str_contains(src, "+ooquota") { n = n + 1; }
+    if str_contains(src, "`70`") { n = n + 1; }
+    if str_contains(src, "`74`") { n = n + 1; }
+    if str_contains(src, "`78`") { n = n + 1; }
+    if str_contains(src, "`15`") { n = n + 1; }
+    if str_contains(src, "`37`") { n = n + 1; }
     return n;
 }
 
@@ -63,27 +62,17 @@ pub fn meta_orgs(src: String) -> Int {
     let mut n: Int = 0;
     if str_contains(src, "github.com/openOODA)") { n = n + 1; }
     if str_contains(src, "github.com/openOODA-core)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-kernel)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-OS)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-tools)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-DE)") { n = n + 1; }
+    if str_contains(src, "github.com/openOODA-system)") { n = n + 1; }
     if str_contains(src, "github.com/openOODA-apps)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-cloud)") { n = n + 1; }
-    if str_contains(src, "github.com/openOODA-agents)") { n = n + 1; }
     return n;
 }
 
 pub fn meta_members(src: String) -> Int {
     let mut n: Int = 0;
-    if str_contains(src, "oodac") { n = n + 1; }
-    if str_contains(src, "ookernel") { n = n + 1; }
-    if str_contains(src, "ooinit") { n = n + 1; }
-    if str_contains(src, "ootheme") { n = n + 1; }
-    if str_contains(src, "oocomp") { n = n + 1; }
-    if str_contains(src, "oobrowser") { n = n + 1; }
-    if str_contains(src, "oomesh") { n = n + 1; }
-    if str_contains(src, "ooloop") { n = n + 1; }
-    if str_contains(src, "oobench") { n = n + 1; }
+    if str_contains(src, "`openOODA`") { n = n + 1; }
+    if str_contains(src, "ooda-compiler") { n = n + 1; }
+    if str_contains(src, "ooda-shell") { n = n + 1; }
+    if str_contains(src, "ooda-browser") { n = n + 1; }
     return n;
 }
 
@@ -92,10 +81,10 @@ pub fn meta_profile_ok(fs: &FsReadCap) -> Bool {
     if r.is_err() { return false; }
     let src: String = match r { Ok(s) => s, Err(_) => "" };
     if !meta_shape(src) { return false; }
-    if meta_counts(src) != 5 { return false; }
+    if meta_counts(src) != 4 { return false; }
     if meta_census(src) != 5 { return false; }
-    if meta_orgs(src) != 9 { return false; }
-    return meta_members(src) == 9;
+    if meta_orgs(src) != 4 { return false; }
+    return meta_members(src) == 4;
 }
 
 pub fn meta_repo_ok(fs: &FsReadCap) -> Bool {

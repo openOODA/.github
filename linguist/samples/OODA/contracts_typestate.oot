@@ -1,4 +1,10 @@
 // # OODA Verification Surface — SMT Contracts & TYPESTATE
+// Logline: Compile-time SMT requires/ensures contracts and TYPESTATE verification rules.
+// Setup: Pure specification board; zero ambient caps.
+// Beats:
+//   1. Specify ahead-of-time QF_LIA SMT preconditions and postconditions.
+//   2. Specify typestate machine state transitions checked before codegen.
+//   3. Document lexable comment style for bare-metal docs boards.
 //
 // File: linguist/samples/OODA/contracts_typestate.oot
 //
@@ -8,7 +14,7 @@
 // `check_typestate` walker before codegen. Both fail closed: an
 // unprovable clause or an illegal transition is a compile error, not a
 // warning. (Fleet `.oot` docs also exist in `#`-markdown style; this
-// `//`-comment form is the oodar/docs convention and stays lexable.)
+// `//`-comment form is the ooda-runtime/docs convention and stays lexable.)
 //
 // ## SMT requires / ensures
 //
@@ -26,9 +32,6 @@
 //
 // `verify` blocks carry `assert_eq!` negative-trust checks that run as the
 // functional half of the two-test rule (functional + hostile-refusal).
-// They are a check-time surface: pages carrying them are `oodac check`
-// leaves, never linked into built binaries. The corpus keeps them on the
-// dedicated `verify_contracts.oo` page.
 //
 //   verify smt_contracts_hold {
 //       assert_eq!(floor_div(17, 5), 3);

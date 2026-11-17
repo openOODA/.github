@@ -1,11 +1,17 @@
 // # OODA Zero-Trust Surface — CapReg64 & Bare-Metal oodar
+// Logline: CapReg64 single-cycle capability register and bare-metal substrate specification.
+// Setup: Pure specification board; zero ambient authority anywhere in `ooda-standard` or `ooda-runtime`.
+// Beats:
+//   1. Document 64-bit register fields and 32 capability bits.
+//   2. Define the fail-closed cap_admit gate (-13 null, -22 overflow).
+//   3. Specify the compiled bare-metal veneers verified by ooda-compiler check.
 //
 // File: linguist/samples/OODA/capreg64_oodar.oot
 //
 // `CapReg64` is the single-cycle 64-bit capability register: the lower 32
 // bits say WHAT (one bit per explicit capability, `0..31`), the upper 32
 // bits say HOW & WHEN. A null register fails closed; there is no ambient
-// authority anywhere in `oostd` or `oodar`.
+// authority anywhere in `ooda-standard` or `ooda-runtime`.
 //
 // ## Register layout
 //
@@ -47,7 +53,7 @@
 // `oo_nostd_cap_mask`, `oo_nostd_abort`, `oo_nostd_panic`. Every veneer
 // takes an explicit token; a forged or missing token aborts at the cap
 // check. `samples/OODA/oodar_veneers.oo` declares the compile-time
-// surface that `oodac check` resolves.
+// surface that `ooda-compiler check` resolves.
 //
 //   pub fn uart_putc(reg64: Int, epoch: Int, ch: Int) -> Int {
 //       if uart_hw_admit(reg64, epoch) != 0 { return -13; }

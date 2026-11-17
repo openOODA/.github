@@ -1,10 +1,10 @@
 // # .github Metadata Law Checker - Root, Brand, Linguist & Docs Invariants
 //
-// Logline: Prove the 11-entry root, 56 brand icons, linguist package, and canonical docs.
+// Logline: Prove the 11-entry root, 24 brand icons, linguist package, and canonical docs.
 // Setup: Explicit FsReadCap; bounded reads and path probes inside the fs jail; fail closed.
 // Beats:
 //   1. meta_root_ok probes the canonical 8-entry root plus profile/, brand/, linguist/.
-//   2. meta_brand_ok walks 9 orgs x 3 option themes x png+svg plus the avatar pair.
+//   2. meta_brand_ok walks 4 orgs x 3 option themes x png+svg plus the avatar pair.
 //   3. meta_linguist_ok probes the package files and all 9 compilable samples.
 
 pub fn meta_title_ok(src: String) -> Bool {
@@ -25,9 +25,8 @@ pub fn meta_root_ok(fs: &FsReadCap) -> Bool {
 pub fn meta_brand_ok(fs: &FsReadCap) -> Bool {
     if !path_exists(fs, "brand/avatar.png") { return false; }
     if !path_exists(fs, "brand/avatar.svg") { return false; }
-    let orgs: List[String] = str_split("openOODA openOODA-core openOODA-kernel " +
-        "openOODA-OS openOODA-tools openOODA-DE openOODA-apps openOODA-cloud " +
-        "openOODA-agents", " ");
+    let orgs: List[String] = str_split("openOODA openOODA-core " +
+        "openOODA-system openOODA-apps", " ");
     let opts: List[String] = str_split("option-a option-b option-c", " ");
     let mut i: Int = 0;
     while i < list_len(orgs) {

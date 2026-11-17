@@ -7,9 +7,9 @@
 //   2. oo_cap_reg64_attenuate monotonically restricts rights and caps for child delegation.
 //   3. verify_contracts.oo runs the six negative-trust asserts against the gate and the child register.
 
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 
-pub fn cap_admit(reg64: Int, epoch: Int, req_rights: Int) -> Int {
+fn cap_admit(reg64: Int, epoch: Int, req_rights: Int) -> Int {
     let req_caps: Int = 1 << oo_cap_bit_index("FsReadCap");
     if reg64 == 0 { return -13; }
     if epoch < 0 || req_rights < 0 || req_rights > 255 { return -22; }

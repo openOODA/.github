@@ -3,7 +3,7 @@
 // Logline: Check-time verify blocks carry assert_eq! negative-trust checks over the
 //          sibling contract samples - a check-only page, never linked into a binary.
 // Setup: verify/assert_eq! is the compile-time verification surface resolved by
-//        `oodac check`; bodies run as OODA_TEST-gated ctors only where emit-safe.
+//        `ooda-compiler check`; bodies run as OODA_TEST-gated ctors only where emit-safe.
 // Beats:
 //   1. capreg_gate_negative_trust refuses null, stale, wrong-cap, and wide-rights registers.
 //   2. capreg_attenuate_monotone proves the child keeps FsRead and drops FsWrite.
@@ -12,7 +12,7 @@
 import "capreg_attenuation.oo";
 import "smt_contracts.oo";
 import "typestate_machine.oo";
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 
 pub fn verify_probe() -> Int {
     let caps: Int = 1 << oo_cap_bit_index("FsReadCap");

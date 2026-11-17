@@ -9,7 +9,7 @@ Hard gates (any failure exits 1):
      rule fires on >= 1 sample; every sample classifies as OODA (>= 1 hit).
   4. .gitattributes marks *.oo linguist-language=OODA and *.oot.
   5. Page Rule per sample page: 16..256 lines and <= 8 fn declarations.
-  6. Every file under samples/OODA/ passes `oodac check` (exit 0).
+  6. Every file under samples/OODA/ passes `ooda-compiler check` (exit 0).
      (.oot samples use the //-comment doc convention that the checker lexes;
      fleet `#`-markdown .oot docs are artifacts outside the check grammar.)
 
@@ -17,8 +17,8 @@ Advisory (WARN, never fails): grammar patterns that no sample exercises —
 dead highlighting surface worth covering in a future sample.
 
 Env:
-  OODA_COMPILER  path to the oodac driver
-                 (default /Projects/openOODA-core/oodac/bin/oodac)
+  OODA_COMPILER  path to the ooda-compiler driver
+                 (default ~/.openooda/bin/ooda-compiler)
 """
 
 import json
@@ -37,7 +37,7 @@ LANGS = HERE / "languages.yml"
 HEUR = HERE / "heuristics.yml"
 ATTR = ROOT / ".gitattributes"
 OODAC = os.environ.get("OODA_COMPILER",
-                       "/Projects/openOODA-core/oodac/bin/oodac")
+                       str(Path.home() / ".openooda" / "bin" / "ooda-compiler"))
 CHECK_ENV = dict(os.environ, OODA_NO_JAIL="1",
                  OO_LIST_AMBIENT_QUOTA="8589934592")
 
@@ -191,9 +191,9 @@ def check_page_rule(samples):
 
 def check_oodac(samples):
     if not Path(OODAC).exists():
-        fail(f"oodac not found at {OODAC} (set OODA_COMPILER to override)")
+        fail(f"ooda-compiler not found at {OODAC} (set OODA_COMPILER to override)")
         return
-    # oodac writes .ooda-cache into its CWD; run from a temp dir so the
+    # ooda-compiler writes .ooda-cache into its CWD; run from a temp dir so the
     # package tree stays clean. Imports still resolve file-relative.
     with tempfile.TemporaryDirectory(prefix="linguist-check-") as cwd:
         for name, _ in samples:
@@ -201,10 +201,10 @@ def check_oodac(samples):
                                   capture_output=True, text=True,
                                   env=CHECK_ENV, cwd=cwd)
             if proc.returncode == 0:
-                ok(f"oodac check {name}: OK")
+                ok(f"ooda-compiler check {name}: OK")
             else:
                 tail = (proc.stdout + proc.stderr).strip().splitlines()[-4:]
-                fail(f"oodac check {name}: exit {proc.returncode}\n"
+                fail(f"ooda-compiler check {name}: exit {proc.returncode}\n"
                      + "\n".join("      " + t for t in tail))
 
 

@@ -3,17 +3,17 @@
 // Logline: Render the self-verification verbs over the real repository tree - every
 //          verdict comes from core/meta_check.oo + core/meta_law.oo; zero stubs,
 //          zero host relays.
-// Setup: Explicit FsReadCap + EnvCap; oostd ootheme palette resolves the theme verb.
+// Setup: Explicit FsReadCap + EnvCap; ooda-standard ootheme palette resolves the theme verb.
 // Beats:
 //   1. oogithub_report runs the full metadata verdict (profile+root+brand+linguist+docs).
-//   2. oogithub_status prints the folded PASS/FAIL; oogithub_census lists the 9 orgs.
+//   2. oogithub_status prints the folded PASS/FAIL; oogithub_census lists the 4 orgs.
 //   3. oogithub_about prints the canonical binary card; oogithub_theme resolves palettes.
 
 import "core/meta_check.oo";
 import "core/meta_law.oo";
 import "cli/component.oo";
-import "oostd/fs/process/env.oo";
-import "oostd/core/app/ui/ootheme.oo";
+import "ooda-standard/fs/process/env.oo";
+import "ooda-standard/core/app/ui/ootheme.oo";
 
 pub fn oogithub_report(fs: &FsReadCap, json: Bool, deep: Bool) -> Int {
     let ver: String = oogithub_version();
@@ -35,16 +35,16 @@ pub fn oogithub_report(fs: &FsReadCap, json: Bool, deep: Bool) -> Int {
         return if ok { 0 } else { 1 };
     }
     if deep {
-        println("  census: Root @openOODA = 5 governance repos (openOODA catalog install website .github)");
-        println("  census: L0 @openOODA-core = 8, L1 @openOODA-kernel = 8, L2 @openOODA-OS = 9");
-        println("  census: L3 @openOODA-tools = 39, L4 @openOODA-DE = 8, L5 @openOODA-apps = 16");
-        println("  census: L6 @openOODA-cloud = 8, L7 @openOODA-agents = 9");
-        println("  census: 97 product binaries L1-L7 / 105 L0-L7 / 110 total repos");
+        println("  census: Root @openOODA = 5 repos (openOODA catalog install website .github)");
+        println("  census: @openOODA-core = 16 repos (15 products + .github)");
+        println("  census: @openOODA-system = 38 repos (37 products + .github)");
+        println("  census: @openOODA-apps = 19 repos (18 products + .github)");
+        println("  census: 70 product packages / 74 platform+product / 78 total repos");
     }
     println("oogithub check (v" + ver + ")");
-    println("  profile  : org table + census 97/105/110 " + (if p_ok { "ok" } else { "FAIL" }));
+    println("  profile  : org table + census 70/74/78 " + (if p_ok { "ok" } else { "FAIL" }));
     println("  root     : 11 metadata entries " + (if r_ok { "ok" } else { "FAIL" }));
-    println("  brand    : 56 org icons on disk " + (if b_ok { "ok" } else { "FAIL" }));
+    println("  brand    : 24 org icons on disk " + (if b_ok { "ok" } else { "FAIL" }));
     println("  linguist : OODA package + 9 samples " + (if l_ok { "ok" } else { "FAIL" }));
     println("  docs     : AGENTS title + README links " + (if d_ok { "ok" } else { "FAIL" }));
     if ok {
@@ -71,20 +71,15 @@ pub fn oogithub_census(fs: &FsReadCap) -> Int {
         return 1;
     }
     let src: String = match r { Ok(s) => s, Err(_) => "" };
-    if meta_counts(src) != 5 || meta_orgs(src) != 9 || meta_members(src) != 9 {
+    if meta_counts(src) != 4 || meta_orgs(src) != 4 || meta_members(src) != 4 {
         println("oogithub census: FAIL (org table drifted from canonical census)");
         return 1;
     }
-    println("  Root @openOODA         = 5   (openOODA catalog install website .github)");
-    println("  L0   @openOODA-core    = 8   (ooda oodac oodar oostd oopm oolsp oomcp oohat)");
-    println("  L1   @openOODA-kernel  = 8   (ooboot oohal ookernel + 5 oodrv suites)");
-    println("  L2   @openOODA-OS      = 9   (ooinit oovfs oonetd + 6 daemons)");
-    println("  L3   @openOODA-tools   = 39  (oodefense oosandbox ootheme ooui ooengine ...)");
-    println("  L4   @openOODA-DE      = 8   (oocomp oopanel+ooagent-hud ooportal ooterm ...)");
-    println("  L5   @openOODA-apps    = 16  (oobrowser oostudio oooffice oocanvas ...)");
-    println("  L6   @openOODA-cloud   = 8   (oomesh oostore oodeploy oogateway ...)");
-    println("  L7   @openOODA-agents  = 9   (ooloop ooswarm oobench oogovern+ooquota ...)");
-    println("  97 product binaries L1-L7 / 105 L0-L7 / 110 total repos");
+    println("  Root     @openOODA         = 5   (openOODA catalog install website .github)");
+    println("  Core     @openOODA-core    = 16  (15 products + .github)");
+    println("  System   @openOODA-system  = 38  (37 products + .github)");
+    println("  Apps     @openOODA-apps    = 19  (18 products + .github)");
+    println("  70 product packages / 74 platform+product / 78 total repos");
     return 0;
 }
 
@@ -94,7 +89,7 @@ pub fn oogithub_about() -> Int {
     println("Summary      : Organization profile & governance metadata - census, brand & linguist verification");
     println("Subcommands  : check,audit,status,verify,census,theme,about,--self-test");
     println("Capabilities : FsRead,Env");
-    println("Census       : 97 product binaries L1-L7, 105 L0-L7, 110 total repos (5 governance)");
+    println("Census       : 70 product packages, 74 platform+product, 78 total repos");
     return 0;
 }
 

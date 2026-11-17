@@ -12,7 +12,7 @@
 import "linguist/samples/OODA/capreg_attenuation.oo";
 import "linguist/samples/OODA/typestate_machine.oo";
 import "linguist/samples/OODA/smt_contracts.oo";
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 import "core/meta_check.oo";
 import "core/meta_law.oo";
 
@@ -44,19 +44,15 @@ fn t_samples(fs: &FsReadCap) -> Int {
 
 fn t_meta(fs: &FsReadCap) -> Int {
     let mut p: Int = 0;
-    let zsrc: String = "| `5` | `8` | `9` | `39` | `16` | `97` `105` `110`" +
-        " ooagent-hud +ooquota";
-    p = t_expect(meta_counts(zsrc) == 5 && meta_census(zsrc) == 5,
+    let zsrc: String = "| `5` | `16` | `38` | `19` | `70` `74` `78` `15` `37`";
+    p = t_expect(meta_counts(zsrc) == 4 && meta_census(zsrc) == 5,
         "count cells + census needles", p);
     let osrc: String = "github.com/openOODA) github.com/openOODA-core)" +
-        " github.com/openOODA-kernel) github.com/openOODA-OS)" +
-        " github.com/openOODA-tools) github.com/openOODA-DE)" +
-        " github.com/openOODA-apps) github.com/openOODA-cloud)" +
-        " github.com/openOODA-agents)";
-    p = t_expect(meta_orgs(osrc) == 9, "nine org links", p);
-    p = t_expect(meta_members("oodac ookernel ooinit ootheme oocomp oobrowser " +
-        "oomesh ooloop oobench") == 9, "nine layer members", p);
-    p = t_expect(meta_ver_num("2.11.7") >= 0 && meta_ver_num("0.0.1") == 1,
+        " github.com/openOODA-system) github.com/openOODA-apps)";
+    p = t_expect(meta_orgs(osrc) == 4, "four org links", p);
+    p = t_expect(meta_members("`openOODA` ooda-compiler ooda-shell ooda-browser") == 4,
+        "four layer members", p);
+    p = t_expect(meta_ver_num("3.0.0") >= 0 && meta_ver_num("0.0.1") == 1,
         "semver parses", p);
     p = t_expect(meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") &&
         meta_title_ok("# .github (openOODA) x Organization Profile\n"),

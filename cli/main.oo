@@ -1,7 +1,7 @@
 // # oogithub Metadata CLI - Self-Verification Entrypoint
 //
 // Logline: Zero ambient authority CLI for the organization profile & governance
-//          metadata host - verifies the L0-L7 census, org links, brand icons, and
+//          metadata host - verifies the 4-org census, org links, brand icons, and
 //          linguist package over real reads; fails closed.
 // Setup: Explicit FsReadCap + EnvCap; exact exit codes (0 pass, 1 failure, 2 refusal).
 // Beats:
@@ -11,7 +11,7 @@
 
 import "core/meta_check.oo";
 import "core/meta_law.oo";
-import "oostd/core/primitives/str_extra.oo";
+import "ooda-standard/core/primitives/str_extra.oo";
 import "cli/component.oo";
 import "cli/verbs.oo";
 
@@ -21,8 +21,9 @@ fn oogithub_bad_arg(args: List[String]) -> Int {
         let a: String = list_get(args, i);
         if str_contains(a, "..") { return i; }
         if a == "--persona" || a == "--personas" || a == "--mode" { return i; }
-        if str_starts_with(a, "--") && a != "--json" && a != "--help" &&
-            a != "--version" && a != "--self-test" && !str_starts_with(a, "--tui") { return i; }
+        if str_starts_with(a, "-") && a != "-h" && a != "-v" && a != "--json" &&
+            a != "--help" && a != "--version" && a != "--self-test" &&
+            !str_starts_with(a, "--tui") { return i; }
         i = i + 1;
     }
     return 0 - 1;
@@ -50,17 +51,13 @@ fn oogithub_target_ok(args: List[String]) -> Bool {
 pub fn oogithub_selftest(fs: &FsReadCap) -> Bool {
     if meta_ver_num(oogithub_version()) < 0 { return false; }
     if !meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") { return false; }
-    let zsrc: String = "| `5` | `8` | `9` | `39` | `16` | `97` `105` `110`" +
-        " ooagent-hud +ooquota";
-    if meta_counts(zsrc) != 5 || meta_census(zsrc) != 5 { return false; }
+    let zsrc: String = "| `5` | `16` | `38` | `19` | `70` `74` `78` `15` `37`";
+    if meta_counts(zsrc) != 4 || meta_census(zsrc) != 5 { return false; }
     let osrc: String = "github.com/openOODA) github.com/openOODA-core)" +
-        " github.com/openOODA-kernel) github.com/openOODA-OS)" +
-        " github.com/openOODA-tools) github.com/openOODA-DE)" +
-        " github.com/openOODA-apps) github.com/openOODA-cloud)" +
-        " github.com/openOODA-agents)";
-    if meta_orgs(osrc) != 9 { return false; }
-    let msrc: String = "oodac ookernel ooinit ootheme oocomp oobrowser oomesh ooloop oobench";
-    if meta_members(msrc) != 9 { return false; }
+        " github.com/openOODA-system) github.com/openOODA-apps)";
+    if meta_orgs(osrc) != 4 { return false; }
+    let msrc: String = "`openOODA` ooda-compiler ooda-shell ooda-browser";
+    if meta_members(msrc) != 4 { return false; }
     if !meta_title_ok("# .github (openOODA) - Organization Profile x\n") { return false; }
     return meta_repo_ok(fs);
 }

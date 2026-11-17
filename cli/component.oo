@@ -10,7 +10,7 @@
 //   3. Expose the Root layer tag.
 
 pub fn oogithub_version() -> String {
-    return "2.11.7";
+    return "3.0.0";
 }
 
 pub fn oogithub_name() -> String {

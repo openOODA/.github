@@ -1,22 +1,23 @@
-OODA_COMPILER ?= /Projects/openOODA-core/oodac/bin/oodac
-export OODA_COMPILER
-OODAC_BIN ?= $(OODA_COMPILER)
-export OODAC_BIN
-OODA_READDIR ?= /Projects:/tmp:/usr:/lib:/lib64
+unexport OODA_OOSTD_ROOT
+OODA_COMPILER ?= $(HOME)/.openooda/bin/ooda-compiler
+OODA_VERIFY ?= $(HOME)/.openooda/bin/ooda-verify
+OODA_STANDARD_ROOT ?= $(HOME)/.openooda/ooda-standard
+OODA_OODAR_ROOT ?= $(HOME)/.openooda/bin
+OODACODEX ?= $(HOME)/.openooda/AGENTS.md
+export OODA_COMPILER OODA_VERIFY OODA_STANDARD_ROOT OODA_OODAR_ROOT OODACODEX
+OODA_READDIR ?= $(HOME)/.openooda:$(CURDIR):/tmp:/usr:/lib:/lib64
 OODA_WRITEDIR ?= $(CURDIR):/tmp
 OO_LIST_AMBIENT_QUOTA ?= 8589934592
+export OO_LIST_AMBIENT_QUOTA
 BIN := bin/oogithub
 TESTBIN := bin/test_functional
 TESTBIN2 := bin/test_refusal
 REPO_NAME := oogithub
-VER := 2.11.7
+VER := 3.0.0
 SRC := $(shell find . -name '*.oo' -not -path './.git/*' -not -path './bin/*' -not -path './dist/*' -not -path './.ooda-cache/*' | sort)
+ENV := OO_LIST_AMBIENT_QUOTA=$(OO_LIST_AMBIENT_QUOTA) OO_LINT_ROOTS=$(CURDIR) OODA_COMPILER=$(OODA_COMPILER) OODA_STANDARD_ROOT=$(OODA_STANDARD_ROOT) OODA_OODAR_ROOT=$(OODA_OODAR_ROOT) OODACODEX=$(OODACODEX) OODA_FS_READDIR=$(OODA_READDIR) OODA_FS_WRITEDIR=$(OODA_WRITEDIR) OODA_NO_JAIL=1
 
-OODA_OODAR_ROOT ?= /Projects/openOODA-core/oodar/core
-export OODA_OODAR_ROOT
-ENV := OO_LIST_AMBIENT_QUOTA=$(OO_LIST_AMBIENT_QUOTA) OO_LINT_ROOTS=$(CURDIR) OODA_COMPILER=$(OODA_COMPILER) OODAC_BIN=$(OODAC_BIN) OODA_FS_READDIR=$(OODA_READDIR) OODA_FS_WRITEDIR=$(OODA_WRITEDIR) OODA_OODAR_ROOT=$(OODA_OODAR_ROOT) OODA_NO_JAIL=1
-
-.PHONY: all build verify test check line-cap file-law academy density vocab shape link-law lint-oo-size clean
+.PHONY: all build verify test check line-cap file-law academy density vocab shape link-law lint-oo-size linguist cycle clean
 
 all: build verify test
 
@@ -149,10 +150,16 @@ lint-oo-size:
 	echo "PASS: lint-oo-size holds the Page Rule over the tree"
 
 check:
-	@for f in $$(find . -name "*.oo" -not -path "./.git/*" -not -path "./bin/*" -not -path "./dist/*" -not -path "./.ooda-cache/*"); do \
+	@for f in $$(find . -name "*.oo" -not -path "./.git/*" -not -path "./bin/*" -not -path "./dist/*" -not -path "./.ooda-cache/*" -not -path "./linguist/samples/*"); do \
 		$(ENV) $(OODA_COMPILER) check "$$f" > /dev/null || exit 1; \
 	done; \
-	echo "PASS: oodac check holds on all .oo files"
+	echo "PASS: ooda-compiler check holds on all .oo files"
+
+linguist:
+	@$(MAKE) -C linguist check
+
+cycle:
+	@$(OODA_VERIFY) cycle . --json
 
 verify: line-cap file-law academy density vocab shape link-law lint-oo-size check
 
@@ -167,7 +174,7 @@ test: $(BIN)
 	@PATH=/nonexistent $(ENV) ./$(BIN) verify | grep -q "verify OK" && echo "PASS: oogithub verify"
 	@PATH=/nonexistent $(ENV) ./$(BIN) audit | grep -q "verify OK" && echo "PASS: oogithub audit"
 	@PATH=/nonexistent $(ENV) ./$(BIN) status | grep -q "PASS" && echo "PASS: oogithub status"
-	@PATH=/nonexistent $(ENV) ./$(BIN) census | grep -q "110 total repos" && echo "PASS: oogithub census"
+	@PATH=/nonexistent $(ENV) ./$(BIN) census | grep -q "78 total repos" && echo "PASS: oogithub census"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) --unknown-flag-zzz > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: --unknown-flag-zzz refusal exits 2"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) --persona oocoder > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: --persona refusal exits 2"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) check ../.github > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: traversal operand refusal exits 2"

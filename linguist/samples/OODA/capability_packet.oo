@@ -1,13 +1,13 @@
 // # OODA Capability-Attenuated Systems Language Sample
 //
 // Logline: Demonstrates compile-time SMT contracts, CapReg64 zero-ambient capability admission, and bounded slice access.
-// Setup: Pure L0 .oo program with explicit FsReadCap and compile-time requires/ensures clauses.
+// Setup: Pure .oo program with explicit FsReadCap and compile-time requires/ensures clauses.
 // Beats:
 //   1. Verify non-negative bounds via ahead-of-time linear integer arithmetic (LIA) solver.
 //   2. Enforce explicit capability token admission with zero ambient authority.
 //   3. Return deterministic Result[Int, String] status.
 
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 
 type PacketHeader = struct {
     magic: Int,

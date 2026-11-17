@@ -7,7 +7,7 @@
 //   2. oo_nostd_uart_init binds data/status registers; oo_mmio_write8 pushes bytes once TX-empty (status bit 5).
 //   3. oo_nostd_alloc serves DMA ring slots from a static arena; oo_mmio_barrier orders every access.
 
-import "oostd/sec/capreg.oo";
+import "ooda-standard/sec/capreg.oo";
 import "oodar_veneers.oo";
 
 fn uart_hw_admit(reg64: Int, epoch: Int) -> Int {
