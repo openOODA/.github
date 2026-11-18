@@ -16,7 +16,7 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
 ## Metadata Surfaces
 
 - `profile/README.md` — public org profile: Root repos, 4-org table with exact
-  repo counts, fleet census, and the 4-tier system-requirements matrix.
+  repo and package counts, and the 4-tier system-requirements matrix.
 - `brand/` — org avatar (`avatar.png`/`avatar.svg`) + `option-{a,b,c}/` icon sets:
   all 4 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps`) in `1024×1024` PNG and SVG.
 - `linguist/` — `languages.yml` OODA entry, `heuristics.yml` disambiguation rules,
@@ -49,14 +49,12 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
 
 ## CLI Laws & Self-Verification Surface
 
-- `bin/oogithub` verbs: `check`/`audit`/`status`/`verify` (census + orgs + members +
-  root + brand + linguist + docs verdicts), `census`, `about`, `theme <name>`,
+- `bin/oogithub` verbs: `check`/`audit`/`status`/`verify` (`profile` + `charter` +
+  `root` + `brand` + `linguist` + `docs` verdicts), `census`, `about`, `theme <name>`,
   `--self-test`, `--help`, `--version`, additive `--json`.
 - Subcommand dispatch only; `--persona`, `--mode`, `--personas` flags are forbidden and
   every unknown argument or `..` traversal operand refuses with exit `2`.
-- `core/meta_check.oo` proves: `profile/README.md` carries the exact census
-  (`70`/`74`/`78` + `5`/`16`/`38`/`19` counts), all 4 org links, and one canonical
-  member per org (`openOODA`, `ooda-compiler`, `ooda-shell`, `ooda-browser`); `meta_ver_num` folds the component semver.
+- `core/meta_check.oo` proves: `meta_profile_ok` verifies `profile/README.md`'s 4-org repo and package counts plus all 4 org links, while `meta_charter_ok` verifies the Ecosystem & Fleet Census section of `AGENTS.md` (scoped prior to subsequent `##` headings so prose below cannot self-certify it); `meta_ver_num` folds the component semver.
 - `core/meta_law.oo` proves: the 11-entry repo root exists, `AGENTS.md` opens with the
   canonical title, `README.md` links `profile/README.md` + `brand/`, all 24 brand icons
   exist (4 orgs x 3 options x png+svg + avatar pair), and the linguist package is complete.
@@ -65,10 +63,6 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
 
 - Relative string imports only (`import "core/engine.oo";` or `import "ooda-standard/fs/os/fs.oo";`, never `::`).
   No parens on `if cond { }` / `while cond { }`. No struct trailing commas. Academy headers on every page.
-- **Always import `ooda-standard`** for math (`ooda-standard/core/math/exact/...`, `geometry/...`), 2D/3D physics &
-  collision (`ooda-standard/core/science/phys/classical/...`, `gnc/...`, `relativistic/...`,
-  `ooda-standard/core/app/ui/game_engine/...`), frontier AI-for-science & graphs (`ooda-standard/core/app/ai/...`),
-  collections (`ooda-standard/core/collection/...`), and crypto/hashing (`ooda-standard/sec/hash/...`,
-  `capability/...`)—never re-implement duplicate local helpers!
+- **Always import `ooda-standard`** for math & proofs (`ooda-standard/core/math/{exact,geometry,blas,fft,algebra,graph_topology}/...`, `ooda-standard/core/proofs/...`), science & 2D/3D engine physics (`ooda-standard/core/science/{phys,chem,bio,comm,econ}/...`, `ooda-standard/core/app/ui/game_engine/...`), frontier AI-for-science (`ooda-standard/core/app/ai/...`), collections (`ooda-standard/core/collection/...`), and crypto/security (`ooda-standard/sec/{hash,capability,pqc,symmetric}/...`)—never re-implement duplicate local helpers!
 - Build & Verify: `make build && make test` (or `ooda build && ooda test`), then
   `make verify`, `ooda check && ooda audit`, and `ooda-verify cycle` (`quorum_mask=255`).

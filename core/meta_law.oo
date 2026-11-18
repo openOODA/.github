@@ -3,9 +3,16 @@
 // Logline: Prove the 11-entry root, 24 brand icons, linguist package, and canonical docs.
 // Setup: Explicit FsReadCap; bounded reads and path probes inside the fs jail; fail closed.
 // Beats:
-//   1. meta_root_ok probes the canonical 8-entry root plus profile/, brand/, linguist/.
+//   1. meta_shape + meta_title_ok + meta_root_ok verify headings and the 11-entry root.
 //   2. meta_brand_ok walks 4 orgs x 3 option themes x png+svg plus the avatar pair.
 //   3. meta_linguist_ok probes the package files and all 9 compilable samples.
+
+pub fn meta_shape(src: String) -> Bool {
+    let t: String = str_trim(src);
+    if !str_starts_with(t, "# ") { return false; }
+    let ls: List[String] = str_split(t, "\n");
+    return list_len(ls) >= 8;
+}
 
 pub fn meta_title_ok(src: String) -> Bool {
     let t: String = str_trim(src);

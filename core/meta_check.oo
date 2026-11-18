@@ -1,11 +1,11 @@
 // # .github Org Metadata Conformance Checker
 //
-// Logline: Verify the profile census (70/74/78), row counts, 4 org links, and member needles.
-// Setup: Explicit FsReadCap for the bounded profile read; ooda-standard str_extra; fail closed.
+// Logline: Verify the 4-org profile table, org links, and AGENTS.md census/member roster.
+// Setup: Explicit FsReadCap for bounded profile and charter reads; fail closed.
 // Beats:
 //   1. meta_ver_num folds x.y.z semver digit runs like the constitutional card check.
-//   2. meta_counts + meta_census count the Repos-column cells and fleet totals.
-//   3. meta_orgs + meta_members prove 4 org links and 4 org member needles.
+//   2. meta_counts + meta_orgs verify the 4-org Repos/Packages cells and org links.
+//   3. meta_census + meta_members verify the 70/74/78 totals and org member needles.
 
 import "ooda-standard/core/primitives/str_extra.oo";
 import "core/meta_law.oo";
@@ -30,13 +30,6 @@ pub fn meta_ver_num(ver: String) -> Int {
         i = i + 1;
     }
     return num;
-}
-
-pub fn meta_shape(src: String) -> Bool {
-    let t: String = str_trim(src);
-    if !str_starts_with(t, "# ") { return false; }
-    let ls: List[String] = str_split(t, "\n");
-    return list_len(ls) >= 8;
 }
 
 pub fn meta_counts(src: String) -> Int {
@@ -82,12 +75,24 @@ pub fn meta_profile_ok(fs: &FsReadCap) -> Bool {
     let src: String = match r { Ok(s) => s, Err(_) => "" };
     if !meta_shape(src) { return false; }
     if meta_counts(src) != 4 { return false; }
-    if meta_census(src) != 5 { return false; }
     if meta_orgs(src) != 4 { return false; }
-    return meta_members(src) == 4;
+    if !str_contains(src, "| `4` |") || !str_contains(src, "| `15` |") { return false; }
+    return str_contains(src, "| `37` |") && str_contains(src, "| `18` |");
+}
+
+pub fn meta_charter_ok(fs: &FsReadCap) -> Bool {
+    let ar: Result[String, String] = oo_read_file(fs, "AGENTS.md");
+    if ar.is_err() { return false; }
+    let ag: String = match ar { Ok(s) => s, Err(_) => "" };
+    let sec: List[String] = str_split(ag, "## The Exact Consolidated 4-Organization Ecosystem");
+    if list_len(sec) < 2 { return false; }
+    let body: String = list_get(str_split(list_get(sec, 1), "\n## "), 0);
+    if !str_contains(body, "**Fleet Census**:") || meta_counts(body) != 4 { return false; }
+    return meta_census(body) == 5 && meta_members(body) == 4;
 }
 
 pub fn meta_repo_ok(fs: &FsReadCap) -> Bool {
     if !meta_profile_ok(fs) { return false; }
+    if !meta_charter_ok(fs) { return false; }
     return meta_law_ok(fs);
 }

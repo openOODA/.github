@@ -5,7 +5,7 @@
 //          zero host relays.
 // Setup: Explicit FsReadCap + EnvCap; ooda-standard ootheme palette resolves the theme verb.
 // Beats:
-//   1. oogithub_report runs the full metadata verdict (profile+root+brand+linguist+docs).
+//   1. oogithub_report runs the full metadata verdict (profile+charter+root+brand+linguist+docs).
 //   2. oogithub_status prints the folded PASS/FAIL; oogithub_census lists the 4 orgs.
 //   3. oogithub_about prints the canonical binary card; oogithub_theme resolves palettes.
 
@@ -18,15 +18,17 @@ import "ooda-standard/core/app/ui/ootheme.oo";
 pub fn oogithub_report(fs: &FsReadCap, json: Bool, deep: Bool) -> Int {
     let ver: String = oogithub_version();
     let p_ok: Bool = meta_profile_ok(fs);
+    let c_ok: Bool = meta_charter_ok(fs);
     let r_ok: Bool = meta_root_ok(fs);
     let b_ok: Bool = meta_brand_ok(fs);
     let l_ok: Bool = meta_linguist_ok(fs);
     let d_ok: Bool = meta_docs_ok(fs);
-    let ok: Bool = p_ok && r_ok && b_ok && l_ok && d_ok;
+    let ok: Bool = p_ok && c_ok && r_ok && b_ok && l_ok && d_ok;
     if json {
         let jp: String = if ok { "true" } else { "false" };
         println("{\"component\":\"oogithub\",\"check\":\"verify\",\"version\":\"" + ver +
             "\",\"profile\":" + (if p_ok { "true" } else { "false" }) +
+            ",\"charter\":" + (if c_ok { "true" } else { "false" }) +
             ",\"root\":" + (if r_ok { "true" } else { "false" }) +
             ",\"brand\":" + (if b_ok { "true" } else { "false" }) +
             ",\"linguist\":" + (if l_ok { "true" } else { "false" }) +
@@ -42,7 +44,8 @@ pub fn oogithub_report(fs: &FsReadCap, json: Bool, deep: Bool) -> Int {
         println("  census: 70 product packages / 74 platform+product / 78 total repos");
     }
     println("oogithub check (v" + ver + ")");
-    println("  profile  : org table + census 70/74/78 " + (if p_ok { "ok" } else { "FAIL" }));
+    println("  profile  : 4-org table + org links " + (if p_ok { "ok" } else { "FAIL" }));
+    println("  charter  : AGENTS.md census 70/74/78 " + (if c_ok { "ok" } else { "FAIL" }));
     println("  root     : 11 metadata entries " + (if r_ok { "ok" } else { "FAIL" }));
     println("  brand    : 24 org icons on disk " + (if b_ok { "ok" } else { "FAIL" }));
     println("  linguist : OODA package + 9 samples " + (if l_ok { "ok" } else { "FAIL" }));
@@ -65,14 +68,12 @@ pub fn oogithub_status(fs: &FsReadCap) -> Int {
 }
 
 pub fn oogithub_census(fs: &FsReadCap) -> Int {
-    let r: Result[String, String] = oo_read_file(fs, "profile/README.md");
-    if r.is_err() {
-        println("oogithub census: FAIL (profile unreadable)");
+    if !meta_profile_ok(fs) {
+        println("oogithub census: FAIL (profile/README.md 4-org table unreadable or drifted)");
         return 1;
     }
-    let src: String = match r { Ok(s) => s, Err(_) => "" };
-    if meta_counts(src) != 4 || meta_orgs(src) != 4 || meta_members(src) != 4 {
-        println("oogithub census: FAIL (org table drifted from canonical census)");
+    if !meta_charter_ok(fs) {
+        println("oogithub census: FAIL (AGENTS.md 70/74/78 census unreadable or drifted)");
         return 1;
     }
     println("  Root     @openOODA         = 5   (openOODA catalog install website .github)");

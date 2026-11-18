@@ -40,12 +40,6 @@ ooda-package install ooda-verify    # 8-hat verifier (quorum_mask=255)
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-system.png" width="28"> | [`@openOODA-system`](https://github.com/openOODA-system) | `38` | `37` | Bootloader, microkernel, drivers, system daemons, desktop shell, and CLI tools |
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-apps.png" width="28"> | [`@openOODA-apps`](https://github.com/openOODA-apps) | `19` | `18` | Portal-sandboxed desktop, web, office, media, studio, and game apps |
 
-**Fleet Census**: `70` product packages (`15` core + `37` system + `18` apps) + `4` `@openOODA` umbrella repos = `74` product+platform repos + `4` `.github` org-profile repos = `78` total repos across the 4 canonical organizations.
-
-`ooda-standard` ships the expanded scientific & mathematical discovery library: `ooda-standard/core/math/{exact,geometry,blas,fft,algebra,graph_topology}/...`, `ooda-standard/core/proofs/...`, `ooda-standard/core/science/{phys,chem,bio,comm,econ}/...`, frontier AI-for-science `ooda-standard/core/app/ai/...`, 2D/3D engine physics `ooda-standard/core/app/ui/game_engine/...` (`collision_{aabb,circle,gjk,sat}` + `ecs_*`), `ooda-standard/core/collection/...`, and `ooda-standard/sec/{hash,capability,pqc,symmetric}/...`.
-
-Canonical members (one per organization for conformance): `openOODA` (`@openOODA` umbrella), `ooda-compiler` (`@openOODA-core` toolchain), `ooda-shell` (`@openOODA-system` shell), `ooda-browser` (`@openOODA-apps` browser).
-
 ## System Requirements
 
 | Tier | Target Workload | CPU & Vector / TEE Extensions | Memory (RAM & CXL) | Storage & Bus | Host OS / Firmware / Interconnect |

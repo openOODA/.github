@@ -57,8 +57,8 @@ fn t_meta(fs: &FsReadCap) -> Int {
     p = t_expect(meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") &&
         meta_title_ok("# .github (openOODA) x Organization Profile\n"),
         "page shape + canonical title", p);
-    p = t_expect(meta_profile_ok(fs) && meta_repo_ok(fs),
-        "profile + repo verdict holds", p);
+    p = t_expect(meta_profile_ok(fs) && meta_charter_ok(fs) && meta_repo_ok(fs),
+        "profile + charter + repo verdict holds", p);
     return p;
 }
 
