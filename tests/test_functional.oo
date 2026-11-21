@@ -52,7 +52,7 @@ fn t_meta(fs: &FsReadCap) -> Int {
     p = t_expect(meta_orgs(osrc) == 4, "four org links", p);
     p = t_expect(meta_members("`openOODA` ooda-compiler ooda-shell ooda-browser") == 4,
         "four layer members", p);
-    p = t_expect(meta_ver_num("3.0.0") >= 0 && meta_ver_num("0.0.1") == 1,
+    p = t_expect(meta_ver_num("3.0.1") >= 0 && meta_ver_num("0.0.1") == 1,
         "semver parses", p);
     p = t_expect(meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") &&
         meta_title_ok("# .github (openOODA) x Organization Profile\n"),
