@@ -14,6 +14,8 @@ import "core/meta_law.oo";
 import "ooda-standard/core/primitives/str_extra.oo";
 import "cli/component.oo";
 import "cli/verbs.oo";
+import "ooda-standard/core/app/feedback_grp/fb_schema.oo";
+import "ooda-standard/core/app/feedback_grp/fb_cli.oo";
 
 fn oogithub_bad_arg(args: List[String]) -> Int {
     let mut i: Int = 0;
@@ -105,5 +107,10 @@ pub fn oogithub_run_cli(fs: &FsReadCap, env: &EnvCap, args: List[String]) -> Int
 }
 
 pub fn main(fs_r: &FsReadCap, env: &EnvCap, args: List[String]) -> Int {
+    if (list_len(&args) > 0 && list_get(&args, 0) == "feedback")
+        || (list_len(&args) > 1 && list_get(&args, 0) == "--json" && list_get(&args, 1) == "feedback") {
+        let fmeta: FbAppMeta = fb_meta_new("oogithub", "3.0.0", "Root", "cli", "");
+        return match fb_cli_run_lite(env, fmeta, &args) { Ok(rc) => rc, Err(_) => 2 };
+    }
     return oogithub_run_cli(fs_r, env, args);
 }
