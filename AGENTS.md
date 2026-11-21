@@ -11,7 +11,7 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
 
 `AGENTS.md` `README.md` `Makefile` `ooda.pkg` `anchor.oo` `cli/` `core/` `tests/`
 = the canonical 8-entry product blueprint **plus** `profile/` (org profile page),
-`brand/` (icon gallery), `linguist/` (grammar + samples + `validate.py` gate).
+`brand/` (icon gallery), `linguist/` (grammar + samples + `validate.oo` gate).
 
 ## Metadata Surfaces
 
@@ -21,7 +21,7 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
   all 4 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps`) in `1024×1024` PNG and SVG.
 - `linguist/` — `languages.yml` OODA entry, `heuristics.yml` disambiguation rules,
   `grammars/oo.tmLanguage.json` TextMate grammar, `.gitattributes` mapping, and 9
-  compilable samples (`samples/OODA/`); `make -C linguist check` runs `validate.py`.
+  compilable samples (`samples/OODA/`); `make -C linguist check` runs `validate.oo`.
   `verify_contracts.oo` carries the check-time `verify`/`assert_eq!` surface — a
   check-only leaf never linked into binaries.
 - `tests/` — lean 2-file suite over the linguist samples AND the metadata checkers.

@@ -1,11 +1,26 @@
-# OODA GitHub Linguist & editor-grammar package gate.
+# OODA GitHub Linguist & editor-grammar package gate (pure .oo).
 #
-# `make check` runs the full validation: oo.tmLanguage.json parses and
-# every regex compiles, languages.yml declares OODA, every heuristics.yml
-# pattern compiles and classifies all samples as OODA, .gitattributes is
-# wired, the Page Rule holds, and every sample in samples/OODA/ passes
-# `ooda-compiler check` (OODA_COMPILER env overrides the compiler path).
+# `make check` compiles and runs validate.oo over oo.tmLanguage.json,
+# languages.yml, heuristics.yml, .gitattributes, the Page Rule, and
+# `ooda-compiler check` over every sample in samples/OODA/ (OODA_COMPILER overrides).
 
-.PHONY: check validate test
+OODA_COMPILER ?= $(HOME)/.openooda/bin/ooda-compiler
+RESOLVED_COMP := $(if $(wildcard $(OODA_COMPILER)),$(OODA_COMPILER),$(HOME)/.openooda/bin/ooda-compiler)
+OODA_STANDARD_ROOT ?= $(HOME)/.openooda/ooda-standard
+OODA_RUNTIME_ROOT ?= $(HOME)/.openooda/bin
+OO_LIST_AMBIENT_QUOTA ?= 8589934592
+
+.PHONY: check validate test clean
 check validate test:
-	python3 validate.py
+	@mkdir -p .ooda-cache
+	@cd .. && env -u OODA_OODAR_ROOT -u OODA_OOSTD_ROOT OO_LIST_AMBIENT_QUOTA=$(OO_LIST_AMBIENT_QUOTA) OODA_NO_JAIL=1 \
+		OODA_COMPILER="$(RESOLVED_COMP)" OODAC_BIN="$(RESOLVED_COMP)" \
+		OODA_STANDARD_ROOT="$(OODA_STANDARD_ROOT)" OODA_RUNTIME_ROOT="$(OODA_RUNTIME_ROOT)" \
+		"$(RESOLVED_COMP)" build linguist/validate.oo -o linguist/.ooda-cache/validate
+	@cd .. && env -u OODA_OODAR_ROOT -u OODA_OOSTD_ROOT OO_LIST_AMBIENT_QUOTA=$(OO_LIST_AMBIENT_QUOTA) OODA_NO_JAIL=1 \
+		OODA_COMPILER="$(RESOLVED_COMP)" OODAC_BIN="$(RESOLVED_COMP)" \
+		OODA_STANDARD_ROOT="$(OODA_STANDARD_ROOT)" OODA_RUNTIME_ROOT="$(OODA_RUNTIME_ROOT)" \
+		./linguist/.ooda-cache/validate .
+
+clean:
+	@rm -rf .ooda-cache

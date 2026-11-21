@@ -51,7 +51,7 @@ pub fn meta_brand_ok(fs: &FsReadCap) -> Bool {
 
 pub fn meta_linguist_ok(fs: &FsReadCap) -> Bool {
     if !path_exists(fs, "linguist/Makefile") { return false; }
-    if !path_exists(fs, "linguist/validate.py") { return false; }
+    if !path_exists(fs, "linguist/validate.oo") { return false; }
     if !path_exists(fs, "linguist/heuristics.yml") { return false; }
     if !path_exists(fs, "linguist/grammars/oo.tmLanguage.json") { return false; }
     let lr: Result[String, String] = oo_read_file(fs, "linguist/languages.yml");
