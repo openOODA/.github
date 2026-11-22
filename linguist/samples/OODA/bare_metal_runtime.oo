@@ -1,14 +1,14 @@
-// # Bare-Metal oodar Integration Sample
+// # Bare-Metal ooda-runtime Integration Sample
 //
-// Logline: Capability-gated MMIO UART bring-up on the zero-GC oodar substrate: admit a hardware reg64, drain TX, poll RX.
-// Setup: MmioCap bit 13 plus IrqCap bit 15 packed into one CapReg64; every oodar veneer refuses a forged or missing token.
+// Logline: Capability-gated MMIO UART bring-up on the zero-GC ooda-runtime substrate: admit a hardware reg64, drain TX, poll RX.
+// Setup: MmioCap bit 13 plus IrqCap bit 15 packed into one CapReg64; every ooda-runtime veneer refuses a forged or missing token.
 // Beats:
 //   1. uart_hw_admit packs the hardware cap mask and admits the register before any MMIO address is touched.
 //   2. oo_nostd_uart_init binds data/status registers; oo_mmio_write8 pushes bytes once TX-empty (status bit 5).
 //   3. oo_nostd_alloc serves DMA ring slots from a static arena; oo_mmio_barrier orders every access.
 
 import "ooda-standard/sec/capreg.oo";
-import "oodar_veneers.oo";
+import "runtime_veneers.oo";
 
 fn uart_hw_admit(reg64: Int, epoch: Int) -> Int {
     let mmio: Int = 1 << oo_cap_bit_index("MmioCap");

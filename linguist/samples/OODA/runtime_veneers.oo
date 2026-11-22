@@ -1,7 +1,7 @@
-// # liboodar.a Bare-Metal Veneer Declarations Sample
+// # libooda-runtime.a Bare-Metal Veneer Declarations Sample
 //
-// Logline: Compile-time declarations for the zero-GC oodar substrate veneers that bare-metal .oo pages call.
-// Setup: In production these symbols are provided by liboodar.a at link time; they are declared here as
+// Logline: Compile-time declarations for the zero-GC ooda-runtime substrate veneers that bare-metal .oo pages call.
+// Setup: In production these symbols are provided by libooda-runtime.a at link time; they are declared here as
 //        minimal bodies so `ooda-compiler check` resolves the full capability-gated surface without the C archive.
 // Beats:
 //   1. oo_mmio_read8/write8/barrier form the memory-mapped I/O triple: poll status, push data, order access.
