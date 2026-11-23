@@ -1,10 +1,10 @@
 // # .github Metadata Law Checker - Root, Brand, Linguist & Docs Invariants
 //
-// Logline: Prove the 11-entry root, 24 brand icons, linguist package, and canonical docs.
+// Logline: Prove the 11-entry root, 30 brand icons, linguist package, and canonical docs.
 // Setup: Explicit FsReadCap; bounded reads and path probes inside the fs jail; fail closed.
 // Beats:
 //   1. meta_shape + meta_title_ok + meta_root_ok verify headings and the 11-entry root.
-//   2. meta_brand_ok walks 4 orgs x 3 option themes x png+svg plus the avatar pair.
+//   2. meta_brand_ok walks 5 orgs x 3 option themes x png+svg plus the avatar pair.
 //   3. meta_linguist_ok probes the package files and all 9 compilable samples.
 
 pub fn meta_shape(src: String) -> Bool {
@@ -33,7 +33,7 @@ pub fn meta_brand_ok(fs: &FsReadCap) -> Bool {
     if !path_exists(fs, "brand/avatar.png") { return false; }
     if !path_exists(fs, "brand/avatar.svg") { return false; }
     let orgs: List[String] = str_split("openOODA openOODA-core " +
-        "openOODA-system openOODA-apps", " ");
+        "openOODA-system openOODA-apps openOODA-games", " ");
     let opts: List[String] = str_split("option-a option-b option-c", " ");
     let mut i: Int = 0;
     while i < list_len(orgs) {
@@ -64,9 +64,9 @@ pub fn meta_linguist_ok(fs: &FsReadCap) -> Bool {
     let a: String = match ar { Ok(s) => s, Err(_) => "" };
     if !str_contains(a, "linguist-language=OODA") { return false; }
     if !str_contains(a, "*.oot") { return false; }
-    let samples: List[String] = str_split("bare_metal_oodar.oo capability_packet.oo " +
-        "capreg64_oodar.oot capreg_attenuation.oo contracts_typestate.oot " +
-        "oodar_veneers.oo smt_contracts.oo typestate_machine.oo verify_contracts.oo", " ");
+    let samples: List[String] = str_split("bare_metal_runtime.oo capability_packet.oo " +
+        "capreg64_runtime.oot capreg_attenuation.oo contracts_typestate.oot " +
+        "runtime_veneers.oo smt_contracts.oo typestate_machine.oo verify_contracts.oo", " ");
     let mut i: Int = 0;
     while i < list_len(samples) {
         if !path_exists(fs, "linguist/samples/OODA/" + list_get(samples, i)) { return false; }

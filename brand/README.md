@@ -1,14 +1,14 @@
 # openOODA Organization Icon Gallery (`brand/`)
 
-Side-by-side comparison of three unified icon themes across all 4 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps`), shown at both **Large (`112px`)** and **GitHub Header / Switcher (`36px`)** sizes.
+Side-by-side comparison of three unified icon themes across all 5 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps` + `@openOODA-games`), shown at both **Large (`112px`)** and **GitHub Header / Switcher (`36px`)** sizes.
 
 Every icon is available in both **`1024×1024` `.png`** (ready for GitHub Organization Settings -> Profile Picture upload) and vector **`.svg`**.
 
-- **Option A (`option-a/`)**: **Dark Silicon Chassis + Layer Glyph + Layer Code (`.oo` / `CORE`·`SYS`·`APPS`)** (`.png` + `.svg`)
+- **Option A (`option-a/`)**: **Dark Silicon Chassis + Layer Glyph + Layer Code (`.oo` / `L0`·`SYS`·`L5`·`L6`)** (`.png` + `.svg`)
 - **Option B (`option-b/`)**: **Pure Geometric Emblem (Active Default — Zero Text, High-Contrast Symbol Only)** (`.png` + `.svg`)
 - **Option C (`option-c/`)**: **Brutalist Industrial Badge (Color Header Bar + Giant Monospace Code)** (`.png` + `.svg`)
 
-Total assets: **24** icons (4 orgs × 3 options × png+svg) plus the avatar pair.
+Total assets: **30** icons (5 orgs × 3 options × png+svg) plus the avatar pair.
 
 ---
 
@@ -20,3 +20,4 @@ Total assets: **24** icons (4 orgs × 3 options × png+svg) plus the avatar pair
 | **`@openOODA-core`** | **CORE** (`#00E5FF` Cyan) | <img src="option-a/openOODA-core.png" width="112"><br><img src="option-a/openOODA-core.png" width="36"><br>[PNG](option-a/openOODA-core.png) · [SVG](option-a/openOODA-core.svg) | <img src="option-b/openOODA-core.png" width="112"><br><img src="option-b/openOODA-core.png" width="36"><br>[PNG](option-b/openOODA-core.png) · [SVG](option-b/openOODA-core.svg) | <img src="option-c/openOODA-core.png" width="112"><br><img src="option-c/openOODA-core.png" width="36"><br>[PNG](option-c/openOODA-core.png) · [SVG](option-c/openOODA-core.svg) |
 | **`@openOODA-system`** | **SYS** (`#FFB300` Amber) | <img src="option-a/openOODA-system.png" width="112"><br><img src="option-a/openOODA-system.png" width="36"><br>[PNG](option-a/openOODA-system.png) · [SVG](option-a/openOODA-system.svg) | <img src="option-b/openOODA-system.png" width="112"><br><img src="option-b/openOODA-system.png" width="36"><br>[PNG](option-b/openOODA-system.png) · [SVG](option-b/openOODA-system.svg) | <img src="option-c/openOODA-system.png" width="112"><br><img src="option-c/openOODA-system.png" width="36"><br>[PNG](option-c/openOODA-system.png) · [SVG](option-c/openOODA-system.svg) |
 | **`@openOODA-apps`** | **APPS** (`#D500F9` Violet) | <img src="option-a/openOODA-apps.png" width="112"><br><img src="option-a/openOODA-apps.png" width="36"><br>[PNG](option-a/openOODA-apps.png) · [SVG](option-a/openOODA-apps.svg) | <img src="option-b/openOODA-apps.png" width="112"><br><img src="option-b/openOODA-apps.png" width="36"><br>[PNG](option-b/openOODA-apps.png) · [SVG](option-b/openOODA-apps.svg) | <img src="option-c/openOODA-apps.png" width="112"><br><img src="option-c/openOODA-apps.png" width="36"><br>[PNG](option-c/openOODA-apps.png) · [SVG](option-c/openOODA-apps.svg) |
+| **`@openOODA-games`** | **GAMES** (`#FF3D5A` Coral) | <img src="option-a/openOODA-games.png" width="112"><br><img src="option-a/openOODA-games.png" width="36"><br>[PNG](option-a/openOODA-games.png) · [SVG](option-a/openOODA-games.svg) | <img src="option-b/openOODA-games.png" width="112"><br><img src="option-b/openOODA-games.png" width="36"><br>[PNG](option-b/openOODA-games.png) · [SVG](option-b/openOODA-games.svg) | <img src="option-c/openOODA-games.png" width="112"><br><img src="option-c/openOODA-games.png" width="36"><br>[PNG](option-c/openOODA-games.png) · [SVG](option-c/openOODA-games.svg) |

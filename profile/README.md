@@ -39,6 +39,7 @@ ooda-package install ooda-verify    # 8-hat verifier (quorum_mask=255)
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-core.png" width="28"> | [`@openOODA-core`](https://github.com/openOODA-core) | `16` | `15` | Language, compiler, runtime, standard library, toolchain, and UI/engine SDK |
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-system.png" width="28"> | [`@openOODA-system`](https://github.com/openOODA-system) | `38` | `37` | Bootloader, microkernel, drivers, system daemons, desktop shell, and CLI tools |
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-apps.png" width="28"> | [`@openOODA-apps`](https://github.com/openOODA-apps) | `19` | `18` | Portal-sandboxed desktop, web, office, media, studio, and game apps |
+| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-games.png" width="28"> | [`@openOODA-games`](https://github.com/openOODA-games) | `10` | `9` | Deterministic 2D/3D game engine (`ooda-engine`) and native games & emulation |
 
 ## System Requirements
 
