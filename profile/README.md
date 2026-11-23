@@ -27,18 +27,18 @@ ooda-package install ooda-verify    # 8-hat verifier (quorum_mask=255)
 | :--- | :--- |
 | [`openOODA`](https://github.com/openOODA/openOODA) | Governance charter (`AGENTS.md`) and the 8 Quick Cards (`cards/`) |
 | [`install`](https://github.com/openOODA/install) | Universal bootstrap installer, bootable Live ISO (`ooda-os-x86_64.iso`), Buildbox, and binary release hub |
-| [`catalog`](https://github.com/openOODA/catalog) | Signed 4-org package registry queried by `ooda-package` |
+| [`catalog`](https://github.com/openOODA/catalog) | Signed 5-org package registry queried by `ooda-package` |
 | [`website`](https://github.com/openOODA/website) | Static source for [https://openooda.org](https://openooda.org) (`docs/`) |
 | [`.github`](https://github.com/openOODA/.github) | Organization profile, brand icon gallery (`brand/`), and GitHub Linguist grammar (`linguist/`) |
 
-## 4-Organization Ecosystem
+## 5-Organization Ecosystem
 
 | Icon | Organization&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Repos | Packages | Scope |
 | :---: | :--- | :---: | :---: | :--- |
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA.png" width="28"> | [`@openOODA`](https://github.com/openOODA) | `5` | `4` | Governance charter, website, installer, release hub, and signed catalog |
-| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-core.png" width="28"> | [`@openOODA-core`](https://github.com/openOODA-core) | `16` | `15` | Language, compiler, runtime, standard library, toolchain, and UI/engine SDK |
-| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-system.png" width="28"> | [`@openOODA-system`](https://github.com/openOODA-system) | `38` | `37` | Bootloader, microkernel, drivers, system daemons, desktop shell, and CLI tools |
-| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-apps.png" width="28"> | [`@openOODA-apps`](https://github.com/openOODA-apps) | `19` | `18` | Portal-sandboxed desktop, web, office, media, studio, and game apps |
+| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-core.png" width="28"> | [`@openOODA-core`](https://github.com/openOODA-core) | `12` | `11` | Language, compiler, runtime, standard library, toolchain, VCS, and UI SDK |
+| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-system.png" width="28"> | [`@openOODA-system`](https://github.com/openOODA-system) | `27` | `26` | Bootloader, microkernel, drivers, system daemons, desktop shell, and CLI suites |
+| <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-apps.png" width="28"> | [`@openOODA-apps`](https://github.com/openOODA-apps) | `20` | `19` | Portal-sandboxed desktop, web, office, media, and studio apps |
 | <img src="https://raw.githubusercontent.com/openOODA/.github/master/brand/option-b/openOODA-games.png" width="28"> | [`@openOODA-games`](https://github.com/openOODA-games) | `10` | `9` | Deterministic 2D/3D game engine (`ooda-engine`) and native games & emulation |
 
 ## System Requirements
@@ -47,5 +47,5 @@ ooda-package install ooda-verify    # 8-hat verifier (quorum_mask=255)
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Tier 1: CLI / TUI & Tools** | Pre-built `@openOODA-system` CLI suites, `ooda-screensaver`, `ooda-flasher` | `x86_64` (AVX2/AVX-512), `ARM64` (`SVE2`), or `RISC-V` (`RVV 1.0`) (1+ core) | **64 – 256 MiB** (`2–24 MiB` RSS per tool) | **10 – 250 MiB** (`~0.3–3 MiB` per static binary) | Linux `4.19+` (`5.15+` for `io_uring`/Landlock), openOODA OS, Windows 10/11 (`PE32+`), macOS, WASM32 |
 | **Tier 2: Bare-Metal OS & Desktop** | `ooda-boot` + `ooda-kernel` + `ooda-compositor` (`ooda-terminal`, `ooda-browser`, 128 Hz engines) | 2+ cores (`4+` rec; Intel RDT / ARM MPAM L3 QoS) | **512 MiB** min (TUI) / **2 – 4 GiB** rec (Wayland desktop & 3D apps) | **1 – 4 GiB** NVMe (ZNS), SATA/AHCI, VirtIO-Blk, SDHCI/eMMC/UFS, or USB4 | UEFI (`x86_64`/`AA64`) + TPM 2.0 / DICE / Caliptra Root-of-Trust, GOP/DRM-KMS/VirtIO-GPU 3D |
-| **Tier 3: Developer Workstation** | Building from source with `ooda-compiler`, SMT/Z3 proofs & 8-hat `ooda-verify` verification | 4+ cores / 8+ threads (`16+` threads; AMD SEV-SNP / Intel TDX / ARM CCA TEE) | **8 – 16 GiB** min (`3` compiler slots) / **32 – 64 GiB+** rec (`8` slots) | **20 – 50 GiB** NVMe SSD (78 repos + `.ooda-cache`) | Linux `x86_64` / `ARM64` or openOODA Buildbox container (SR-IOV VF / VirtIO-FS DAX) |
+| **Tier 3: Developer Workstation** | Building from source with `ooda-compiler`, SMT/Z3 proofs & 8-hat `ooda-verify` verification | 4+ cores / 8+ threads (`16+` threads; AMD SEV-SNP / Intel TDX / ARM CCA TEE) | **8 – 16 GiB** min (`3` compiler slots) / **32 – 64 GiB+** rec (`8` slots) | **20 – 50 GiB** NVMe SSD (74 repos + `.ooda-cache`) | Linux `x86_64` / `ARM64` or openOODA Buildbox container (SR-IOV VF / VirtIO-FS DAX) |
 | **Tier 4: AI & Frontier Science** | Local `ooda-inference` agent swarm (`ooda-chat`, `ooda-studio` AI helpers) & `ooda-standard` GPU/NPU compute kernels | Multi-core CPU (Intel AMX / ARM SME) + NVIDIA (`CUDA` SM 7.5+) or AMD (`ROCm`) | **16 GiB+** system RAM / **CXL 3.0** pool + **8 – 24 GiB+ VRAM** per GPU | **50 GiB+** NVMe / Peer-to-Peer DMA (`peer_dma`) | Zero-Copy **RDMA / RoCEv2 / InfiniBand** fabric + CUDA, ROCm, or Vulkan (automatic CPU fallback) |

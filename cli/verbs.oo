@@ -38,16 +38,17 @@ pub fn oogithub_report(fs: &FsReadCap, json: Bool, deep: Bool) -> Int {
     }
     if deep {
         println("  census: Root @openOODA = 5 repos (openOODA catalog install website .github)");
-        println("  census: @openOODA-core = 16 repos (15 products + .github)");
-        println("  census: @openOODA-system = 38 repos (37 products + .github)");
-        println("  census: @openOODA-apps = 19 repos (18 products + .github)");
-        println("  census: 70 product packages / 74 platform+product / 78 total repos");
+        println("  census: @openOODA-core = 12 repos (11 products + .github)");
+        println("  census: @openOODA-system = 27 repos (26 products + .github)");
+        println("  census: @openOODA-apps = 20 repos (19 products + .github)");
+        println("  census: @openOODA-games = 10 repos (9 products + .github)");
+        println("  census: 65 product packages / 69 platform+product / 74 total repos");
     }
     println("oogithub check (v" + ver + ")");
-    println("  profile  : 4-org table + org links " + (if p_ok { "ok" } else { "FAIL" }));
-    println("  charter  : AGENTS.md census 70/74/78 " + (if c_ok { "ok" } else { "FAIL" }));
+    println("  profile  : 5-org table + org links " + (if p_ok { "ok" } else { "FAIL" }));
+    println("  charter  : AGENTS.md census 65/69/74 " + (if c_ok { "ok" } else { "FAIL" }));
     println("  root     : 11 metadata entries " + (if r_ok { "ok" } else { "FAIL" }));
-    println("  brand    : 24 org icons on disk " + (if b_ok { "ok" } else { "FAIL" }));
+    println("  brand    : 30 org icons on disk " + (if b_ok { "ok" } else { "FAIL" }));
     println("  linguist : OODA package + 9 samples " + (if l_ok { "ok" } else { "FAIL" }));
     println("  docs     : AGENTS title + README links " + (if d_ok { "ok" } else { "FAIL" }));
     if ok {
@@ -69,18 +70,19 @@ pub fn oogithub_status(fs: &FsReadCap) -> Int {
 
 pub fn oogithub_census(fs: &FsReadCap) -> Int {
     if !meta_profile_ok(fs) {
-        println("oogithub census: FAIL (profile/README.md 4-org table unreadable or drifted)");
+        println("oogithub census: FAIL (profile/README.md 5-org table unreadable or drifted)");
         return 1;
     }
     if !meta_charter_ok(fs) {
-        println("oogithub census: FAIL (AGENTS.md 70/74/78 census unreadable or drifted)");
+        println("oogithub census: FAIL (AGENTS.md 65/69/74 census unreadable or drifted)");
         return 1;
     }
     println("  Root     @openOODA         = 5   (openOODA catalog install website .github)");
-    println("  Core     @openOODA-core    = 16  (15 products + .github)");
-    println("  System   @openOODA-system  = 38  (37 products + .github)");
-    println("  Apps     @openOODA-apps    = 19  (18 products + .github)");
-    println("  70 product packages / 74 platform+product / 78 total repos");
+    println("  Core     @openOODA-core    = 12  (11 products + .github)");
+    println("  System   @openOODA-system  = 27  (26 products + .github)");
+    println("  Apps     @openOODA-apps    = 20  (19 products + .github)");
+    println("  Games    @openOODA-games   = 10  (9 products + .github)");
+    println("  65 product packages / 69 platform+product / 74 total repos");
     return 0;
 }
 
@@ -90,7 +92,7 @@ pub fn oogithub_about() -> Int {
     println("Summary      : Organization profile & governance metadata - census, brand & linguist verification");
     println("Subcommands  : check,audit,status,verify,census,theme,about,--self-test");
     println("Capabilities : FsRead,Env");
-    println("Census       : 70 product packages, 74 platform+product, 78 total repos");
+    println("Census       : 65 product packages, 69 platform+product, 74 total repos");
     return 0;
 }
 

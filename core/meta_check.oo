@@ -1,11 +1,11 @@
 // # .github Org Metadata Conformance Checker
 //
-// Logline: Verify the 4-org profile table, org links, and AGENTS.md census/member roster.
+// Logline: Verify the 5-org profile table, org links, and AGENTS.md census/member roster.
 // Setup: Explicit FsReadCap for bounded profile and charter reads; fail closed.
 // Beats:
 //   1. meta_ver_num folds x.y.z semver digit runs like the constitutional card check.
-//   2. meta_counts + meta_orgs verify the 4-org Repos/Packages cells and org links.
-//   3. meta_census + meta_members verify the 70/74/78 totals and org member needles.
+//   2. meta_counts + meta_orgs verify the 5-org Repos/Packages cells and org links.
+//   3. meta_census + meta_members verify the 65/69/74 totals and org member needles.
 
 import "ooda-standard/core/primitives/str_extra.oo";
 import "core/meta_law.oo";
@@ -35,19 +35,20 @@ pub fn meta_ver_num(ver: String) -> Int {
 pub fn meta_counts(src: String) -> Int {
     let mut n: Int = 0;
     if str_contains(src, "| `5` |") { n = n + 1; }
-    if str_contains(src, "| `16` |") { n = n + 1; }
-    if str_contains(src, "| `38` |") { n = n + 1; }
-    if str_contains(src, "| `19` |") { n = n + 1; }
+    if str_contains(src, "| `12` |") { n = n + 1; }
+    if str_contains(src, "| `27` |") { n = n + 1; }
+    if str_contains(src, "| `20` |") { n = n + 1; }
+    if str_contains(src, "| `10` |") { n = n + 1; }
     return n;
 }
 
 pub fn meta_census(src: String) -> Int {
     let mut n: Int = 0;
-    if str_contains(src, "`70`") { n = n + 1; }
+    if str_contains(src, "`65`") { n = n + 1; }
+    if str_contains(src, "`69`") { n = n + 1; }
     if str_contains(src, "`74`") { n = n + 1; }
-    if str_contains(src, "`78`") { n = n + 1; }
-    if str_contains(src, "`15`") { n = n + 1; }
-    if str_contains(src, "`37`") { n = n + 1; }
+    if str_contains(src, "`11`") { n = n + 1; }
+    if str_contains(src, "`26`") { n = n + 1; }
     return n;
 }
 
@@ -57,6 +58,7 @@ pub fn meta_orgs(src: String) -> Int {
     if str_contains(src, "github.com/openOODA-core)") { n = n + 1; }
     if str_contains(src, "github.com/openOODA-system)") { n = n + 1; }
     if str_contains(src, "github.com/openOODA-apps)") { n = n + 1; }
+    if str_contains(src, "github.com/openOODA-games)") { n = n + 1; }
     return n;
 }
 
@@ -66,6 +68,7 @@ pub fn meta_members(src: String) -> Int {
     if str_contains(src, "ooda-compiler") { n = n + 1; }
     if str_contains(src, "ooda-shell") { n = n + 1; }
     if str_contains(src, "ooda-browser") { n = n + 1; }
+    if str_contains(src, "ooda-engine") { n = n + 1; }
     return n;
 }
 
@@ -74,21 +77,22 @@ pub fn meta_profile_ok(fs: &FsReadCap) -> Bool {
     if r.is_err() { return false; }
     let src: String = match r { Ok(s) => s, Err(_) => "" };
     if !meta_shape(src) { return false; }
-    if meta_counts(src) != 4 { return false; }
-    if meta_orgs(src) != 4 { return false; }
-    if !str_contains(src, "| `4` |") || !str_contains(src, "| `15` |") { return false; }
-    return str_contains(src, "| `37` |") && str_contains(src, "| `18` |");
+    if meta_counts(src) != 5 { return false; }
+    if meta_orgs(src) != 5 { return false; }
+    if !str_contains(src, "| `4` |") || !str_contains(src, "| `11` |") { return false; }
+    if !str_contains(src, "| `26` |") || !str_contains(src, "| `19` |") { return false; }
+    return str_contains(src, "| `9` |");
 }
 
 pub fn meta_charter_ok(fs: &FsReadCap) -> Bool {
     let ar: Result[String, String] = oo_read_file(fs, "AGENTS.md");
     if ar.is_err() { return false; }
     let ag: String = match ar { Ok(s) => s, Err(_) => "" };
-    let sec: List[String] = str_split(ag, "## The Exact Consolidated 4-Organization Ecosystem");
+    let sec: List[String] = str_split(ag, "## The Exact Consolidated 5-Organization Ecosystem");
     if list_len(sec) < 2 { return false; }
     let body: String = list_get(str_split(list_get(sec, 1), "\n## "), 0);
-    if !str_contains(body, "**Fleet Census**:") || meta_counts(body) != 4 { return false; }
-    return meta_census(body) == 5 && meta_members(body) == 4;
+    if !str_contains(body, "**Fleet Census**:") || meta_counts(body) != 5 { return false; }
+    return meta_census(body) == 5 && meta_members(body) == 5;
 }
 
 pub fn meta_repo_ok(fs: &FsReadCap) -> Bool {

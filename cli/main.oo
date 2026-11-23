@@ -53,13 +53,13 @@ fn oogithub_target_ok(args: List[String]) -> Bool {
 pub fn oogithub_selftest(fs: &FsReadCap) -> Bool {
     if meta_ver_num(oogithub_version()) < 0 { return false; }
     if !meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") { return false; }
-    let zsrc: String = "| `5` | `16` | `38` | `19` | `70` `74` `78` `15` `37`";
-    if meta_counts(zsrc) != 4 || meta_census(zsrc) != 5 { return false; }
+    let zsrc: String = "| `5` | `12` | `27` | `20` | `10` | `65` `69` `74` `11` `26`";
+    if meta_counts(zsrc) != 5 || meta_census(zsrc) != 5 { return false; }
     let osrc: String = "github.com/openOODA) github.com/openOODA-core)" +
-        " github.com/openOODA-system) github.com/openOODA-apps)";
-    if meta_orgs(osrc) != 4 { return false; }
-    let msrc: String = "`openOODA` ooda-compiler ooda-shell ooda-browser";
-    if meta_members(msrc) != 4 { return false; }
+        " github.com/openOODA-system) github.com/openOODA-apps) github.com/openOODA-games)";
+    if meta_orgs(osrc) != 5 { return false; }
+    let msrc: String = "`openOODA` ooda-compiler ooda-shell ooda-browser ooda-engine";
+    if meta_members(msrc) != 5 { return false; }
     if !meta_title_ok("# .github (openOODA) - Organization Profile x\n") { return false; }
     return meta_repo_ok(fs);
 }

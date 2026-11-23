@@ -44,14 +44,14 @@ fn t_samples(fs: &FsReadCap) -> Int {
 
 fn t_meta(fs: &FsReadCap) -> Int {
     let mut p: Int = 0;
-    let zsrc: String = "| `5` | `16` | `38` | `19` | `70` `74` `78` `15` `37`";
-    p = t_expect(meta_counts(zsrc) == 4 && meta_census(zsrc) == 5,
+    let zsrc: String = "| `5` | `12` | `27` | `20` | `10` | `65` `69` `74` `11` `26`";
+    p = t_expect(meta_counts(zsrc) == 5 && meta_census(zsrc) == 5,
         "count cells + census needles", p);
     let osrc: String = "github.com/openOODA) github.com/openOODA-core)" +
-        " github.com/openOODA-system) github.com/openOODA-apps)";
-    p = t_expect(meta_orgs(osrc) == 4, "four org links", p);
-    p = t_expect(meta_members("`openOODA` ooda-compiler ooda-shell ooda-browser") == 4,
-        "four layer members", p);
+        " github.com/openOODA-system) github.com/openOODA-apps) github.com/openOODA-games)";
+    p = t_expect(meta_orgs(osrc) == 5, "five org links", p);
+    p = t_expect(meta_members("`openOODA` ooda-compiler ooda-shell ooda-browser ooda-engine") == 5,
+        "five layer members", p);
     p = t_expect(meta_ver_num("3.0.1") >= 0 && meta_ver_num("0.0.1") == 1,
         "semver parses", p);
     p = t_expect(meta_shape("# t\nl1\nl2\nl3\nl4\nl5\nl6\nl7\n") &&

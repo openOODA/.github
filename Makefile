@@ -174,7 +174,7 @@ test: $(BIN)
 	@PATH=/nonexistent $(ENV) ./$(BIN) verify | grep -q "verify OK" && echo "PASS: oogithub verify"
 	@PATH=/nonexistent $(ENV) ./$(BIN) audit | grep -q "verify OK" && echo "PASS: oogithub audit"
 	@PATH=/nonexistent $(ENV) ./$(BIN) status | grep -q "PASS" && echo "PASS: oogithub status"
-	@PATH=/nonexistent $(ENV) ./$(BIN) census | grep -q "78 total repos" && echo "PASS: oogithub census"
+	@PATH=/nonexistent $(ENV) ./$(BIN) census | grep -q "74 total repos" && echo "PASS: oogithub census"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) --unknown-flag-zzz > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: --unknown-flag-zzz refusal exits 2"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) --persona oocoder > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: --persona refusal exits 2"
 	@rc=0; PATH=/nonexistent $(ENV) ./$(BIN) check ../.github > /dev/null 2>&1 || rc=$$?; [ "$$rc" = "2" ] && echo "PASS: traversal operand refusal exits 2"

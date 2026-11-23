@@ -3,7 +3,7 @@
 Canonical organization-profile host of the openOODA capability-secured computing stack
 (zero ambient authority, single-cycle 64-bit `CapReg64` hardware/software
 capabilities). This repository is the public face of [`@openOODA`](https://github.com/openOODA):
-it holds the org profile page (`profile/README.md`), the 4-organization brand icon
+it holds the org profile page (`profile/README.md`), the 5-organization brand icon
 gallery (`brand/`), the GitHub Linguist package (`linguist/`), and a native `.oo`
 self-verification surface (`bin/oogithub`) that proves every metadata invariant without stubs.
 
@@ -15,10 +15,10 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
 
 ## Metadata Surfaces
 
-- `profile/README.md` — public org profile: Root repos, 4-org table with exact
+- `profile/README.md` — public org profile: Root repos, 5-org table with exact
   repo and package counts, and the 4-tier system-requirements matrix.
 - `brand/` — org avatar (`avatar.png`/`avatar.svg`) + `option-{a,b,c}/` icon sets:
-  all 4 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps`) in `1024×1024` PNG and SVG.
+  all 5 canonical organizations (`@openOODA` Umbrella + `@openOODA-core` + `@openOODA-system` + `@openOODA-apps` + `@openOODA-games`) in `1024×1024` PNG and SVG.
 - `linguist/` — `languages.yml` OODA entry, `heuristics.yml` disambiguation rules,
   `grammars/oo.tmLanguage.json` TextMate grammar, `.gitattributes` mapping, and 9
   compilable samples (`samples/OODA/`); `make -C linguist check` runs `validate.oo`.
@@ -26,17 +26,18 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
   check-only leaf never linked into binaries.
 - `tests/` — lean 2-file suite over the linguist samples AND the metadata checkers.
 
-## The Exact Consolidated 4-Organization Ecosystem (78 Repos)
+## The Exact Consolidated 5-Organization Ecosystem (74 Repos)
 
 | Organization | Repos | Members |
 | :--- | :---: | :--- |
 | **`@openOODA`** | `5` | `openOODA`, `catalog`, `install`, `website`, `.github` |
-| **`@openOODA-core`** | `16` | `ooda`, `ooda-binary`, `ooda-bridge`, `ooda-build`, `ooda-compiler`, `ooda-engine`, `ooda-format`, `ooda-interface`, `ooda-language`, `ooda-package`, `ooda-provenance`, `ooda-runtime`, `ooda-sign`, `ooda-standard`, `ooda-verify`, `.github` |
-| **`@openOODA-system`** | `38` | `ooda-archive`, `ooda-authority`, `ooda-boot`, `ooda-bus`, `ooda-compositor`, `ooda-connect`, `ooda-container`, `ooda-data`, `ooda-database`, `ooda-disk`, `ooda-drivers`, `ooda-edit`, `ooda-files`, `ooda-filesystem`, `ooda-firewall`, `ooda-hardware`, `ooda-health`, `ooda-inference`, `ooda-kernel`, `ooda-list`, `ooda-machine`, `ooda-modem`, `ooda-network`, `ooda-panel`, `ooda-portal`, `ooda-read`, `ooda-sandbox`, `ooda-screensaver`, `ooda-settings`, `ooda-shell`, `ooda-start`, `ooda-terminal`, `ooda-text`, `ooda-theme`, `ooda-vault`, `ooda-version`, `ooda-web`, `.github` |
-| **`@openOODA-apps`** | `19` | `ooda-arcade`, `ooda-audio`, `ooda-browser`, `ooda-calculator`, `ooda-camera`, `ooda-canvas`, `ooda-chat`, `ooda-commander`, `ooda-emulator`, `ooda-flasher`, `ooda-office`, `ooda-passwords`, `ooda-player`, `ooda-remote`, `ooda-store`, `ooda-strike`, `ooda-studio`, `ooda-voxel`, `.github` |
+| **`@openOODA-core`** | `12` | `ooda`, `ooda-bridge`, `ooda-compiler`, `ooda-interface`, `ooda-language`, `ooda-package`, `ooda-runtime`, `ooda-sign`, `ooda-standard`, `ooda-verify`, `ooda-version`, `.github` |
+| **`@openOODA-system`** | `27` | `ooda-archive`, `ooda-authority`, `ooda-boot`, `ooda-bus`, `ooda-compositor`, `ooda-connect`, `ooda-container`, `ooda-data`, `ooda-database`, `ooda-drivers`, `ooda-filesystem`, `ooda-firewall`, `ooda-hardware`, `ooda-health`, `ooda-inference`, `ooda-kernel`, `ooda-network`, `ooda-panel`, `ooda-portal`, `ooda-screensaver`, `ooda-settings`, `ooda-shell`, `ooda-start`, `ooda-theme`, `ooda-vault`, `ooda-web`, `.github` |
+| **`@openOODA-apps`** | `20` | `ooda-browser`, `ooda-calculator`, `ooda-calendar`, `ooda-camera`, `ooda-chat`, `ooda-clock`, `ooda-code`, `ooda-files`, `ooda-flasher`, `ooda-media`, `ooda-notepad`, `ooda-office`, `ooda-passwords`, `ooda-photos`, `ooda-remote`, `ooda-screenshot`, `ooda-software`, `ooda-studio`, `ooda-terminal`, `.github` |
+| **`@openOODA-games`** | `10` | `ooda-arcade`, `ooda-capella`, `ooda-commander`, `ooda-engine`, `ooda-island`, `ooda-retro`, `ooda-ski`, `ooda-strike`, `ooda-voxel`, `.github` |
 
-**Fleet Census**: `70` product packages (`15` core + `37` system + `18` apps) +
-`4` `@openOODA` umbrella repos = `74` product+platform repos + `4` `.github` org-profile repos = `78` total repos. The `15` core packages are `ooda`, `ooda-binary`, `ooda-bridge`, `ooda-build`, `ooda-compiler`, `ooda-engine`, `ooda-format`, `ooda-interface`, `ooda-language`, `ooda-package`, `ooda-provenance`, `ooda-runtime`, `ooda-sign`, `ooda-standard`, `ooda-verify`. The `37` system packages are `ooda-archive`, `ooda-authority`, `ooda-boot`, `ooda-bus`, `ooda-compositor`, `ooda-connect`, `ooda-container`, `ooda-data`, `ooda-database`, `ooda-disk`, `ooda-drivers`, `ooda-edit`, `ooda-files`, `ooda-filesystem`, `ooda-firewall`, `ooda-hardware`, `ooda-health`, `ooda-inference`, `ooda-kernel`, `ooda-list`, `ooda-machine`, `ooda-modem`, `ooda-network`, `ooda-panel`, `ooda-portal`, `ooda-read`, `ooda-sandbox`, `ooda-screensaver`, `ooda-settings`, `ooda-shell`, `ooda-start`, `ooda-terminal`, `ooda-text`, `ooda-theme`, `ooda-vault`, `ooda-version`, `ooda-web`. The `18` apps packages are `ooda-arcade`, `ooda-audio`, `ooda-browser`, `ooda-calculator`, `ooda-camera`, `ooda-canvas`, `ooda-chat`, `ooda-commander`, `ooda-emulator`, `ooda-flasher`, `ooda-office`, `ooda-passwords`, `ooda-player`, `ooda-remote`, `ooda-store`, `ooda-strike`, `ooda-studio`, `ooda-voxel`.
+**Fleet Census**: `65` product packages (`11` core + `26` system + `19` apps + `9` games) +
+`4` `@openOODA` umbrella repos = `69` product+platform repos + `5` `.github` org-profile repos = `74` total repos. The `11` core packages are `ooda`, `ooda-bridge`, `ooda-compiler`, `ooda-interface`, `ooda-language`, `ooda-package`, `ooda-runtime`, `ooda-sign`, `ooda-standard`, `ooda-verify`, `ooda-version`. The `26` system packages are `ooda-archive`, `ooda-authority`, `ooda-boot`, `ooda-bus`, `ooda-compositor`, `ooda-connect`, `ooda-container`, `ooda-data`, `ooda-database`, `ooda-drivers`, `ooda-filesystem`, `ooda-firewall`, `ooda-hardware`, `ooda-health`, `ooda-inference`, `ooda-kernel`, `ooda-network`, `ooda-panel`, `ooda-portal`, `ooda-screensaver`, `ooda-settings`, `ooda-shell`, `ooda-start`, `ooda-theme`, `ooda-vault`, `ooda-web`. The `19` apps packages are `ooda-browser`, `ooda-calculator`, `ooda-calendar`, `ooda-camera`, `ooda-chat`, `ooda-clock`, `ooda-code`, `ooda-files`, `ooda-flasher`, `ooda-media`, `ooda-notepad`, `ooda-office`, `ooda-passwords`, `ooda-photos`, `ooda-remote`, `ooda-screenshot`, `ooda-software`, `ooda-studio`, `ooda-terminal`. The `9` games packages are `ooda-arcade`, `ooda-capella`, `ooda-commander`, `ooda-engine`, `ooda-island`, `ooda-retro`, `ooda-ski`, `ooda-strike`, `ooda-voxel`.
 
 ## Power-of-2 Shape Ladder (`1/2/4/8/16/32/64/128/256`)
 
@@ -54,10 +55,10 @@ self-verification surface (`bin/oogithub`) that proves every metadata invariant 
   `--self-test`, `--help`, `--version`, additive `--json`.
 - Subcommand dispatch only; `--persona`, `--mode`, `--personas` flags are forbidden and
   every unknown argument or `..` traversal operand refuses with exit `2`.
-- `core/meta_check.oo` proves: `meta_profile_ok` verifies `profile/README.md`'s 4-org repo and package counts plus all 4 org links, while `meta_charter_ok` verifies the Ecosystem & Fleet Census section of `AGENTS.md` (scoped prior to subsequent `##` headings so prose below cannot self-certify it); `meta_ver_num` folds the component semver.
+- `core/meta_check.oo` proves: `meta_profile_ok` verifies `profile/README.md`'s 5-org repo and package counts plus all 5 org links, while `meta_charter_ok` verifies the Ecosystem & Fleet Census section of `AGENTS.md` (scoped prior to subsequent `##` headings so prose below cannot self-certify it); `meta_ver_num` folds the component semver.
 - `core/meta_law.oo` proves: the 11-entry repo root exists, `AGENTS.md` opens with the
-  canonical title, `README.md` links `profile/README.md` + `brand/`, all 24 brand icons
-  exist (4 orgs x 3 options x png+svg + avatar pair), and the linguist package is complete.
+  canonical title, `README.md` links `profile/README.md` + `brand/`, all 30 brand icons
+  exist (5 orgs x 3 options x png+svg + avatar pair), and the linguist package is complete.
 
 ## Syntax, Mandatory `ooda-standard` Reuse & Workflow
 
